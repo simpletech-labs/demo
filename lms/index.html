@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>영어학원 LMS — 데모</title>
+<style>
+  :root{
+    --navy:#12324f; --navy-2:#1c4a72; --line:#e2e8f0; --line-2:#cfd8e3;
+    --bg:#f4f6f9; --card:#fff; --tx:#1f2328; --muted:#6b7785;
+    --green:#0f7b52; --green-bg:#e8f5ee; --amber:#8a5a00; --amber-bg:#fdf3e0;
+    --red:#b4451f; --red-bg:#fbf0ec; --blue:#1d5b94; --blue-bg:#eaf1f9;
+    --radius:10px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
+  body{font-family:"Apple SD Gothic Neo","Pretendard","Malgun Gothic",system-ui,sans-serif;
+    background:var(--bg); color:var(--tx); font-size:14px; line-height:1.5; word-break:keep-all}
+  button{font-family:inherit; font-size:14px; cursor:pointer; border:0; background:none; color:inherit}
+  input,select,textarea{font-family:inherit; font-size:14px; color:inherit}
+
+  .demo-bar{background:var(--navy); color:#dfe7f0; font-size:12.5px; padding:7px 16px;
+    display:flex; gap:14px; align-items:center; flex-wrap:wrap}
+  .demo-bar b{color:#fff}
+  .demo-bar .sp{flex:1}
+  .demo-bar select{background:#0d2740; color:#fff; border:1px solid #2c5d87; border-radius:6px; padding:3px 6px}
+
+  .shell{display:grid; grid-template-columns:236px 1fr; min-height:calc(100vh - 34px)}
+  aside{background:#fff; border-right:1px solid var(--line); padding:16px 12px}
+  .brand{display:flex; align-items:center; gap:9px; padding:4px 8px 16px}
+  .logo{width:28px; height:28px; border-radius:8px; background:var(--navy); color:#fff;
+    display:grid; place-items:center; font-weight:800; font-size:13px}
+  .brand span{font-weight:700; font-size:14.5px; letter-spacing:-.02em}
+  .nav-t{font-size:11px; color:var(--muted); padding:12px 8px 6px; letter-spacing:.04em}
+  .hamb{display:none; margin-left:auto; border:1px solid var(--line-2); border-radius:7px;
+    width:36px; height:36px; font-size:16px; line-height:1; background:#fff; color:var(--navy)}
+  nav a{display:flex; align-items:center; gap:8px; padding:8px 9px; border-radius:7px;
+    color:#33414f; text-decoration:none; font-size:13.3px; cursor:pointer}
+  nav a:hover{background:#f2f5f9}
+  nav a.on{background:#eaf1f9; color:var(--navy); font-weight:700}
+  nav a i{width:16px; text-align:center; font-style:normal; opacity:.75}
+
+  main{padding:22px 26px 44px; max-width:1180px}
+  header.page{display:flex; align-items:flex-end; justify-content:space-between;
+    gap:16px; margin-bottom:16px; flex-wrap:wrap}
+  h1{font-size:20px; letter-spacing:-.02em}
+  h2{font-size:15px; letter-spacing:-.01em; margin-bottom:10px}
+  .sub{color:var(--muted); font-size:12.8px; margin-top:3px}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:18px}
+  .grid{display:grid; gap:14px}
+  .g2{grid-template-columns:1fr 1fr}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  /* ── 모바일 ── */
+  @media(max-width:900px){
+    .shell{grid-template-columns:minmax(0,1fr);align-content:start}
+    main{padding:16px 14px 40px;min-width:0}
+    aside{min-width:0}
+    .g2,.g3{grid-template-columns:1fr}
+    .g4{grid-template-columns:1fr 1fr}
+    aside{border-right:0;border-bottom:1px solid var(--line);padding:10px 10px 8px;
+      position:sticky;top:0;z-index:20;background:#fff}
+    .brand{padding:2px 4px 8px}
+    .brand span{font-size:13.5px}
+    /* 모바일: 햄버거 드로어. 닫혀 있을 때 세로 공간을 쓰지 않는다. */
+    .hamb{display:block}
+    nav{display:none;flex-direction:column;gap:2px;padding:6px 0 8px}
+    body.nav-open nav{display:flex}
+    body.nav-open aside{box-shadow:0 12px 24px rgba(18,50,79,.13)}
+    nav a{width:100%;padding:11px 10px;border-radius:8px;font-size:14px;background:#fff;
+      border:0;border-bottom:1px solid #f1f4f8}
+    nav a:last-child{border-bottom:0}
+    nav a.on{background:#eaf1f9;color:var(--navy);font-weight:700}
+    .nav-t{display:block;font-size:11.5px;padding:10px 10px 4px}
+    h1{font-size:18px}
+    header.page{margin-bottom:12px;gap:10px}
+    header.page .btn{width:auto;padding:7px 12px;font-size:12.5px;min-height:36px}
+    .card{padding:13px 12px;border-radius:9px}
+    .kpi{padding:11px 12px}
+    .kpi b{font-size:18px}
+    .flow{flex-wrap:wrap}
+    .flow div{flex:1 1 44%}
+    .report{padding:16px 14px}
+    .note{font-size:12.5px}
+    .small{font-size:12px}
+    .badge{font-size:11.5px}
+    /* 상단 영역 압축: 데모바 한 줄, 헤더 작게 */
+    .demo-bar{font-size:11.5px;padding:5px 12px;gap:8px;line-height:1.2;flex-wrap:nowrap;align-items:center}
+    .demo-bar .desc{display:none}
+    .demo-bar label{font-size:11px;opacity:.7}
+    .demo-bar select{padding:3px 6px;font-size:12px;min-height:26px;max-width:150px;flex:0 0 auto}
+    .brand{padding:2px 4px 4px}
+    .brand span{font-size:13px}
+    .logo{width:24px;height:24px;font-size:12px;border-radius:7px}
+    header.page{margin-bottom:10px;gap:6px;align-items:flex-start}
+    header.page > div:last-child{margin-left:auto;flex:0 0 auto}
+    .crumbs{font-size:10.5px;margin-bottom:1px}
+    h1{font-size:16.5px;letter-spacing:-.02em}
+    .sub{font-size:12px;margin-top:1px}
+    header.page .note{font-size:10.5px}
+    header.page > div:last-child b{font-size:14px}
+    .prog{margin:0 0 10px}
+    .demo-bar .sp{display:none}
+    .demo-bar select{flex:1}
+    label.f{font-size:12px}
+    .row{grid-template-columns:1fr !important}
+    .q{padding:13px 12px}
+    .q .qt{font-size:13px}
+    .opt{padding:9px 10px;font-size:12.8px}
+  }
+  /* grid 자식의 min-width:auto가 표 때문에 카드를 밀어내지 않게 고정 */
+  .grid > *, .card, .kpi, .report, .q { min-width:0; }
+
+  /* 좁은 화면에서는 표를 라벨-값 카드로 세운다(가로 스크롤 없음) */
+  @media(max-width:700px){
+    .card, .report{overflow-x:visible}
+    table{display:block;min-width:0}
+    tbody{display:block}
+    tr.t-head{display:none}
+    tr{display:block;border:1px solid var(--line);border-radius:9px;
+      padding:6px 4px;margin-bottom:9px;background:#fff}
+    tr:last-child{margin-bottom:0}
+    td,th{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;
+      border:0;padding:6px 9px;font-size:13px;text-align:right}
+    td::before{content:attr(data-label);color:var(--muted);font-size:12px;
+      text-align:left;flex:0 0 auto;font-weight:600}
+    td[data-label=""]::before, th::before{display:none}
+    td.t-right{text-align:right}
+    th{background:none;color:inherit}
+    tr.t-sum{border-color:var(--navy);background:#f6f9fc}
+  }
+  /* 701~900px: 카드 안 가로 스크롤. 700 이하에서는 위의 라벨-값 카드로 전환되므로 min-width를 두지 않는다. */
+  @media(min-width:701px) and (max-width:900px){
+    table{min-width:560px}
+    table.wide{min-width:680px}
+  }
+  /* 하단 탭바: 모바일에서 주요 화면 5개를 한 손으로 */
+  .tabbar{display:none}
+  @media(max-width:900px){
+    .tabbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:30;background:#fff;
+      border-top:1px solid var(--line-2);padding:4px 4px calc(4px + env(safe-area-inset-bottom));
+      box-shadow:0 -6px 16px rgba(18,50,79,.06)}
+    .tabbar button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;
+      padding:7px 2px;border-radius:8px;color:#5b6876;font-size:11px;min-height:52px}
+    .tabbar button i{font-style:normal;font-size:17px;line-height:1}
+    .tabbar button.on{color:var(--navy);background:#eef4fa;font-weight:700}
+    main{padding-bottom:96px}
+    .btn{min-height:42px}
+    .btn.sm{min-height:38px}
+    .in,select.in{font-size:16px;min-height:44px}   /* iOS 포커스 확대 방지 */
+    nav a{min-height:44px;display:flex;align-items:center}
+  }
+  /* 시험 문항 이동: 좌우 하단, 같은 크기 */
+  .qnav{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:8px}
+  .qnav-btn{min-width:118px;justify-content:center;padding:9px 14px}
+  .qnav-spacer{min-width:118px}
+  .qnav-mid{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;min-width:0}
+  .qnav-count{font-size:12px;font-weight:700;color:var(--navy);letter-spacing:.02em}
+  .qnav-count span{color:var(--muted);font-weight:600}
+  .qnav-bar{display:block;width:100%;max-width:112px;height:4px;border-radius:3px;
+    background:#e6ebf2;overflow:hidden}
+  .qnav-bar>i{display:block;height:100%;background:var(--navy);border-radius:3px;transition:width .18s}
+  /* 시험 진행 표시 */
+  .prog{height:5px;border-radius:4px;background:#e6ebf2;overflow:hidden;margin:2px 0 12px}
+  .prog>i{display:block;height:100%;background:var(--navy);border-radius:4px;transition:width .18s}
+  @media(max-width:560px){
+    .g4{grid-template-columns:1fr 1fr}
+    .kpi b{font-size:17px}
+    .report h3{font-size:15px}
+    body{font-size:13.5px}
+  }
+
+  .kpi{background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:14px 16px}
+  .kpi b{display:block; font-size:22px; letter-spacing:-.02em; color:var(--navy)}
+  .kpi span{font-size:12px; color:var(--muted)}
+  .kpi .d{font-size:11.5px; color:var(--green); margin-top:4px}
+
+  table{width:100%; border-collapse:collapse; font-size:13px}
+  th{text-align:left; font-size:11.5px; color:var(--muted); font-weight:600;
+    border-bottom:1px solid var(--line-2); padding:8px 10px; background:#fafbfd}
+  td{padding:10px; border-bottom:1px solid var(--line)}
+  tr:last-child td{border-bottom:0}
+  .t-right{text-align:right}
+  .badge{display:inline-block; font-size:11.5px; padding:2px 8px; border-radius:20px; font-weight:600}
+  .b-new{background:var(--blue-bg); color:var(--blue)}
+  .b-done{background:var(--green-bg); color:var(--green)}
+  .b-wait{background:var(--amber-bg); color:var(--amber)}
+  .b-miss{background:var(--red-bg); color:var(--red)}
+
+  .btn{display:inline-flex; align-items:center; gap:6px; background:var(--navy); color:#fff;
+    padding:9px 15px; border-radius:8px; font-weight:600; font-size:13.3px}
+  .btn:hover{background:var(--navy-2)}
+  .btn.ghost{background:#fff; color:var(--navy); border:1px solid var(--line-2)}
+  .btn.ghost:hover{background:#f5f8fb}
+  .btn.sm{padding:6px 11px; font-size:12.5px; border-radius:7px}
+
+  label.f{display:block; font-size:12.5px; color:#41505f; margin-bottom:5px; font-weight:600}
+  .in{width:100%; border:1px solid var(--line-2); border-radius:8px; padding:9px 11px; background:#fff}
+  .in:focus{outline:2px solid #cfe0f0; border-color:#9dbcd8}
+  .row{display:grid; gap:12px; margin-bottom:13px}
+
+  .bar{height:8px; border-radius:6px; background:#eef1f5; overflow:hidden}
+  .bar>i{display:block; height:100%; border-radius:6px; background:var(--navy)}
+  .bar.warn>i{background:#c9821f}
+  .bar.bad>i{background:#b4451f}
+
+  .q{border:1px solid var(--line); border-radius:var(--radius); padding:16px; margin-bottom:12px; background:#fff}
+  .q .qt{font-weight:600; margin-bottom:10px; font-size:13.6px}
+  .opt{display:flex; gap:9px; align-items:flex-start; padding:8px 10px; border:1px solid var(--line);
+    border-radius:8px; margin-bottom:7px; cursor:pointer; font-size:13.2px}
+  .opt:hover{background:#f7f9fc}
+  .opt.sel{border-color:var(--navy); background:#eef4fa}
+  .opt .n{width:18px; height:18px; border-radius:50%; border:1px solid var(--line-2);
+    display:grid; place-items:center; font-size:11px; color:var(--muted); flex:none; margin-top:1px}
+  .opt.sel .n{background:var(--navy); color:#fff; border-color:var(--navy)}
+
+  .ai{background:#f6f8fb; border-left:3px solid var(--navy); border-radius:0 8px 8px 0; padding:12px 14px; font-size:13.2px}
+  .ai .h{font-size:11.5px; color:var(--navy); font-weight:700; letter-spacing:.03em; margin-bottom:6px}
+  .note{font-size:12.2px; color:var(--muted)}
+  .hr{height:1px; background:var(--line); margin:16px 0}
+  .pill{display:inline-block; font-size:11.5px; border:1px solid var(--line-2); border-radius:20px;
+    padding:3px 10px; color:#41505f; margin:0 6px 6px 0; background:#fff}
+  .chk{width:18px; height:18px; border-radius:5px; border:1.5px solid var(--line-2); display:inline-grid;
+    place-items:center; cursor:pointer; background:#fff; color:#fff; font-size:11px}
+  .chk.on{background:var(--green); border-color:var(--green)}
+  .report{background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:26px 28px}
+  .report h3{font-size:17px; letter-spacing:-.02em; margin-bottom:2px}
+  .kv{display:grid; grid-template-columns:96px 1fr; gap:5px 10px; font-size:13px}
+  .kv dt{color:var(--muted)}
+  .toast{position:fixed; bottom:22px; left:50%; transform:translateX(-50%) translateY(20px);
+    background:#0d2740; color:#fff; padding:11px 18px; border-radius:9px; font-size:13px;
+    opacity:0; transition:.22s; pointer-events:none; z-index:50}
+  .toast.on{opacity:1; transform:translateX(-50%) translateY(0)}
+  .crumbs{font-size:12px; color:var(--muted); margin-bottom:6px}
+</style>
+</head>
+<body>
+
+<div class="demo-bar">
+  <b>데모</b> <span class="desc">실제 서비스가 아니라 화면 흐름 검증용 프로토타입입니다 · 데이터는 샘플</span>
+  <span class="sp"></span>
+  <label for="roleSel" style="opacity:.85">역할</label>
+  <select id="roleSel">
+    <option value="admin">운영자(대표)</option>
+    <option value="desk">상담실장</option>
+    <option value="teacher">강사</option>
+    <option value="student">학생</option>
+    <option value="parent">학부모</option>
+    <option value="public">학원 방문자</option>
+  </select>
+</div>
+
+<div class="shell">
+  <aside>
+    <div class="brand"><div class="logo">S</div><span>심플테크 영어학원</span><button id="navBtn" class="hamb" aria-label="메뉴">☰</button></div>
+    <nav id="nav"></nav>
+  </aside>
+  <main id="app"></main>
+</div>
+<div class="toast" id="toast"></div>
+<div class="tabbar" id="tabbar"></div>
+
+<script>
+/* ───────────── 샘플 데이터 ───────────── */
+const DB = {
+  students: [
+    {id:'S-1042', name:'강민준', grade:'중2', cls:'A반', phone:'010-****-2841', parent:'모', last:'2026-11-14'},
+    {id:'S-1043', name:'서지우', grade:'중2', cls:'A반', phone:'010-****-7712', parent:'부', last:'2026-11-14'},
+    {id:'S-1044', name:'박하윤', grade:'중1', cls:'B반', phone:'010-****-3390', parent:'모', last:'2026-11-13'},
+    {id:'S-1045', name:'이도현', grade:'중3', cls:'C반', phone:'010-****-5127', parent:'모', last:'2026-11-12'},
+    {id:'S-1046', name:'최서연', grade:'중1', cls:'B반', phone:'010-****-9034', parent:'부', last:'2026-11-14'},
+  ],
+  applications: [
+    {at:'11-14 19:22', name:'정하린', grade:'중2', type:'입학 레벨테스트', want:'11-18 17:00', status:'신규'},
+    {at:'11-14 16:05', name:'오세훈', grade:'중1', type:'상담 신청', want:'11-17 15:30', status:'연락 완료'},
+    {at:'11-13 20:41', name:'김나윤', grade:'중3', type:'입학 레벨테스트', want:'11-16 16:00', status:'예약 확정'},
+    {at:'11-13 11:12', name:'한지민', grade:'중2', type:'상담 신청', want:'11-19 14:00', status:'신규'},
+  ],
+  exam: {
+    student:'정하린', test:'중2 입학 레벨테스트 (2026-11 B형)', total:5,
+    items:[
+      {q:'빈칸에 알맞은 것을 고르세요. She ___ to school by bus every day.',
+       opts:['go','goes','going','gone'], ans:1, area:'문법 · 주어-동사 수 일치'},
+      {q:'다음 대화의 빈칸에 알맞은 응답을 고르세요. A: How long have you lived here?  B: ___',
+       opts:['Since 2019.','Two years ago.','Yes, I have.','For my school.'], ans:0, area:'문법 · 현재완료'},
+      {q:'밑줄 친 부분과 의미가 가장 가까운 것을 고르세요. The movie was <u>quite</u> interesting.',
+       opts:['very','hardly','rarely','never'], ans:0, area:'어휘 · 정도 부사'},
+      {q:'다음 글의 주제로 가장 알맞은 것을 고르세요. Bees dance to tell other bees where flowers are. This dance carries direction and distance…',
+       opts:['The life span of bees','How bees communicate food locations','Why flowers need bees','The color of honey'], ans:1, area:'독해 · 주제 파악'},
+      {q:'다음 중 어법상 틀린 문장을 고르세요.',
+       opts:['He is taller than me.','I have finished my homework.','She don\'t like math.','They are playing soccer.'], ans:2, area:'문법 · 부정문'},
+    ]
+  },
+  classRecs: [
+    {name:'강민준', score:82, rec:'A반 (심화)', reason:'독해 주제 파악 정확도 상위. 문법 응용 문제 안정적.', conf:'높음'},
+    {name:'정하린', score:64, rec:'B반 (기본)', reason:'현재완료 시제 혼동. 어휘는 반 평균 상회.', conf:'보통'},
+    {name:'박하윤', score:58, rec:'B반 (기본)', reason:'주어-동사 수 일치 오류 반복. 독해 속도 개선 필요.', conf:'보통'},
+  ],
+  attendance: {
+    session:'2026-11-14 (금) · 5회차', curriculum:'Unit 7 비교급·최상급 / Reading: Urban Beehives',
+    rows:[
+      {name:'강민준', st:'출석'},{name:'서지우', st:'출석'},{name:'박하윤', st:'지각'},
+      {name:'이도현', st:'결석'},{name:'최서연', st:'출석'},
+    ]
+  },
+  homework: [
+    {student:'강민준', title:'Unit 7 워크북 p.42~44', assigned:'11-14', due:'11-17', st:'완료', score:'18/20'},
+    {student:'서지우', title:'Unit 7 워크북 p.42~44', assigned:'11-14', due:'11-17', st:'제출', score:'—'},
+    {student:'박하윤', title:'보충 · 주어-동사 수 일치 20문항', assigned:'11-14', due:'11-17', st:'미제출', score:'—'},
+    {student:'최서연', title:'Unit 7 워크북 p.42~44', assigned:'11-14', due:'11-17', st:'완료', score:'16/20'},
+  ],
+  report: {
+    student:'강민준', period:'2026.11.08 ~ 11.14', class:'A반', no:7,
+    attendance:{total:4, present:4, late:0, absent:0},
+    achievement:78,
+    areas:[{n:'독해 · 주제 파악', v:88, tone:''},{n:'문법 · 비교급', v:74, tone:'warn'},
+           {n:'어휘 · 학술 어휘', v:69, tone:'warn'},{n:'문법 · 시제', v:52, tone:'bad'}],
+    homework:{done:3, total:4, score:'54/60'},
+    wrong:[{area:'문법 · 현재완료', note:'since / for 구분에서 두 문항 반복 오류'},
+           {area:'문법 · 비교급', note:'than 뒤 목적격 생략 문제에서 1문항 오류'}],
+    next:['Unit 8 관계대명사 선행 학습 (p.46~49)','현재완료 since/for 구분 워크시트 1장','Reading: Urban Beehives 2회 낭독 녹음 제출'],
+    ai:'이번 주 민준이는 독해 주제 파악에서 반 평균을 웃도는 정확도를 보였습니다. 다만 현재완료에서 시간 표현(since/for)을 구분하는 지점이 반복적으로 흔들렸고, 비교급에서도 목적격 생략 형태에서 한 문항이 어긋났습니다. 다음 주에는 관계대명사로 넘어가기 전에 since/for 구분을 짧게 정리하고, 낭독 녹음을 통해 문장 단위 유창성을 확인하는 편이 좋겠습니다.',
+    approvedBy:'상담실장 김지영', approvedAt:'11-14 20:10'
+  }
+};
+
+/* ───────────── 상태 ───────────── */
+const state = { view:'dashboard', role:'admin', answers:{}, examDone:false,
+  selStudent:'강민준', att:{}, hwFilter:'전체' };
+
+const VIEWS = [
+  {id:'dashboard', label:'대시보드', icon:'▦', roles:['admin','desk'], group:'운영'},
+  {id:'applications', label:'접수 관리', icon:'✉', roles:['admin','desk'], group:'운영'},
+  {id:'diagnosis', label:'진단서', icon:'◍', roles:['admin','desk'], group:'운영'},
+  {id:'classes', label:'반 배정', icon:'⤨', roles:['admin'], group:'운영'},
+  {id:'report-admin', label:'리포트 발송', icon:'✈', roles:['admin','desk'], group:'운영'},
+  {id:'attendance', label:'출석부', icon:'✓', roles:['teacher','admin'], group:'수업'},
+  {id:'homework', label:'숙제 배포·회수', icon:'▤', roles:['teacher','admin'], group:'수업'},
+  {id:'exam', label:'레벨테스트 응시', icon:'✎', roles:['student','public'], group:'학습'},
+  {id:'report-view', label:'학부모 리포트', icon:'◧', roles:['parent','admin'], group:'학습'},
+  {id:'landing', label:'상담·커리큘럼', icon:'☰', roles:['public','admin','desk'], group:'공개'},
+  {id:'proposal', label:'제안 및 견적', icon:'₩', roles:['admin','desk','teacher','student','parent','public'], group:'제안'},
+];
+
+/* 역할별 하단 탭: 한 손으로 닿는 주요 화면만 */
+const TABS = {
+  admin:   ['dashboard','applications','diagnosis','report-admin','attendance'],
+  desk:    ['dashboard','applications','diagnosis','report-admin'],
+  teacher: ['attendance','homework','dashboard'],
+  student: ['exam'],
+  parent:  ['report-view','landing'],
+  public:  ['landing','proposal'],
+};
+
+/* ───────────── 유틸 ───────────── */
+const $ = s => document.querySelector(s);
+const toast = (m) => { const t=$('#toast'); t.textContent=m; t.classList.add('on');
+  clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('on'),2100); };
+const bar = (v, tone='') => `<div class="bar ${tone}"><i style="width:${v}%"></i></div>`;
+const badge = (s) => {
+  const m = {'신규':'b-new','연락 완료':'b-wait','예약 확정':'b-done','완료':'b-done',
+             '제출':'b-new','미제출':'b-miss','지각':'b-wait','결석':'b-miss','출석':'b-done','정답':'b-done','오답':'b-miss','실패':'b-miss','대기':'b-wait','승인 대기':'b-wait'};
+  return `<span class="badge ${m[s]||'b-new'}">${s}</span>`;
+};
+
+/* ───────────── 화면들 ───────────── */
+function vDashboard(){
+  const absent = DB.attendance.rows.filter(r=>r.st==='결석').length;
+  const missed = DB.homework.filter(h=>h.st==='미제출').length;
+  return `
+  <header class="page">
+    <div><div class="crumbs">운영 · 대표</div><h1>대시보드</h1>
+      <div class="sub">2026년 11월 14일 금요일 · 재원생 5명(샘플)</div></div>
+    <button class="btn" onclick="go('report-admin')">이번 주 리포트 확인</button>
+  </header>
+  <div class="grid g4" style="margin-bottom:14px">
+    <div class="kpi"><span>신규 접수</span><b>2</b><div class="d">전일 대비 +1</div></div>
+    <div class="kpi"><span>이번 주 리포트 발송</span><b>3 / 4</b><div class="d">승인 대기 1건</div></div>
+    <div class="kpi"><span>미제출 숙제</span><b>${missed}</b><div class="d" style="color:var(--amber)">재알림 필요</div></div>
+    <div class="kpi"><span>금주 결석</span><b>${absent}</b><div class="d" style="color:var(--red)">보충 안내 대상</div></div>
+  </div>
+  <div class="grid g2">
+    <div class="card">
+      <h2>오늘 처리할 일</h2>
+      <table>
+        <tr><td>정하린 · 입학 레벨테스트 신청</td><td class="t-right">${badge('신규')}</td></tr>
+        <tr><td>한지민 · 상담 신청 (11-19 희망)</td><td class="t-right">${badge('신규')}</td></tr>
+        <tr><td>강민준 · 리포트 승인 대기</td><td class="t-right">${badge('승인 대기')}</td></tr>
+        <tr><td>박하윤 · 보충 숙제 미제출</td><td class="t-right">${badge('미제출')}</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h2>파이프라인 처리 상태</h2>
+      <table>
+        <tr><td>진단서 생성 · 강민준</td><td class="t-right">${badge('완료')} <span class="note">1.8초</span></td></tr>
+        <tr><td>오답 피드백 · 서지우</td><td class="t-right">${badge('완료')} <span class="note">2.1초</span></td></tr>
+        <tr><td>보충 숙제 생성 · 박하윤</td><td class="t-right">${badge('대기')}</td></tr>
+        <tr><td>리포트 생성 · 이도현</td><td class="t-right">${badge('실패')} <span class="note">재시도 1/3</span></td></tr>
+      </table>
+      <div class="hr"></div>
+      <p class="note">실패 건은 이 화면에서 재처리합니다. 요청 본문과 오류 사유가 함께 남습니다.</p>
+    </div>
+  </div>`;
+}
+
+function vApplications(){
+  return `
+  <header class="page">
+    <div><div class="crumbs">운영 · 상담실장</div><h1>접수 관리</h1>
+    <div class="sub">상담 신청과 입학 레벨테스트 신청을 한 목록에서 처리합니다</div></div>
+    <button class="btn ghost" onclick="toast('접수 링크가 복사되었습니다 (데모)')">접수 링크 복사</button>
+  </header>
+  <div class="card">
+    <table>
+      <tr><th>접수</th><th>이름</th><th>학년</th><th>구분</th><th>희망 일정</th><th>상태</th><th class="t-right">처리</th></tr>
+      ${DB.applications.map((a,i)=>`
+        <tr><td class="note">${a.at}</td><td><b>${a.name}</b></td><td>${a.grade}</td><td>${a.type}</td>
+        <td>${a.want}</td><td>${badge(a.status)}</td>
+        <td class="t-right"><button class="btn sm ghost" onclick="nextStep(${i})">다음 단계</button></td></tr>`).join('')}
+    </table>
+  </div>`;
+}
+function nextStep(i){
+  const order = ['신규','연락 완료','예약 확정'];
+  const cur = order.indexOf(DB.applications[i].status);
+  if(cur < order.length-1){ DB.applications[i].status = order[cur+1]; }
+  toast(DB.applications[i].name + ' · ' + DB.applications[i].status);
+  render();
+}
+
+function vDiagnosis(){
+  const s = DB.students.find(x=>x.name===state.selStudent) || DB.students[0];
+  const d = DB.report;
+  return `
+  <header class="page">
+    <div><div class="crumbs">운영 · 대표</div><h1>진단서</h1>
+    <div class="sub">채점 결과와 취약 영역은 규칙으로 산출하고, 해설 문구만 AI가 작성합니다</div></div>
+    <select class="in" style="width:auto" onchange="state.selStudent=this.value; render()">
+      ${DB.students.map(x=>`<option ${x.name===s.name?'selected':''}>${x.name}</option>`).join('')}
+    </select>
+  </header>
+  <div class="grid g2">
+    <div class="card">
+      <h2>${s.name} · ${s.grade} · 레벨테스트 결과</h2>
+      <p class="note" style="margin-bottom:12px">응시 2026-11-12 · 채점 기준 v1.3 · 응답 5문항</p>
+      <div class="grid" style="gap:10px">
+        ${d.areas.map(a=>`
+          <div><div style="display:flex;justify-content:space-between;font-size:12.8px;margin-bottom:4px">
+            <span>${a.n}</span><b>${a.v}</b></div>${bar(a.v, a.tone)}</div>`).join('')}
+      </div>
+      <div class="hr"></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <span class="pill">권장 반 · A반 (심화)</span><span class="pill">총점 78 / 100</span>
+        <span class="pill">응답 원본 보존</span>
+      </div>
+    </div>
+    <div class="card">
+      <h2>AI 해설 (강사 확인 후 제공)</h2>
+      <div class="ai"><div class="h">생성 문구 · 수정 가능</div>${d.ai}</div>
+      <div class="hr"></div>
+      <h2 style="font-size:13.5px">보완 방향</h2>
+      <ul style="padding-left:18px;font-size:13px;color:#33414f">
+        ${d.next.map(n=>`<li style="margin-bottom:5px">${n}</li>`).join('')}
+      </ul>
+      <div class="hr"></div>
+      <div style="display:flex;gap:8px">
+        <button class="btn" onclick="toast('진단서가 확정되었습니다 (데모)')">확정</button>
+        <button class="btn ghost" onclick="toast('PDF 출력 화면으로 이동합니다 (데모)')">출력</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function vClasses(){
+  return `
+  <header class="page">
+    <div><div class="crumbs">운영 · 대표</div><h1>반 배정</h1>
+    <div class="sub">기준에 따른 권장 반을 표시하고, 대표가 최종 확인합니다</div></div>
+    <button class="btn" onclick="toast('3건 확정 · 학생 정보에 반영되었습니다 (데모)')">전체 확정</button>
+  </header>
+  <div class="card">
+    <table>
+      <tr><th>학생</th><th class="t-right">총점</th><th>권장 반</th><th>근거</th><th>신뢰도</th><th class="t-right">확정</th></tr>
+      ${DB.classRecs.map(c=>`<tr><td><b>${c.name}</b></td><td class="t-right">${c.score}</td>
+        <td><b>${c.rec}</b></td><td class="note">${c.reason}</td><td>${c.conf}</td>
+        <td class="t-right"><button class="btn sm ghost" onclick="this.textContent='확정됨';this.disabled=true">확정</button></td></tr>`).join('')}
+    </table>
+  </div>
+  <div class="card" style="margin-top:14px">
+    <p class="note">권장 반은 제공 기준(점수 구간·영역별 가중치)으로 계산합니다. 대표가 확정하기 전에는 학생 정보에 반영되지 않습니다.</p>
+  </div>`;
+}
+
+function vAttendance(){
+  const a = DB.attendance;
+  const opts = ['출석','지각','결석'];
+  return `
+  <header class="page">
+    <div><div class="crumbs">수업 · 강사</div><h1>출석부</h1>
+    <div class="sub">${a.session} · A반</div></div>
+    <button class="btn" onclick="toast('출결이 저장되었습니다 (데모)')">저장</button>
+  </header>
+  <div class="card" style="margin-bottom:14px">
+    <div class="note" style="margin-bottom:6px">이번 회차 커리큘럼</div>
+    <b>${a.curriculum}</b>
+    <div style="margin-top:10px"><span class="pill">교재 Unit 7</span><span class="pill">Reading 1지문</span><span class="pill">문법 비교급·최상급</span></div>
+  </div>
+  <div class="card">
+    <table>
+      <tr><th>학생</th><th>출결</th><th>메모</th></tr>
+      ${a.rows.map((r,i)=>`<tr><td><b>${r.name}</b></td>
+        <td>${opts.map(o=>`<button class="btn sm ${('att'+(i)) in state.att && state.att['att'+i]===o ? '' : 'ghost'}"
+          style="margin-right:5px" onclick="state.att['att${i}']='${o}'; render()">${o}</button>`).join('')}</td>
+        <td class="note">—</td></tr>`).join('')}
+    </table>
+  </div>`;
+}
+
+function vHomework(){
+  const f = state.hwFilter;
+  const rows = DB.homework.filter(h=> f==='전체' || h.st===f);
+  return `
+  <header class="page">
+    <div><div class="crumbs">수업 · 강사</div><h1>숙제 배포·회수</h1>
+    <div class="sub">진단 결과 기반 보충 숙제는 자동으로 연결되고, 배포는 강사 확인 후 나갑니다</div></div>
+    <button class="btn" onclick="toast('선택한 숙제를 배포했습니다 (데모)')">배포</button>
+  </header>
+  <div style="margin-bottom:12px">
+    ${['전체','완료','제출','미제출'].map(x=>`<button class="btn sm ${f===x?'':'ghost'}" style="margin-right:6px"
+      onclick="state.hwFilter='${x}'; render()">${x}</button>`).join('')}
+  </div>
+  <div class="card">
+    <table>
+      <tr><th>학생</th><th>숙제</th><th>배포</th><th>마감</th><th>상태</th><th class="t-right">점수</th></tr>
+      ${rows.map(h=>`<tr><td><b>${h.student}</b></td><td>${h.title}</td><td class="note">${h.assigned}</td>
+        <td class="note">${h.due}</td><td>${badge(h.st)}</td><td class="t-right">${h.score}</td></tr>`).join('')}
+    </table>
+  </div>`;
+}
+
+function vExam(){
+  const e = DB.exam;
+  if(state.examDone) return vExamResult();
+  const i = state.qIndex || 0;
+  const it = e.items[i];
+  const answered = Object.keys(state.answers).length;
+  const isLast = i === e.total - 1;
+  return `
+  <header class="page">
+    <div><div class="crumbs">학습 · 학생</div><h1>레벨테스트 응시</h1>
+    <div class="sub">${e.test} · ${e.student}</div></div>
+    <div style="text-align:right"><div class="note">응답 저장됨</div><b>${answered} / ${e.total}</b></div>
+  </header>
+  <p class="note" style="margin-bottom:10px">${i+1}번 문항 · ${it.area}</p>
+  <div class="q">
+    <div class="qt">${i+1}. ${it.q}</div>
+    ${it.opts.map((o,j)=>`<div class="opt ${state.answers[i]===j?'sel':''}" onclick="pick(${i},${j})">
+      <span class="n">${'ABCD'[j]}</span><span>${o}</span></div>`).join('')}
+  </div>
+  <div class="qnav">
+    ${i>0
+      ? `<button class="btn ghost qnav-btn" onclick="prevQ()">← 이전 문항</button>`
+      : `<span class="qnav-spacer"></span>`}
+    <div class="qnav-mid">
+      <span class="qnav-count">${i+1} / ${e.total}</span>
+      <span class="qnav-bar"><i style="width:${Math.round((i+1)/e.total*100)}%"></i></span>
+    </div>
+    ${isLast
+      ? `<button class="btn qnav-btn" onclick="submitExam()">제출하기</button>`
+      : `<button class="btn qnav-btn" onclick="nextQ()">다음 문항 →</button>`}
+  </div>
+  <p class="note" style="margin-top:12px">제출 시 응답은 수정 불가 스냅샷으로 저장되고, 재응시는 새 응시 건으로 남습니다.</p>`;
+}
+function prevQ(){
+  const cur = state.qIndex || 0;
+  if(cur > 0) state.qIndex = cur - 1;
+  render();
+}
+function nextQ(){
+  const last = DB.exam.total - 1;
+  const cur = state.qIndex || 0;
+  if(state.answers[cur] === undefined){ toast('답을 고르면 다음 문항으로 넘어갑니다'); return; }
+  if(cur < last) state.qIndex = cur + 1;
+  render();
+}
+function pick(i,j){
+  state.answers[i] = j;
+  const last = DB.exam.total - 1;
+  if(i < last){ state.qIndex = i + 1; }
+  render();
+}
+function submitExam(){
+  if(Object.keys(state.answers).length < DB.exam.total){
+    const missing = DB.exam.items.findIndex((_,i)=>state.answers[i]===undefined);
+    toast('응답하지 않은 문항이 있습니다'); state.qIndex = missing < 0 ? 0 : missing; render(); return;
+  }
+  state.examDone = true; state.qIndex = 0; render();
+}
+function vExamResult(){
+  let correct = 0, wrong=[];
+  DB.exam.items.forEach((it,i)=>{ if(state.answers[i]===it.ans) correct++;
+    else wrong.push(it.area); });
+  const pct = Math.round(correct/DB.exam.total*100);
+  return `
+  <header class="page">
+    <div><div class="crumbs">학습 · 학생</div><h1>제출 완료</h1>
+    <div class="sub">응답이 저장되었습니다 · 채점은 운영자 확인 후 확정됩니다</div></div>
+    <button class="btn ghost" onclick="state.examDone=false; state.answers={}; render()">다시 응시</button>
+  </header>
+  <div class="grid g3" style="margin-bottom:14px">
+    <div class="kpi"><span>정답</span><b>${correct} / ${DB.exam.total}</b></div>
+    <div class="kpi"><span>정답률</span><b>${pct}%</b></div>
+    <div class="kpi"><span>취약 영역</span><b style="font-size:14px">${wrong[0]||'없음'}</b></div>
+  </div>
+  <div class="card">
+    <h2>문항별 결과</h2>
+    <table><tr><th>#</th><th>영역</th><th>내 답</th><th>정답</th><th class="t-right">결과</th></tr>
+    ${DB.exam.items.map((it,i)=>`<tr><td>${i+1}</td><td>${it.area}</td>
+      <td>${'ABCD'[state.answers[i]]||'-'}</td><td>${'ABCD'[it.ans]}</td>
+      <td class="t-right">${state.answers[i]===it.ans?badge('정답'):badge('오답')}</td></tr>`).join('')}</table>
+    <p class="note" style="margin-top:10px">학생 화면에는 정오답만 보이고, 영역별 진단서와 보완 방향은 운영자·강사 화면에서 확인·승인 후 전달됩니다.</p>
+  </div>`;
+}
+
+function vReportAdmin(){
+  return `
+  <header class="page">
+    <div><div class="crumbs">운영 · 상담실장</div><h1>리포트 발송</h1>
+    <div class="sub">학생별 주 2회 생성 · 담당자 승인 후 알림톡 발송</div></div>
+    <button class="btn" onclick="toast('승인된 3건을 발송했습니다 (데모)')">승인분 발송</button>
+  </header>
+  <div class="card">
+    <table>
+      <tr><th>학생</th><th>회차</th><th>생성</th><th>상태</th><th class="t-right">처리</th></tr>
+      <tr><td><b>강민준</b></td><td>11-08 ~ 11-14</td><td class="note">11-14 20:01</td><td>${badge('완료')}</td>
+        <td class="t-right"><button class="btn sm ghost" onclick="go('report-view')">열람</button></td></tr>
+      <tr><td><b>서지우</b></td><td>11-08 ~ 11-14</td><td class="note">11-14 20:03</td><td>${badge('승인 대기')}</td>
+        <td class="t-right"><button class="btn sm ghost" onclick="toast('승인 완료 (데모)')">승인</button></td></tr>
+      <tr><td><b>박하윤</b></td><td>11-08 ~ 11-14</td><td class="note">11-14 20:04</td><td>${badge('승인 대기')}</td>
+        <td class="t-right"><button class="btn sm ghost" onclick="toast('승인 완료 (데모)')">승인</button></td></tr>
+      <tr><td><b>이도현</b></td><td>11-08 ~ 11-14</td><td class="note">실패 · 재시도 1/3</td><td>${badge('실패')}</td>
+        <td class="t-right"><button class="btn sm ghost" onclick="toast('재처리 요청 (데모)')">재처리</button></td></tr>
+    </table>
+  </div>
+  <div class="card" style="margin-top:14px">
+    <h2>발송 이력</h2>
+    <table>
+      <tr><th>시각</th><th>학생</th><th>채널</th><th>결과</th><th>비고</th></tr>
+      <tr><td class="note">11-14 20:12</td><td>강민준</td><td>알림톡</td><td>${badge('완료')}</td><td class="note">열람 21:04</td></tr>
+      <tr><td class="note">11-14 20:12</td><td>최서연</td><td>알림톡</td><td>${badge('완료')}</td><td class="note">미열람</td></tr>
+      <tr><td class="note">11-14 20:11</td><td>이도현</td><td>알림톡</td><td>${badge('실패')}</td><td class="note">수신거부 · 문자 대체 실패</td></tr>
+    </table>
+  </div>`;
+}
+
+function vReportView(){
+  const r = DB.report;
+  return `
+  <header class="page">
+    <div><div class="crumbs">학습 · 학부모</div><h1>주간 학습 리포트</h1>
+    <div class="sub">알림톡 링크로 열람 · 인쇄 가능</div></div>
+    <button class="btn ghost" onclick="window.print()">인쇄</button>
+  </header>
+  <div class="report">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px">
+      <div><h3>${r.student} · ${r.class} 주간 리포트</h3>
+        <div class="note">${r.period} · ${r.no}회차 · 심플테크 영어학원</div></div>
+      <div class="note" style="text-align:right">승인 ${r.approvedBy}<br>${r.approvedAt}</div>
+    </div>
+    <div class="grid g3" style="margin-bottom:18px">
+      <div class="kpi"><span>출석</span><b>${r.attendance.present}/${r.attendance.total}</b>
+        <div class="d">지각 ${r.attendance.late} · 결석 ${r.attendance.absent}</div></div>
+      <div class="kpi"><span>성취도</span><b>${r.achievement}</b><div class="d">반 평균 71</div></div>
+      <div class="kpi"><span>숙제</span><b>${r.homework.done}/${r.homework.total}</b><div class="d">${r.homework.score}</div></div>
+    </div>
+    <h2 style="font-size:14px">영역별 성취</h2>
+    <div class="grid" style="gap:9px;margin-bottom:18px">
+      ${r.areas.map(a=>`<div><div style="display:flex;justify-content:space-between;font-size:12.6px;margin-bottom:3px">
+        <span>${a.n}</span><b>${a.v}</b></div>${bar(a.v,a.tone)}</div>`).join('')}
+    </div>
+    <h2 style="font-size:14px">이번 주 오답</h2>
+    <table><tr><th>영역</th><th>내용</th></tr>
+      ${r.wrong.map(w=>`<tr><td>${w.area}</td><td class="note">${w.note}</td></tr>`).join('')}</table>
+    <h2 style="font-size:14px;margin-top:18px">다음 주 과제</h2>
+    <ul style="padding-left:18px;font-size:13px">
+      ${r.next.map(n=>`<li style="margin-bottom:4px">${n}</li>`).join('')}
+    </ul>
+    <div class="ai" style="margin-top:18px"><div class="h">담당 코멘트</div>${r.ai}</div>
+    <p class="note" style="margin-top:16px">본 리포트는 출결·데일리 테스트·숙제 제출 기록을 기준으로 생성되었으며, 담당자 확인·승인 후 발송되었습니다.</p>
+  </div>`;
+}
+
+function vLanding(){
+  return `
+  <header class="page">
+    <div><div class="crumbs">공개 · 모바일 대응</div><h1>상담 신청</h1>
+    <div class="sub">희망 일정을 남기면 상담실장이 확인 후 연락드립니다</div></div>
+  </header>
+  <div class="grid g2">
+    <div class="card">
+      <h2>상담 · 입학 테스트 신청</h2>
+      <div class="row"><div><label class="f">학생 이름</label><input class="in" placeholder="예) 정하린"></div></div>
+      <div class="row" style="grid-template-columns:1fr 1fr">
+        <div><label class="f">학년</label><select class="in"><option>중1</option><option>중2</option><option>중3</option></select></div>
+        <div><label class="f">구분</label><select class="in"><option>상담 신청</option><option>입학 레벨테스트</option></select></div>
+      </div>
+      <div class="row"><div><label class="f">희망 일정</label><input class="in" placeholder="예) 11월 18일 17:00"></div></div>
+      <div class="row"><div><label class="f">연락처</label><input class="in" placeholder="010-0000-0000"></div></div>
+      <button class="btn" onclick="toast('접수되었습니다. 확인 후 연락드립니다 (데모)')">신청하기</button>
+    </div>
+    <div class="card">
+      <h2>커리큘럼 안내</h2>
+      <p class="note" style="margin-bottom:12px">중등 정규반 · 주 2회 · 회차별 커리큘럼이 출석부에 그대로 반영됩니다</p>
+      <table>
+        <tr><th>반</th><th>대상</th><th>수업</th></tr>
+        <tr><td>A반 (심화)</td><td>중2~3 상위</td><td>화·목 18:00</td></tr>
+        <tr><td>B반 (기본)</td><td>중1~2</td><td>월·수 18:00</td></tr>
+        <tr><td>C반 (기초)</td><td>중1 이하</td><td>금 17:00</td></tr>
+      </table>
+      <div class="hr"></div>
+      <div><span class="pill">내신 대비</span><span class="pill">독해·문법</span><span class="pill">주 2회 리포트</span></div>
+    </div>
+  </div>`;
+}
+
+function vProposal(){
+  const items = [
+    ['기획·DB·설계','요구사항·화면·ERD·권한·API 계약·검수 기준','7~9','1,225,000'],
+    ['공통·접수·반 관리','공통 화면·한국어/영어 지원·인증·상담 접수/기록·학생/보호자·반·회차·권한','12~14','2,100,000'],
+    ['응시·채점·출결','레벨/데일리 테스트·객관식/주관식 응답·규칙/강사 채점·권장 반·출석','11~14','1,925,000'],
+    ['AI·숙제·진단','약 6개 파이프라인 연동·결과 검증·재처리·숙제·피드백·버전','11~14','1,925,000'],
+    ['리포트·알림톡','기간별 학습 집계·주 2회 생성·수정/승인·발송본 보관·발송/재발송·보호자 열람','7~9','1,225,000'],
+    ['인프라·초기 등록','운영/검수 환경·보안 설정·백업·기초 엑셀 등록','4~5','700,000'],
+    ['QA·문서·교육','통합/권한/예외·한/영 UI 검수·수정·문서/SOP·교육·인수','8~10','1,400,000'],
+  ];
+  const sched = [
+    ['D1~D5','업무 흐름·화면 설계·DB·권한·파이프라인 입출력·검수 기준 확정, 한·영 화면 범위·문구 정리, 파이프라인 샘플 실행 확인'],
+    ['D6~D17','접수·학생/보호자·반/회차·권한·시험·채점·출석부 개발, 한국어·영어 화면 적용, AI 연동 기반 병행 개발'],
+    ['D18~D28','숙제·AI 결과 연결·리포트 승인·알림톡 발송 통합, 제공된 영문 UI 문구 반영'],
+    ['D29~D35','오류·권한·정합성 및 한·영 화면 검증, 표본 학생 시범 운영 및 발주처 검수'],
+    ['D36~D40','수정·운영 배포·매뉴얼/SOP·교육·최종 인수'],
+  ];
+  const portfolio = [
+    ['키즈노트','팀 내 백엔드 담당자의 스마트 알림장 개발 경험',
+     '부모·조부모 등 가족이 이용하는 화면과 어린이집·유치원 원장, 교사 등 교육기관 측 웹 기능을 개발했습니다. 사용자 역할과 소속 기관·반에 따라 필요한 기능과 접근 범위가 다른 서비스를 경험했고, 이번 LMS의 운영자·강사 업무 화면, 보호자의 자녀별 정보 열람, 반·담당자별 접근 권한 설계에 적용합니다.'],
+    ['이랜드옥션','팀 내 백엔드 담당자의 DB·API 설계 경험',
+     '온라인 경매 서비스의 초기 도메인 모델링과 DB·API 설계, 동시응찰·자동응찰·마감 연장 및 입금·배송 상태 연동, 운영 관리 기능을 개발했습니다. 단계별 데이터 연결과 트랜잭션·비동기 처리 경험을 학생·문항·응답·생성 결과의 정합성, 중복 방지와 변경 이력 관리에 활용합니다.'],
+    ['얼라인업 V2','팀 내 백엔드 담당자의 조직관리 개발 경험',
+     '조직관리 및 다중 워크스페이스 기반 협업 서비스에서 OKR 데이터 분리, 변경 이력과 관리 기능을 개발하고 조회 성능을 개선했습니다. 조직·소속에 따라 데이터를 구분한 경험을 반 편성 이력, 담당 강사별 조회 범위, 역할별 권한 설계에 적용합니다.'],
+  ];
+  return `
+  <header class="page">
+    <div><div class="crumbs">제안 · 견적</div><h1>제안 및 견적</h1>
+      <div class="sub">세부 견적·수행 조건 · 견적 유효기간 2026.11.22까지</div></div>
+    <button class="btn ghost" onclick="window.print()">인쇄</button>
+  </header>
+
+  <div class="grid g4" style="margin-bottom:14px">
+    <div class="kpi"><span>공급가액</span><b>10,500,000</b><div class="d">부가세 별도</div></div>
+    <div class="kpi"><span>부가세 포함 총액</span><b>11,550,000</b><div class="d">부가세 1,050,000</div></div>
+    <div class="kpi"><span>수행 기간</span><b>40일</b><div class="d">착수일 기준 달력일</div></div>
+    <div class="kpi"><span>완료 목표</span><b>12.26</b><div class="d">11.17 착수 기준</div></div>
+  </div>
+
+  <div class="card" style="margin-bottom:14px">
+    <h2>기본 과업별 견적</h2>
+    <table>
+      <tr><th style="width:22%">기본 과업</th><th>세부 작업</th><th class="t-right" style="width:13%">예상 공수</th><th class="t-right" style="width:16%">공급가액</th></tr>
+      ${items.map(r=>`<tr><td><b>${r[0]}</b></td><td class="note">${r[1]}</td><td class="t-right">${r[2]} M/D</td><td class="t-right"><b>${r[3]}</b></td></tr>`).join('')}
+      <tr><th>합계</th><th class="small">부가세 1,050,000원 / 총액 11,550,000원</th><th class="t-right">60~75 M/D</th><th class="t-right">10,500,000</th></tr>
+    </table>
+    <p class="note">항목별 금액은 과업별 배분 금액이며, 공수에 공통 단가를 곱한 산식으로 제시하지 않습니다. 표의 공수는 제안 단계의 예상 작업량으로 확정된 투입 공수가 아닙니다. 1 M/D는 1명이 하루 8시간 작업하는 공수이며, 여러 담당자의 작업량을 합산한 수치입니다. 상세 요구사항과 기존 파이프라인 확인 후 공수 배분과 투입 계획을 구체화하며, 공수 배분 조정만으로 계약금액은 변경되지 않습니다. 진행 관리·협의는 각 과업 수행에 포함되며 별도 비용을 청구하지 않습니다.</p>
+  </div>
+
+  <div class="card" style="margin-bottom:14px">
+    <h2>추가로 진행할 수 있는 과업</h2>
+    <p class="note" style="margin-bottom:10px">기본 견적에 담지 않은 항목이지만, 필요하면 함께 진행할 수 있습니다. 지금 포함하거나 V2에서 붙일 수 있고, 어느 쪽이든 나중에 이전·확장이 쉬운 형태로 설계해 둡니다.</p>
+    <table>
+      <tr><th style="width:24%">항목</th><th>내용</th><th class="t-right" style="width:16%">비용</th><th class="t-right" style="width:12%">공수</th></tr>
+      <tr><td><b>파이프라인 서버 이전·API화</b></td>
+        <td class="note">기존 진단·숙제 생성 프로그램을 운영 서버로 옮기거나 LMS가 호출할 수 있도록 API를 만드는 작업입니다. 공고의 미확정 항목이며, 기존 환경에서 바로 연동할 수 있으면 별도 이전 없이 진행합니다. 정상 실행되는 기존 로직과 실행 방법을 제공받는 조건으로 소스 확인 후 필요 여부와 금액을 확정합니다. 향후에는 먼저 기존 환경과 연동하고, 서버 이전이 필요해지면 LMS 기능 변경을 최소화해 옮길 수 있도록 설계합니다.</td>
+        <td class="t-right">1,500,000~<br>2,500,000</td><td class="t-right">5~8 M/D</td></tr>
+      <tr><td><b>실시간 상담 예약</b></td>
+        <td class="note">기본 범위는 희망 일정 접수 후 관리자가 예약을 확정하는 방식입니다. 신청자가 예약 가능한 날짜·시간을 직접 골라 확정하는 기능을 선택 과업으로 제안합니다. 상담 가능 시간·정원·휴무 설정, 중복 예약 방지와 변경·취소를 포함합니다. V1의 신청·예약 기록을 유지하면서 V2에서 조회·선택 기능을 추가할 수 있습니다.</td>
+        <td class="t-right">800,000~<br>1,200,000</td><td class="t-right">3~4 M/D</td></tr>
+    </table>
+    <p class="note">두 항목 모두 부가세 별도입니다. 포함을 원하시면 40일 일정과 투입 인력을 그에 맞춰 다시 짜서 함께 진행합니다. 포함 여부는 계약 전에 정하면 됩니다.</p>
+    <div class="hr"></div>
+    <h2 style="font-size:13.5px;margin-top:4px">이번 견적에 담지 않은 항목 — 필요하면 별도 협의로 추가</h2>
+    <p class="note" style="margin-bottom:8px">기본 견적은 40일·재원생 100명 단일 학원 기준입니다. 아래 항목은 이번 범위에서 빼 두었고, 필요해지면 시점과 규모를 보고 별도로 산정합니다. V2·V3에서 그대로 확장할 수 있게 자리는 비워 둡니다.</p>
+    <ul style="padding-left:18px;font-size:13px">
+      <li>파이프라인 서버 이전·API화, 실시간 예약 — 위 선택 과업으로 언제든 추가 가능</li>
+      <li>새로운 진단 알고리즘 연구와 AI 모델 자체 개발 — 공고에서 제외하신 항목이라 넣지 않았습니다</li>
+      <li>과거 출결·시험·숙제·상담 기록 전체 이관, 중복 명단 대조·수기 정제, 드롭박스 상시 동기화 — 원본을 보면 규모를 산정해 별도 견적으로 제안드립니다</li>
+      <li>본인확인 전문 서비스·휴대폰 인증 연동 — 필요 시 비용 협의 후 추가</li>
+      <li>학습 자료·상담 기록 번역, AI 피드백·리포트 본문의 언어, 알림톡 문구·매뉴얼 영문 제공 — 영문 화면(UI)은 기본 포함이며, 콘텐츠 번역은 협의 범위입니다</li>
+    </ul>
+  </div>
+
+  <div class="card" style="margin-bottom:14px">
+    <h2>일정과 투입 전제</h2>
+    <table>
+      <tr><th style="width:14%">구간</th><th>내용</th></tr>
+      ${sched.map(r=>`<tr><td><b>${r[0]}</b></td><td class="note">${r[1]}</td></tr>`).join('')}
+    </table>
+    <p class="note">기본 일정은 실제 착수일부터 40일이며, 11월 17일 착수 시 12월 26일 완료를 계획합니다. 착수 또는 필수 자료 제공이 지연되면 완료 일정도 그 영향에 따라 순연되며 변경 일정은 발주처와 협의합니다. 40일은 기획·검수 포함 달력일이며 기능별 병행 개발과 발주처의 신속한 확인을 전제로 합니다.</p>
+    <p class="note">12월 말 완료가 필수인 경우에는 착수 전 필수 납품 범위, 추가 투입 인력, 병행 개발 및 중간 검수 일정을 검토해 단축 가능 여부를 판단합니다. 기본 견적을 초과하는 추가 투입이 필요한 경우 작업 내용·투입 공수·추가 금액을 별도로 제시하고 사전 합의 후 진행합니다. 추가 비용만으로 납기를 보장하지 않으며, 필수 검수·외부 서비스 승인 기간도 함께 확인합니다.</p>
+    <p class="note">팀은 풀타임 상주 5명 기반으로 운영하며, 이번 프로젝트에는 기획·UI/UX, 백엔드·프런트엔드 개발, 인프라·배포 역할을 단계별로 배치합니다. 프로젝트 책임자가 소통·일정·범위·검수를 총괄합니다. 진행 상황은 주 1회 공유하고, 해당 주에 확인할 기능이 있으면 같은 자리에서 시연합니다. 확인 요청 회신은 2영업일 이내를 기준으로 하되 긴급 결정과 최종 검수 기한은 별도 협의합니다. 모의 연동만 완료한 상태를 실제 발송까지 완료한 것으로 처리하지 않습니다.</p>
+  </div>
+
+  <div class="card" style="margin-bottom:14px">
+    <h2>기본 금액에 포함하는 범위와 산정 가정</h2>
+    <p class="note">단일 학원·재원생 약 100명 기준의 반응형 웹입니다.</p>
+    <table>
+      <tr><th style="width:20%">영역</th><th>포함 내용</th></tr>
+      <tr><td>상담</td><td class="note">신청 접수부터 담당자 지정, 연락·예약 확정, 상담 완료까지 상태를 관리합니다. 상담 일시·내용·작성자·후속 연락일을 기록하고, 입학 시 기존 접수와 학생을 연결하되 이름만으로 자동 병합하지 않습니다.</td></tr>
+      <tr><td>리포트</td><td class="note">학생별 대상 기간과 생성 일정을 정해 출결·성적·숙제 제출·오답·다음 과제를 집계합니다. 산출 수치와 AI 설명을 분리하고 담당자가 검토한 최종 내용을 저장합니다. 미채점·누락 데이터는 검토 화면에 표시하며 미승인 리포트는 발송하지 않습니다. 동일 학생·기간·회차의 중복 생성을 막고 최종 발송본과 수신자·발송 결과를 보관합니다.</td></tr>
+      <tr><td>문항·채점</td><td class="note">텍스트·이미지 기반 객관식과 주관식(단답형·서술형)을 포함합니다. 답안 입력·저장·제출, 강사의 채점·점수 수정·피드백 입력을 지원합니다. 자동채점은 제공된 정답·허용 답안·채점 기준과 기존 로직에 맞춰 구현하고, 자동 판정이 어려운 답안은 강사가 최종 확인합니다. 진단서 1종과 학부모 리포트 1종은 제공 양식에 맞춰 웹 열람·브라우저 인쇄로 구현합니다.</td></tr>
+      <tr><td>파이프라인</td><td class="note">약 6개 파이프라인의 로직·프롬프트·입출력 예시와 실행 환경을 제공받아 DB·연동 구조를 설계하고 연동 규격을 확정합니다. LMS 측 API 연동, 요청·결과·실패 이력, 재처리, 룰·프롬프트 버전 관리를 포함합니다.</td></tr>
+      <tr><td>초기 데이터</td><td class="note">학생·보호자·반 기초 데이터는 합의된 엑셀 템플릿 3종, 합계 1,000행 이내로 사전 검증과 초기 일괄 등록 1회를 포함합니다.</td></tr>
+      <tr><td>계정·보안</td><td class="note">학생·보호자는 계정 로그인 및 보호자–학생 관계 확인 후 접근하며, 승인 없는 임의 자녀 연결을 차단합니다. 최소 정보 수집, 서버 권한 검사, HTTPS, 비밀키 분리, 관리자 변경 이력, 일일 DB 백업·복구 확인을 기본 구성에 포함합니다.</td></tr>
+      <tr><td>화면 언어</td><td class="note">메뉴·버튼·안내·오류 메시지를 한국어와 영어로 제공합니다. 첫 접속 시 브라우저 언어에 맞춰 표시하고 그 외 언어는 한국어로 표시하며, 화면에서 언어를 변경하면 해당 선택을 우선합니다. 영문 문구는 발주처 제공분을 적용합니다.</td></tr>
+      <tr><td>환경</td><td class="note">운영 환경과 검수 환경을 각각 구성합니다.</td></tr>
+    </table>
+  </div>
+
+  <div class="card" style="margin-bottom:14px">
+    <h2>발주처 준비 자료 및 계정</h2>
+    <table>
+      <tr><th style="width:20%">구분</th><th>내용</th></tr>
+      <tr><td>업무 자료</td><td class="note">학원 업무 흐름, 화면별 요구사항, 역할별 업무 범위. 세부 화면·권한·DB·연동 구조는 저희가 설계하고 함께 확정합니다.</td></tr>
+      <tr><td>평가 기준</td><td class="note">문항·정답, 단답형 허용 답안, 서술형 평가 기준과 예시 답안, 진단·반 배정·숙제 배정 기준. 자동채점 가능 범위와 강사 확인이 필요한 항목을 함께 정합니다.</td></tr>
+      <tr><td>AI 연동 자료</td><td class="note">기존 로직·프롬프트·입출력 예시와 실행 방법, API가 있다면 명세·인증 정보·테스트 환경. 오류·재시도 처리 방식은 저희가 설계합니다.</td></tr>
+      <tr><td>검수·초기 등록</td><td class="note">비식별 테스트 데이터와 기대 결과, 진단서·리포트 양식, 커리큘럼 콘텐츠, 초기 엑셀.</td></tr>
+      <tr><td>영문 문구</td><td class="note">한국어·영어 제공 범위는 D5까지 정합니다. 문구 목록 기준으로 공통 문구는 D10, 나머지는 D24까지 받아 D28까지 반영하고 양쪽 언어를 검수합니다.</td></tr>
+      <tr><td>사업·승인</td><td class="note">정부지원사업 납품·검수·증빙 양식과 최종 승인 담당자를 착수 시 확정합니다.</td></tr>
+      <tr><td>서비스 계정</td><td class="note">클라우드·도메인·AI API·알림톡 발송업체 계정은 발주처 명의로 준비합니다. 필요 권한을 위임받아 저희가 설정하며 사용료는 발주처가 직접 부담합니다.</td></tr>
+      <tr><td>알림톡</td><td class="note">카카오 채널과 발송 문구 승인에 필요한 자료를 준비하고 착수 시 신청을 진행합니다.</td></tr>
+      <tr><td>운영 정책</td><td class="note">학생·보호자 계정 발급과 관계 확인 방법, 개인정보 안내·동의 문구, 보관·삭제 기준을 함께 확정합니다.</td></tr>
+    </table>
+  </div>
+
+  <div class="card" style="margin-bottom:14px">
+    <h2>무상 하자보수 · 운영지원 · 월 운영비</h2>
+    <table>
+      <tr><th style="width:22%">구분</th><th>조건</th></tr>
+      <tr><td>무상 하자보수</td><td class="note">공식 운영 오픈일부터 3개월간 개발 범위에 포함된 기능·권한·연동 오류를 무상 수정합니다. 검수와 시범 운영 중 발견된 오류는 오픈 전에 수정합니다. 신규 기능, 진단 정책·콘텐츠 변경, 외부 API 정책 변경 대응, 발주처 또는 제3자의 소스 수정에 따른 문제는 별도 협의합니다.</td></tr>
+      <tr><td>선택형 운영지원</td><td class="note">월 공급가액 300,000원 / 부가세 30,000원 / 총 330,000원. 월 4시간 내 로그·백업 확인, 운영 문의, 경미한 설정 변경을 포함하며 초과분은 시간당 80,000원으로 사전 승인 후 진행합니다. 무상 하자보수 작업은 유상 지원 시간에서 차감하지 않습니다. 평일 업무시간 기준이며 24시간 관제·상주 운영과 신규 기능 개발은 제외합니다.</td></tr>
+      <tr><td>월 운영비 가정</td><td class="note">서버·DB·백업 50,000~120,000원, AI API 50,000~200,000원, 알림톡 20,000~60,000원 — 합계 120,000~380,000원. 학생 100명 × 주 2회 × 월 평균 4.3주 = 약 860건의 정기 리포트를 기준으로 하고, AI는 진단·피드백·숙제 요청과 재시도를 추가 고려한 예산입니다. 공급사 확정 견적이 아니며 모델·토큰·메시지 수·실행시간·환율·세금에 따라 달라집니다. 도메인 갱신, 선택 운영지원, 기존 파이프라인 별도 서버/GPU 비용은 포함하지 않습니다.</td></tr>
+    </table>
+  </div>
+
+  <div class="card" style="margin-bottom:14px">
+    <h2>검수 · 인수 기준</h2>
+    <p style="font-size:13px">접수에서 실제 알림톡 수신·인증 열람까지 발주처 표본 데이터로 검증합니다. 수치 결과는 제공된 기대값과 대조하고, 생성 문구는 승인자가 확인합니다. 권한, 중복 제출, 오류 재시도, 반 이동, 재채점, 중복 발송 방지, 백업 복구도 검수 목록에 포함합니다. 시범 운영에서 확인된 중대 결함을 해소한 뒤 검수 확인을 받습니다.</p>
+    <p style="font-size:13px">요구사항 정의서·화면 설계서·전체 소스·DB 구조·API 명세·배포/설정 문서·역할별 매뉴얼 및 SOP를 전달합니다. 원격 운영 교육 1회(2시간)와 질의응답을 포함하며, 발주처 계정의 소스·서버·외부 서비스 접근 권한과 운영 책임 범위를 인계합니다.</p>
+  </div>
+
+  <div class="card">
+    <h2>관련 포트폴리오</h2>
+    <table>
+      <tr><th style="width:18%">프로젝트</th><th style="width:26%">구분</th><th>내용</th></tr>
+      ${portfolio.map(p=>`<tr><td><b>${p[0]}</b></td><td class="note">${p[1]}</td><td class="note">${p[2]}</td></tr>`).join('')}
+    </table>
+  </div>`;
+}
+
+/* ───────────── 라우팅 ───────────── */
+const RENDER = {dashboard:vDashboard, applications:vApplications, diagnosis:vDiagnosis,
+  classes:vClasses, attendance:vAttendance, homework:vHomework, exam:vExam,
+  'report-admin':vReportAdmin, 'report-view':vReportView, landing:vLanding, proposal:vProposal};
+
+function nav(){
+  const groups = {};
+  VIEWS.filter(v=>v.roles.includes(state.role)).forEach(v=>{
+    (groups[v.group] = groups[v.group] || []).push(v);
+  });
+  $('#nav').innerHTML = Object.entries(groups).map(([g,items])=>`
+    <div class="nav-t">${g}</div>
+    ${items.map(v=>`<a class="${state.view===v.id?'on':''}" onclick="go('${v.id}')">
+      <i>${v.icon}</i>${v.label}</a>`).join('')}`).join('');
+}
+function go(id){
+  state.view = id;
+  history.replaceState(null,'','#'+id);
+  const allowed = VIEWS.find(v=>v.id===id).roles;
+  if(!allowed.includes(state.role)){
+    state.role = allowed.includes('teacher')?'teacher':allowed[0];
+    $('#roleSel').value = state.role;
+  }
+  render();
+}
+// 좁은 화면에서 표를 라벨-값 카드로 세우기 위해 헤더 텍스트를 각 셀에 심는다
+function enhanceTables(){
+  document.querySelectorAll('#app table').forEach(t=>{
+    const rows = [...t.rows];
+    if(!rows.length) return;
+    const head = [...rows[0].cells];
+    if(!head.every(c=>c.tagName==='TH')) return;
+    rows[0].classList.add('t-head');
+    const labels = head.map(c=>c.innerText.trim());
+    rows.slice(1).forEach(r=>{
+      const cells = [...r.cells];
+      if(cells.every(c=>c.tagName==='TH')) { r.classList.add('t-sum'); return; }
+      cells.forEach((c,i)=>{ c.setAttribute('data-label', c.colSpan>1 ? '' : (labels[i]||'')); });
+    });
+  });
+}
+function render(){
+  nav();
+  drawTabs();
+  const fn = RENDER[state.view] || vDashboard;
+  $('#app').innerHTML = fn();
+  enhanceTables();
+  document.body.classList.remove('nav-open');
+  window.scrollTo({top:0});
+}
+$('#navBtn').addEventListener('click', ()=>document.body.classList.toggle('nav-open'));
+function drawTabs(){
+  const ids = TABS[state.role] || [];
+  const el = $('#tabbar');
+  el.innerHTML = ids.map(id=>{
+    const v = VIEWS.find(x=>x.id===id);
+    return `<button class="${state.view===id?'on':''}" onclick="go('${id}')">
+      <i>${v.icon}</i><span>${v.label}</span></button>`;
+  }).join('');
+}
+
+$('#roleSel').addEventListener('change', e=>{
+  state.role = e.target.value;
+  const first = VIEWS.find(v=>v.roles.includes(state.role));
+  state.view = state.role==='public' ? 'landing'
+    : state.role==='student' ? 'exam'
+    : state.role==='parent' ? 'report-view'
+    : state.role==='teacher' ? 'attendance' : 'dashboard';
+  state.examDone = false; state.answers = {}; state.qIndex = 0;
+  render();
+});
+
+// URL 해시로 화면 공유 (#dashboard, #report-view …)
+(function initFromHash(){
+  const id = (location.hash||'').replace('#','');
+  const v = VIEWS.find(x=>x.id===id);
+  if(v){
+    state.view = v.id;
+    if(!v.roles.includes(state.role)){ state.role = v.roles[0]; $('#roleSel').value = state.role; }
+  }
+})();
+render();
+</script>
+</body>
+</html>
