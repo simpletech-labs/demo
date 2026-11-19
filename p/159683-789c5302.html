@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>바이브 코딩 기반 사택관리 플랫폼 시연용 웹 개발 — 제안서</title>
+<style>
+:root{
+  --navy:#12324f; --navy-2:#1c4a72; --line:#e3e8ef; --bg:#f5f7fa; --card:#fff;
+  --tx:#1b2027; --muted:#69747f; --accent:#0f7b52; --accent-bg:#e9f6ef;
+  --warn:#8a5a00; --warn-bg:#fdf4e3; --blue:#1d5b94; --blue-bg:#eaf1f9;
+  --radius:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font-size:15px;line-height:1.7;word-break:keep-all;
+  font-family:"Apple SD Gothic Neo","Pretendard","Malgun Gothic",system-ui,-apple-system,sans-serif;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:920px;margin:0 auto;padding:0 16px 80px}
+.topbar{background:var(--navy);color:#cfdce8;font-size:12.5px;letter-spacing:.02em}
+.topbar .inner{max-width:920px;margin:0 auto;padding:9px 16px;display:flex;gap:10px;align-items:center}
+.topbar b{color:#fff;font-weight:700}
+.topbar .sp{flex:1}
+.topbar .dot{width:6px;height:6px;border-radius:50%;background:#5fd39a}
+header.head{background:var(--navy-2);color:#fff;padding:30px 0 26px}
+header.head .inner{max-width:920px;margin:0 auto;padding:0 16px}
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
+.chip{font-size:11.5px;padding:3px 9px;border-radius:999px;background:rgba(255,255,255,.14);
+  color:#eaf2f9;letter-spacing:.01em}
+.chip.hot{background:#ffd9c7;color:#7a2f0d;font-weight:700}
+h1{font-size:23px;line-height:1.38;letter-spacing:-.02em;font-weight:800}
+.head .sub{margin-top:9px;color:#b9cbdb;font-size:13px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:-22px 0 26px;position:relative}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 15px;
+  box-shadow:0 1px 2px rgba(18,50,79,.05)}
+.stat .k{font-size:11.5px;color:var(--muted);letter-spacing:.02em}
+.stat .v{font-size:19px;font-weight:800;letter-spacing:-.02em;margin-top:4px}
+.stat .v small{font-size:12px;font-weight:600;color:var(--muted);margin-left:3px}
+.stat.hl{border-color:#cfe6da;background:var(--accent-bg)}
+.stat.hl .v{color:var(--accent)}
+section.block{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:22px 24px;margin-bottom:16px;box-shadow:0 1px 2px rgba(18,50,79,.04)}
+h2{font-size:17px;letter-spacing:-.015em;margin:0 0 14px;padding-left:11px;border-left:4px solid var(--navy);
+  line-height:1.35}
+h3{font-size:14.5px;margin:18px 0 8px;color:var(--navy)}
+p{margin:0 0 11px}
+ul,ol{margin:0 0 12px 20px}
+li{margin:3px 0}
+li::marker{color:#9aa7b4}
+table{width:100%;border-collapse:collapse;margin:8px 0 14px;font-size:13.5px}
+th,td{border-bottom:1px solid var(--line);padding:9px 10px;text-align:left;vertical-align:top}
+th{background:#f7f9fc;font-size:12.5px;color:#455263;font-weight:700;white-space:nowrap}
+td:last-child,th:last-child{text-align:right}
+td:first-child,th:first-child{text-align:left}
+tr:last-child td{border-bottom:0}
+blockquote{border-left:3px solid var(--blue);background:var(--blue-bg);padding:11px 14px;
+  border-radius:0 8px 8px 0;margin:10px 0 14px;font-size:13.5px;color:#274a6b}
+blockquote p:last-child{margin-bottom:0}
+pre{background:#fbfcfe;border:1px solid var(--line);border-radius:10px;padding:0;margin:10px 0 16px;
+  overflow:hidden}
+pre code{display:block;padding:18px 20px;font-family:inherit;font-size:14.2px;line-height:1.85;
+  white-space:pre-wrap;word-break:keep-all;color:#232a33}
+pre.short code{font-size:15px;font-weight:700;color:var(--accent);padding:13px 18px}
+pre code .sh{display:block;font-weight:800;color:var(--navy);font-size:15px;margin:16px 0 4px;
+  padding-top:14px;border-top:1px dashed #dbe3ec}
+pre code .sh:first-child{margin-top:0;padding-top:0;border-top:0}
+pre code .q{color:var(--navy);font-weight:700;display:block;margin:14px 0 2px}
+strong{font-weight:700}
+hr{border:0;border-top:1px dashed #d6dee8;margin:20px 0}
+.foot{color:var(--muted);font-size:12.5px;text-align:center;margin-top:26px;line-height:1.8}
+.toc{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
+.toc a{font-size:12.5px;text-decoration:none;color:#3d4b59;background:#fff;border:1px solid var(--line);
+  border-radius:999px;padding:5px 12px}
+.toc a:hover{border-color:var(--navy-2);color:var(--navy)}
+@media(max-width:760px){
+  body{font-size:14.5px}
+  .stats{grid-template-columns:1fr 1fr;margin-top:-18px}
+  h1{font-size:20px}
+  section.block{padding:17px 15px;border-radius:10px}
+  table{font-size:12.8px}
+  th,td{padding:7px 8px}
+  th{white-space:normal}
+  pre code{font-size:13.4px;padding:14px}
+}
+@media print{
+  body{background:#fff}
+  .topbar,.toc{display:none}
+  section.block{break-inside:avoid;box-shadow:none;border-color:#ccc}
+  header.head{background:#fff;color:#000;border-bottom:2px solid #000;padding:0 0 10px}
+  header.head .sub,.chip{color:#333}
+}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="inner"><span class="dot"></span><b>심플테크</b><span>외주 제안서</span>
+<span class="sp"></span><span>2026-11-19 14:07</span></div></div>
+<header class="head"><div class="inner">
+  <div class="chips"><span class="chip">모집 중</span><span class="chip hot">마감 2026-11-19</span><span class="chip">예산의 93%</span></div>
+  <h1>바이브 코딩 기반 사택관리 플랫폼 시연용 웹 개발</h1>
+  <div class="sub">클라이언트 예산 1,500,000원 · 제안 7일 · <a href="https://project.wishket.com/project/159683/" style="color:#bcd3e6">공고 원문</a></div>
+</div></header>
+<div class="wrap">
+
+  <div class="stats">
+    <div class="stat hl"><div class="k">지원가</div><div class="v">1,400,000<small>원</small></div></div>
+    <div class="stat"><div class="k">지원 기간</div><div class="v">7<small>일</small></div></div>
+    <div class="stat"><div class="k">일당</div><div class="v">200,000<small>원</small></div></div>
+    <div class="stat"><div class="k">실수령 (수수료 20%)</div><div class="v">1,120,000<small>원</small></div></div>
+  </div>
+  <div class="toc"><a href="#금액-근거">금액 근거</a><a href="#지원-금액-">지원 금액 *</a><a href="#지원-기간-">지원 기간 *</a><a href="#지원-내용-2-661-5-000자-">지원 내용 * (2,661/5,000자)</a><a href="#데모-URL">데모 URL</a><a href="#관련-포트폴리오">관련 포트폴리오</a><a href="#내가-임의로-정한-값-승인-필요-">내가 임의로 정한 값 (승인 필요)</a><a href="#제출-전-체크">제출 전 체크</a><a href="#축약-우선순위-5-000자-초과-시-">축약 우선순위 (5,000자 초과 시)</a></div>
+  <section class="block"><h1>위시켓 지원서 초안 v2 — 바이브 코딩 기반 사택관리 플랫폼 시연용 웹 개발</h1>
+<ul>
+<li>공고: https://project.wishket.com/project/159683/</li>
+<li>상태: 모집 중 / 등록 2026.11.17 / 마감 2026.11.19</li>
+<li>클라이언트 예산: 1,500,000원 (부가세 별도) / 7일 / 11.20 미팅 후 즉시 착수</li>
+<li><strong>제안: 1,400,000원 / 7일</strong> — 11.20 착수, 11.26 개발 완료, 11.27~28 수정 반영, 12.1 납품</li>
+<li>지원자 199명 / 우선순위 금액 &gt; 일정 &gt; 완성도 / 서울 성북구 / 온라인 미팅 주 2회</li>
+</ul>
+</section><section class="block" id="금액-근거"><h2>금액 근거</h2>
+<table>
+<thead>
+<tr>
+<th>구분</th>
+<th>금액</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>클라이언트 예산</td>
+<td>1,500,000원</td>
+</tr>
+<tr>
+<td><strong>지원가</strong></td>
+<td><strong>1,400,000원</strong> (예산의 93.3%)</td>
+</tr>
+<tr>
+<td>일당 (7일)</td>
+<td>200,000원</td>
+</tr>
+<tr>
+<td>수수료 20% → 실수령</td>
+<td>280,000원 차감 → 1,120,000원</td>
+</tr>
+<tr>
+<td>수수료 25% → 실수령</td>
+<td>350,000원 차감 → 1,050,000원</td>
+</tr>
+<tr>
+<td>공수</td>
+<td>7 M/D (1인 × 7일)</td>
+</tr>
+</tbody>
+</table>
+</section><section class="block" id="지원-금액-"><h2>지원 금액 *</h2>
+<pre class="short"><code>1400000
+</code></pre>
+<p>부가세 별도.</p>
+</section><section class="block" id="지원-기간-"><h2>지원 기간 *</h2>
+<pre class="short"><code>7
+</code></pre>
+</section><section class="block" id="지원-내용-2-661-5-000자-"><h2>지원 내용 * (2,661/5,000자)</h2>
+<pre><code><span class="sh">&lt;프로젝트 진단&gt;
+기획은 이미 끝나 있고 실행 환경이 막힌 상태입니다. 공고에 적힌 증상이 이를 그대로 보여줍니다. 1차 시제품은 있으나 새 파일 생성 권한이 막혀 일부 화면이 누락됐고, 운영자 어드민 13개 메뉴는 실제 화면이 아니라 안내 문구로만 들어가 있습니다. 즉 이번 7일의 난이도는 기능 설계가 아니라 ①9개 역할과 13개 메뉴를 한 번에 화면으로 세우는 일 ②역할을 바꿔 클릭할 때 승인·잠금 상태가 앞뒤로 맞는 일입니다. 지원자가 199명인 공고이므로 차이는 금액 10만원이 아니라 11.28에 무엇이 남아 있는지로 갈린다고 봅니다. 화면 수는 기획서 기준으로 9개 역할 업무 화면과 어드민 13개 메뉴, 공개 4개 페이지입니다.
+
+<span class="sh">&lt;작업 범위&gt;
+진행할 범위 — ①공개 영역: 메인(핵심 메시지·3대 원칙·신뢰 지표), 서비스 소개(기관용·직원용 분리), 도입 문의 폼, 개인정보 처리 안내. ②역할 전환 시연: 9개 역할(발령자·사택담당자·인사담당자·결재권자·공인중개사·관리사무소·임대인·사택온 운영자·감사자) 선택 로그인, 타 역할 주소 접근 시 권한 안내. ③역할별 업무 화면: 발령 등록·공실 확인·주거 요청서·후보 물건 제출·입주 신청·계약 기록·매월 비용·수리 요청·반납·재고. ④핵심 시연 규칙: 월세가 직급 한도 이내면 자동 승인, 초과 시 결재권자 승인 전까지 계약 기록 잠금. ⑤어드민 13개 메뉴를 실제 표·필터·상세가 있는 화면으로 구축(부임일 14일 이내 지연 위험 표시, 계약 6가지 지급 요건 체크, 실비 중복 의심 표시 포함). ⑥민감정보 마스킹: 역할에 따라 등기부등본 원본과 요약본을 구분 표시하고 임대인 계좌 가운데 자리 가림. ⑦배포와 404 안내.
+기술 스택 — Next.js 15 App Router + TypeScript + Tailwind CSS로 화면을 만들고, 데이터는 기획서의 18개 데이터 구조를 그대로 옮긴 정적 JSON과 브라우저 저장소(localStorage)로 처리합니다. 서버·DB가 없어도 새로고침 후 승인·잠금 상태가 유지되고, 역할을 바꿔도 같은 데이터를 봅니다. 배포는 Vercel, 저장소는 발주사 명의로 넘깁니다. AI 도구는 Claude Code를 쓰고, 화면 1개 단위로 생성→화면 확인→수정 순서로 진행합니다. 이 조합을 고른 이유는 서버 없이도 상태가 일관되고, 나중에 실제 API를 붙일 때 페이지 구조를 다시 만들지 않아도 되기 때문입니다.
+제외할 범위 — 실제 백엔드 서버·DB·인증 서버, 외부 유료 API 실연동(등기부등본·세금계산서·이체·알림톡은 화면과 상태 변경으로만), 모바일 앱, 기획서에 없는 신규 기능, 기존 시제품 코드의 구조 유지.
+추가 제안 — 11.27 시연 리허설 1회(30분 화상, 시나리오 3개를 직접 클릭하며 끊기는 지점 점검)를 포함합니다.
+
+<span class="sh">&lt;실행 플랜&gt;
+11.20 미팅 후 즉시 착수, 총 공수 7 M/D(1인).
+D1(11.20) 미팅·기획서 인수, 9개 역할·13개 메뉴 화면 목록 확정, 디자인 토큰 정리. 산출물: 화면 목록표.
+D2(11.21) 공통 레이아웃(좌측 고정 메뉴·모바일 상단 접이식), 역할 전환·권한 차단, 공개 4페이지.
+D3~D4(11.22~11.23) 역할별 업무 화면, 초과 결재 잠금 흐름, 마스킹.
+D5(11.24) 어드민 13개 메뉴(대시보드·고객사·계정권한·계약·청구·대사·세금계산서·통지·기록).
+D6(11.25) 샘플 데이터 연결, 상태 일관성 점검, 배포·404 설정.
+D7(11.26) 리허설, 결함 수정, 소스·실행 안내 전달.
+11.27~11.28 수정 반영 버퍼, 12.1 납품.
+
+<span class="sh">&lt;리스크와 대응&gt;
+첫째, 기획서의 화면이 13개 메뉴보다 많을 경우입니다. D1에 화면 목록을 확정하고, 초과분은 1화면당 0.5일로 계산해 같은 날 알려드립니다. 7일을 넘기면 우선순위를 함께 정합니다. 둘째, 역할 전환 시 데이터 불일치입니다. 승인·잠금은 한 곳의 상태값으로만 관리하고 화면은 그 값을 읽기만 하게 만들어, 결재권자 화면에서 승인하면 발령자 화면의 잠금이 동시에 풀리도록 D2에 구조를 고정합니다. 셋째, 시연장 네트워크입니다. 배포 링크와 별도로 로컬 실행본을 함께 전달하고 D7에 노트북에서 열리는지 확인합니다. 넷째, 12.1 납품일과 11.28 완료일 사이 이틀은 수정 요청만 받는 전제로 견적을 잡았습니다.
+
+<span class="sh">&lt;기대 결과&gt;
+완료 시점에 남는 것은 기획서를 설명하지 않아도 되는 시연입니다. 링크 하나로 9개 역할을 바꿔가며 발령부터 반납까지 끊김 없이 클릭할 수 있고, 어드민 13개 메뉴가 안내 문구가 아닌 실제 표와 상세로 열립니다. 담당자가 혼자 같은 시연을 반복할 수 있고, 이후 실제 서버를 붙이는 2단계는 화면을 그대로 둔 채 데이터 계층만 교체하는 방식으로 이어집니다.
+
+<span class="sh">&lt;확인이 필요한 질문&gt;
+1. 기획서와 기존 시제품 코드를 11.20 미팅 때 받을 수 있을까요? 리포지토리인지 압축 파일인지도 알려주세요.
+2. 기획서상 화면 수가 총 몇 개인지 알려주시면 7일 안에 가능한 범위를 미팅에서 바로 확정해 드리겠습니다.
+3. 반드시 보여야 하는 시연 시나리오 3개를 정해 주실 수 있나요? 나머지는 목록 수준으로 두고 그쪽에 시간을 집중하겠습니다.
+4. 초과 결재에서 한도 판정 기준(직급별 월세 한도표)을 기획서 값으로 써도 되는지 확인 부탁드립니다.
+5. 12.1 납품 형태가 링크 전달인지, 저장소 이관과 실행 안내 문서까지인지 알려주세요.
+</code></pre>
+</section><section class="block" id="데모-URL"><h2>데모 URL</h2>
+<pre class="short"><code>(미팅에서 시연 링크 전달)
+</code></pre>
+</section><section class="block" id="관련-포트폴리오"><h2>관련 포트폴리오</h2>
+<ul>
+<li>화면 30개 이상 규모의 업무용 대시보드와 권한별 화면을 Next.js로 구축한 사례가 있으며, 이번 공고와 같은 역할 전환형 시연 구조로 만든 사례를 미팅에서 화면 단위로 보여드립니다.</li>
+<li>본문에 링크를 넣지 않았습니다. 플랫폼 메시지로 요청 주시면 정리해 보내드립니다.</li>
+</ul>
+</section><section class="block" id="내가-임의로-정한-값-승인-필요-"><h2>내가 임의로 정한 값 (승인 필요)</h2>
+<ul>
+<li>하자보수: 납품 후 30일 무상 수정(화면 오류·표시 결함 한정)</li>
+<li>추가 화면 단가: 1화면 0.5일 / 100,000원</li>
+<li>2단계(실제 서버·DB) 분리 견적: 1,000,000원 / 5일(요구사항 확정 후 재산정)</li>
+<li>유효기간: 2026.12.05까지</li>
+</ul>
+</section><section class="block" id="제출-전-체크"><h2>제출 전 체크</h2>
+<ul>
+<li>[ ] 지원 금액 1,400,000 / 기간 7일 입력</li>
+<li>[ ] 지원 내용 5,000자 이내</li>
+<li>[ ] 외부 연락처·회사명 없음</li>
+<li>[ ] 제출 후 수정 불가 안내</li>
+</ul>
+</section><section class="block" id="축약-우선순위-5-000자-초과-시-"><h2>축약 우선순위 (5,000자 초과 시)</h2>
+<ol>
+<li>기술 스택 문단의 근거 문장 1줄</li>
+<li>실행 플랜의 일자별 산출물 설명</li>
+<li>확인 질문 5번<br />
+절대 자르지 않을 것: 프로젝트 진단 첫 문단, 작업 범위의 9역할·13메뉴, 금액, 기대 결과</li>
+</ol></section>
+  <div class="foot">이 페이지는 검토용 초안입니다. 제출 전 문의는 위시켓 메시지로 부탁드립니다.<br>
+  심플테크 · simpletech</div>
+</div>
+</body>
+</html>

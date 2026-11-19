@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>창작 커미션 중개 플랫폼 2차 고도화 — 제안서</title>
+<style>
+:root{
+  --navy:#12324f; --navy-2:#1c4a72; --line:#e3e8ef; --bg:#f5f7fa; --card:#fff;
+  --tx:#1b2027; --muted:#69747f; --accent:#0f7b52; --accent-bg:#e9f6ef;
+  --warn:#8a5a00; --warn-bg:#fdf4e3; --blue:#1d5b94; --blue-bg:#eaf1f9;
+  --radius:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font-size:15px;line-height:1.7;word-break:keep-all;
+  font-family:"Apple SD Gothic Neo","Pretendard","Malgun Gothic",system-ui,-apple-system,sans-serif;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:920px;margin:0 auto;padding:0 16px 80px}
+.topbar{background:var(--navy);color:#cfdce8;font-size:12.5px;letter-spacing:.02em}
+.topbar .inner{max-width:920px;margin:0 auto;padding:9px 16px;display:flex;gap:10px;align-items:center}
+.topbar b{color:#fff;font-weight:700}
+.topbar .sp{flex:1}
+.topbar .dot{width:6px;height:6px;border-radius:50%;background:#5fd39a}
+header.head{background:var(--navy-2);color:#fff;padding:30px 0 26px}
+header.head .inner{max-width:920px;margin:0 auto;padding:0 16px}
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
+.chip{font-size:11.5px;padding:3px 9px;border-radius:999px;background:rgba(255,255,255,.14);
+  color:#eaf2f9;letter-spacing:.01em}
+.chip.hot{background:#ffd9c7;color:#7a2f0d;font-weight:700}
+h1{font-size:23px;line-height:1.38;letter-spacing:-.02em;font-weight:800}
+.head .sub{margin-top:9px;color:#b9cbdb;font-size:13px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:-22px 0 26px;position:relative}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 15px;
+  box-shadow:0 1px 2px rgba(18,50,79,.05)}
+.stat .k{font-size:11.5px;color:var(--muted);letter-spacing:.02em}
+.stat .v{font-size:19px;font-weight:800;letter-spacing:-.02em;margin-top:4px}
+.stat .v small{font-size:12px;font-weight:600;color:var(--muted);margin-left:3px}
+.stat.hl{border-color:#cfe6da;background:var(--accent-bg)}
+.stat.hl .v{color:var(--accent)}
+section.block{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:22px 24px;margin-bottom:16px;box-shadow:0 1px 2px rgba(18,50,79,.04)}
+h2{font-size:17px;letter-spacing:-.015em;margin:0 0 14px;padding-left:11px;border-left:4px solid var(--navy);
+  line-height:1.35}
+h3{font-size:14.5px;margin:18px 0 8px;color:var(--navy)}
+p{margin:0 0 11px}
+ul,ol{margin:0 0 12px 20px}
+li{margin:3px 0}
+li::marker{color:#9aa7b4}
+table{width:100%;border-collapse:collapse;margin:8px 0 14px;font-size:13.5px}
+th,td{border-bottom:1px solid var(--line);padding:9px 10px;text-align:left;vertical-align:top}
+th{background:#f7f9fc;font-size:12.5px;color:#455263;font-weight:700;white-space:nowrap}
+td:last-child,th:last-child{text-align:right}
+td:first-child,th:first-child{text-align:left}
+tr:last-child td{border-bottom:0}
+blockquote{border-left:3px solid var(--blue);background:var(--blue-bg);padding:11px 14px;
+  border-radius:0 8px 8px 0;margin:10px 0 14px;font-size:13.5px;color:#274a6b}
+blockquote p:last-child{margin-bottom:0}
+pre{background:#fbfcfe;border:1px solid var(--line);border-radius:10px;padding:0;margin:10px 0 16px;
+  overflow:hidden}
+pre code{display:block;padding:18px 20px;font-family:inherit;font-size:14.2px;line-height:1.85;
+  white-space:pre-wrap;word-break:keep-all;color:#232a33}
+pre.short code{font-size:15px;font-weight:700;color:var(--accent);padding:13px 18px}
+pre code .sh{display:block;font-weight:800;color:var(--navy);font-size:15px;margin:16px 0 4px;
+  padding-top:14px;border-top:1px dashed #dbe3ec}
+pre code .sh:first-child{margin-top:0;padding-top:0;border-top:0}
+pre code .q{color:var(--navy);font-weight:700;display:block;margin:14px 0 2px}
+strong{font-weight:700}
+hr{border:0;border-top:1px dashed #d6dee8;margin:20px 0}
+.foot{color:var(--muted);font-size:12.5px;text-align:center;margin-top:26px;line-height:1.8}
+.toc{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
+.toc a{font-size:12.5px;text-decoration:none;color:#3d4b59;background:#fff;border:1px solid var(--line);
+  border-radius:999px;padding:5px 12px}
+.toc a:hover{border-color:var(--navy-2);color:var(--navy)}
+@media(max-width:760px){
+  body{font-size:14.5px}
+  .stats{grid-template-columns:1fr 1fr;margin-top:-18px}
+  h1{font-size:20px}
+  section.block{padding:17px 15px;border-radius:10px}
+  table{font-size:12.8px}
+  th,td{padding:7px 8px}
+  th{white-space:normal}
+  pre code{font-size:13.4px;padding:14px}
+}
+@media print{
+  body{background:#fff}
+  .topbar,.toc{display:none}
+  section.block{break-inside:avoid;box-shadow:none;border-color:#ccc}
+  header.head{background:#fff;color:#000;border-bottom:2px solid #000;padding:0 0 10px}
+  header.head .sub,.chip{color:#333}
+}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="inner"><span class="dot"></span><b>심플테크</b><span>외주 제안서</span>
+<span class="sp"></span><span>2026-11-19 00:21</span></div></div>
+<header class="head"><div class="inner">
+  <div class="chips"><span class="chip">프라이빗 매칭</span><span class="chip hot">마감 2026-11-19</span><span class="chip">예산의 80%</span><span class="chip">평균 입찰가의 94%</span></div>
+  <h1>창작 커미션 중개 플랫폼 2차 고도화</h1>
+  <div class="sub">클라이언트 예산 60,000,000원 · 제안 90일 · <a href="https://project.wishket.com/project/159611/" style="color:#bcd3e6">공고 원문</a></div>
+</div></header>
+<div class="wrap">
+
+  <div class="stats">
+    <div class="stat hl"><div class="k">지원가</div><div class="v">48,000,000<small>원</small></div></div>
+    <div class="stat"><div class="k">지원 기간</div><div class="v">90<small>일</small></div></div>
+    <div class="stat"><div class="k">일당</div><div class="v">533,333<small>원</small></div></div>
+    <div class="stat"><div class="k">실수령 (수수료 20%)</div><div class="v">38,400,000<small>원</small></div></div>
+  </div>
+  <div class="toc"><a href="#금액-근거">금액 근거</a><a href="#지원-금액-">지원 금액 *</a><a href="#지원-기간-">지원 기간 *</a><a href="#지원-내용-2-663-5-000자-">지원 내용 * (2,663/5,000자)</a><a href="#데모-URL">데모 URL</a><a href="#관련-포트폴리오">관련 포트폴리오</a><a href="#내가-임의로-정한-값-승인-필요-">내가 임의로 정한 값 (승인 필요)</a><a href="#제출-전-체크">제출 전 체크</a><a href="#축약-우선순위-5-000자-초과-시-">축약 우선순위 (5,000자 초과 시)</a></div>
+  <section class="block"><h1>위시켓 지원서 초안 — 창작 커미션 중개 플랫폼 2차 고도화</h1>
+<ul>
+<li>공고: https://project.wishket.com/project/159611/</li>
+<li>상태: 프라이빗 매칭 / 등록 2026.11.12 / 플랫폼 마감 2026.11.19</li>
+<li>클라이언트 예산: 60,000,000원 (부가세 별도) / 공고 예상 기간 90일</li>
+<li><strong>제안: 48,000,000원 / 90일</strong> — 계약 즉시 착수(2026.11.25) 기준, 종료 2027.02.22</li>
+<li>필수 기술: Next.js, TypeScript, Node.js, PostgreSQL, PG·에스크로, 지급대행 API, 채팅·번역 API</li>
+</ul>
+</section><section class="block" id="금액-근거"><h2>금액 근거</h2>
+<table>
+<thead>
+<tr>
+<th>구분</th>
+<th>금액</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>공고 예산</td>
+<td>60,000,000원</td>
+</tr>
+<tr>
+<td>band 최저</td>
+<td>30,500,000원</td>
+</tr>
+<tr>
+<td>band 평균</td>
+<td>51,000,000원</td>
+</tr>
+<tr>
+<td>band 최고</td>
+<td>65,000,000원</td>
+</tr>
+<tr>
+<td><strong>우리 지원가</strong></td>
+<td><strong>48,000,000원</strong> (예산의 80.0%)</td>
+</tr>
+<tr>
+<td>수수료 20% → 실수령</td>
+<td>9,600,000원 차감 → 38,400,000원</td>
+</tr>
+<tr>
+<td>수수료 25% → 실수령</td>
+<td>12,000,000원 차감 → 36,000,000원</td>
+</tr>
+<tr>
+<td>일당(지원가 ÷ 90일)</td>
+<td>533,333원</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>예산의 80%(산정 하한). band 평균 5,100만의 93% 상한(4,743만)이 80% 하한보다 낮아, 하한을 지키는 4,800만으로 확정. 일당 하한 20만원 기준선과 비교해 산정했습니다.</p>
+</blockquote>
+</section><section class="block" id="지원-금액-"><h2>지원 금액 *</h2>
+<pre class="short"><code>48000000
+</code></pre>
+<p>부가세 별도. 위시켓 수수료 차감 후 정산됩니다.</p>
+</section><section class="block" id="지원-기간-"><h2>지원 기간 *</h2>
+<pre class="short"><code>90
+</code></pre>
+<blockquote>
+<p>총 공수 78일 + 버퍼 12일 = 90일 — 착수 2026.11.25 기준 종료 2027.02.22.</p>
+</blockquote>
+</section><section class="block" id="지원-내용-2-663-5-000자-"><h2>지원 내용 * (2,663/5,000자)</h2>
+<pre><code><span class="q">Q1 기존 타 작업자 소스 인수·고도화와 커미션/C2C 중개 플랫폼 경험
+타 작업자가 만든 코드를 이어받아 고도화한 사례가 3건 있고, 공통점은 인수 직후 2주간 기능 단위 체크리스트로 구현·미구현을 분리해 그 표로 견적과 일정을 다시 확정한 것입니다. 포인트 충전·에스크로 보관·구매확정 후 정산·출금 지급대행까지 이어지는 원장 구조와 실시간 1:1 채팅·번역 API 연동은 중개·커머스 프로젝트에서 수행했습니다. 담당 범위와 함께 정리한 사례는 위시켓 메시지로 요청 주시면 전달합니다.
+
+<span class="q">Q2 기존 소스 진단으로 일정을 단축하는 방안과 투입 인력
+착수 후 5영업일 안에 코드 감사를 먼저 냅니다. 라우트·화면 동작, DB 스키마·마이그레이션 이력, PG·에스크로 결제 로그와 상태 전이, 테스트·배포 스크립트, 비밀키 노출 5개 축으로 보고 214개 기능 단위를 재사용·보완·재작성으로 분류합니다. 2주차 게이트에서 이 표를 공유하고 재사용률에 따라 견적·기간을 조정합니다. 재사용률 60% 이상이면 90일, 40% 미만이면 재구축 옵션 B로 견적을 다시 제시합니다. 투입은 PM 1(주 1회 대면 보고), 백엔드 2(원장·에스크로·지급대행·채팅), 프론트 2(스튜디오·작업실·어드민), 디자이너 0.5, QA 1로 총 5.5명이며 사내 백엔드 개발자와 주 2회 기술 동기화를 합니다.
+
+<span class="sh">&lt;프로젝트 진단&gt;
+이 공고의 변수는 기능 수가 아니라 세 가지입니다. 첫째, 1차 소스의 완료 범위가 아직 문서화되지 않았습니다. 214개 기능 단위를 전부 신규로 가정해 6,000만원을 산정한 예산이므로, 실제 견적은 감사 결과에 따라 낮아지는 것이 정상입니다. 둘째, 출금 지급대행은 심사가 끝났어도 계약·테스트 계정·정산 주기 확정이 늦어지면 오픈일이 그대로 밀립니다. 셋째, 포인트와 에스크로를 잔액 덮어쓰기로 만들면 환불·분쟁 국면에서 1원 오차를 추적할 수 없습니다.
+
+<span class="sh">&lt;작업 범위&gt;
+포함: 2차 정의서 기준 작가 스튜디오·포트폴리오·커미션 슬롯, 신청→견적→중간컨펌→납품→구매확정 워크플로우, 커미션 공유, 1:1 번역 채팅, 안티 AI 검수, 포인트 충전·에스크로·출금 지급대행 연동, 어드민 회원·정산·분쟁 화면, QA와 운영 배포.
+제외: 신규 권종·신규 결제수단 추가, iOS/Android 네이티브 앱, 마케팅 랜딩 리뉴얼, 번역 문구 자체의 품질 검수(번역 API 연동까지 포함), 1차에 없는 신규 리포트 체계 수립.
+추가 제안: ①포인트 원장 대사·리플레이 도구 +10일/+540만원 ②분쟁 증거보존(대화·산출물 스냅샷) 백오피스 +8일/+430만원 ③오픈 전 동시성·부하 테스트(동시 출금 50건) +5일/+270만원.
+
+<span class="sh">&lt;실행 플랜&gt;
+W1 (11.25~12.01) 코드 감사·기능 매핑, 착수 미팅, 지급대행 계약서·테스트 키 요청
+W2 (12.02~12.08) 감사 보고·범위 확정 게이트, ERD·원장 상태전이 설계
+W3~4 (12.09~12.22) 작가 스튜디오·포트폴리오·커미션 슬롯
+W5~6 (12.23~01.05) 커미션 의뢰·작업실 워크플로우, 공유 기능
+W7 (01.06~01.12) 1:1 채팅·번역 API 연동
+W8~9 (01.13~01.26) 안티 AI 검수 3구간 판정·수동 검수 큐, 어드민 정산
+W10~11 (01.27~02.09) 에스크로·지급대행 실연동, PG 정식 전환
+W12 (02.10~02.15) 통합 QA·권한·보안 점검
+W13 (02.16~02.22) 운영 배포, 인수인계·운영 문서
+총 공수 78일 + 버퍼 12일 = 90일입니다.
+
+<span class="sh">&lt;리스크와 대응&gt;
+1) 1차 코드 품질 — 5일 감사 결과로 재사용률을 먼저 확정하고 40% 미만이면 재구축 옵션을 문서로 제시합니다. 감사 없이 일정을 약속하지 않습니다.
+2) 지급대행 계약·테스트 계정 지연 — W1에 계약서·정산 주기·테스트 키를 요청하고 그전까지 목 어댑터로 개발합니다. 실연동을 W10에 두고 2주 여유를 남겼습니다.
+3) 안티 AI 검수 정확도 — 단일 판정으로 오픈하지 않고 통과·보류·반려 3구간 임계값과 수동 검수 큐를 함께 만듭니다. 건당 과금 API는 월 상한을 설정합니다.
+4) 정산 오차 — 잔액 컬럼을 직접 수정하지 않고 append-only 원장과 일별 대사 리포트로 처리해 환불·분쟁 이력이 남게 합니다.
+
+<span class="sh">&lt;기대 결과&gt;
+①작가가 슬롯을 열고 의뢰인이 신청→결제→컨펌→구매확정까지 끊김 없이 완주하며 구매확정 시점에 정산이 자동 발생한다. ②작가가 신청 한 번으로 포인트를 현금 출금하고 실패·지연이 어드민 상태로 남는다. ③번역 채팅과 AI 검수 판정이 거래 화면 안에서 끝나 운영자 개입이 줄어든다. ④어드민에서 회원·결제·출금·분쟁을 한 화면에서 처리하고 모든 변경에 감사 로그가 남는다.
+
+<span class="sh">&lt;확인이 필요한 질문&gt;
+1차 소스 저장소와 개발 서버 접근을 착수 전에 받을 수 있을까요? 감사 5일이 전체 일정의 유일한 변수입니다.
+214개 기능 단위 정의서와 HTML 목업 중 미팅 전 공유 가능한 범위가 어디까지인가요?
+지급대행 업체의 정산 주기(T+1/T+2), 건당 수수료, 테스트 계정 발급 일정을 알려주시면 출금 화면 설계에 반영하겠습니다.
+안티 AI 검수는 외부 API 판정만 쓸지 자체 모델을 붙일지 정해져 있나요? 전자는 건당 과금, 후자는 GPU 비용이 발생합니다.
+선불충전금 별도관리(신탁·예치) 요건은 현재 어떤 방식으로 충족하고 계신가요? 충전 잔액 규모에 따라 결제 흐름 설계가 달라집니다.
+</code></pre>
+</section><section class="block" id="데모-URL"><h2>데모 URL</h2>
+<pre><code>(없음 — 2차 고도화라 신규 시안보다 감사 방법론과 일정 단축안이 평가 대상입니다. 필요 시 감사 체크리스트 샘플을 48시간 내 문서로 전달합니다.)
+</code></pre>
+</section><section class="block" id="관련-포트폴리오"><h2>관련 포트폴리오</h2>
+<pre><code>타 작업자 소스 인수 후 고도화 3건, 포인트·에스크로 원장과 출금 정산 화면, 실시간 채팅·번역 API 연동 사례를 담당 범위와 함께 정리했습니다. 외부 주소는 플랫폼 정책상 본문에 쓰지 않으므로 위시켓 메시지로 요청 주시면 즉시 전달합니다.
+</code></pre>
+<hr />
+</section><section class="block" id="내가-임의로-정한-값-승인-필요-"><h2>내가 임의로 정한 값 (승인 필요)</h2>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>정한 값</th>
+<th>근거</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>지원가</td>
+<td>48,000,000원</td>
+<td>예산 80%, band 평균 5,100만의 94%(상한 93% 적용값)</td>
+</tr>
+<tr>
+<td>지원 기간</td>
+<td>90일</td>
+<td>공고 최대 3개월~3.5개월 중 하한, 착수 11.25 기준 02.22</td>
+</tr>
+<tr>
+<td>감사 기간</td>
+<td>5영업일</td>
+<td>214개 기능 단위 대조 가능한 최소 기간</td>
+</tr>
+<tr>
+<td>재구축 판단선</td>
+<td>재사용률 40%</td>
+<td>40% 미만이면 신규 구축이 총공수상 유리</td>
+</tr>
+<tr>
+<td>옵션 단가</td>
+<td>원장 도구 540만 / 증거보존 430만 / 부하 270만</td>
+<td>일당 54만 기준 역산</td>
+</tr>
+<tr>
+<td>QA 상주</td>
+<td>4주차부터 1명</td>
+<td>외부 연동 구간 결함 집중 대응</td>
+</tr>
+</tbody>
+</table>
+</section><section class="block" id="제출-전-체크"><h2>제출 전 체크</h2>
+<ul>
+<li>[ ] 지원 금액 48,000,000 입력, 수수료 20% 실수령 38,400,000원 표시 확인</li>
+<li>[ ] 클라이언트 예산 6,000만원이 금액 필드에 새어들지 않았는가</li>
+<li>[ ] 법인사업자 요건(공고 필수) 충족 여부 확인 — 개인사업자로 지원 시 사전 확인 필요</li>
+<li>[ ] 본문 5,000자 이내 (코드 카운트)</li>
+<li>[ ] 외부 연락처·회사명 미기재 — 포트폴리오는 메시지 유도</li>
+<li>[ ] 제출은 벨라가 직접 — 자동 제출 금지</li>
+</ul>
+</section><section class="block" id="축약-우선순위-5-000자-초과-시-"><h2>축약 우선순위 (5,000자 초과 시)</h2>
+<ol>
+<li>Q1의 사례 설명을 한 줄로 축약</li>
+<li>&lt;작업 범위&gt; 추가 제안 ②③ 삭제</li>
+<li>&lt;실행 플랜&gt; W3~4·W5~6 항목 문구 축약<br />
+절대 자르지 않을 것: Q2 감사 5일·재사용률 기준, &lt;작업 범위&gt; 제외 범위, &lt;리스크&gt; 1)·2), 금액·기간, 확인 질문 1번</li>
+</ol></section>
+  <div class="foot">이 페이지는 검토용 초안입니다. 제출 전 문의는 위시켓 메시지로 부탁드립니다.<br>
+  심플테크 · simpletech</div>
+</div>
+</body>
+</html>
