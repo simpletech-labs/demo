@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>산모·관리사 중개 플랫폼 기존 코드 보완 및 PG 결제 연동 — 제안서</title>
+<style>
+:root{
+  --navy:#12324f; --navy-2:#1c4a72; --line:#e3e8ef; --bg:#f5f7fa; --card:#fff;
+  --tx:#1b2027; --muted:#69747f; --accent:#0f7b52; --accent-bg:#e9f6ef;
+  --warn:#8a5a00; --warn-bg:#fdf4e3; --blue:#1d5b94; --blue-bg:#eaf1f9;
+  --radius:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font-size:15px;line-height:1.7;word-break:keep-all;
+  font-family:"Apple SD Gothic Neo","Pretendard","Malgun Gothic",system-ui,-apple-system,sans-serif;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:920px;margin:0 auto;padding:0 16px 80px}
+.topbar{background:var(--navy);color:#cfdce8;font-size:12.5px;letter-spacing:.02em}
+.topbar .inner{max-width:920px;margin:0 auto;padding:9px 16px;display:flex;gap:10px;align-items:center}
+.topbar b{color:#fff;font-weight:700}
+.topbar .sp{flex:1}
+.topbar .dot{width:6px;height:6px;border-radius:50%;background:#5fd39a}
+header.head{background:var(--navy-2);color:#fff;padding:30px 0 26px}
+header.head .inner{max-width:920px;margin:0 auto;padding:0 16px}
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
+.chip{font-size:11.5px;padding:3px 9px;border-radius:999px;background:rgba(255,255,255,.14);
+  color:#eaf2f9;letter-spacing:.01em}
+.chip.hot{background:#ffd9c7;color:#7a2f0d;font-weight:700}
+h1{font-size:23px;line-height:1.38;letter-spacing:-.02em;font-weight:800}
+.head .sub{margin-top:9px;color:#b9cbdb;font-size:13px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:-22px 0 26px;position:relative}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 15px;
+  box-shadow:0 1px 2px rgba(18,50,79,.05)}
+.stat .k{font-size:11.5px;color:var(--muted);letter-spacing:.02em}
+.stat .v{font-size:19px;font-weight:800;letter-spacing:-.02em;margin-top:4px}
+.stat .v small{font-size:12px;font-weight:600;color:var(--muted);margin-left:3px}
+.stat.hl{border-color:#cfe6da;background:var(--accent-bg)}
+.stat.hl .v{color:var(--accent)}
+section.block{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:22px 24px;margin-bottom:16px;box-shadow:0 1px 2px rgba(18,50,79,.04)}
+h2{font-size:17px;letter-spacing:-.015em;margin:0 0 14px;padding-left:11px;border-left:4px solid var(--navy);
+  line-height:1.35}
+h3{font-size:14.5px;margin:18px 0 8px;color:var(--navy)}
+p{margin:0 0 11px}
+ul,ol{margin:0 0 12px 20px}
+li{margin:3px 0}
+li::marker{color:#9aa7b4}
+table{width:100%;border-collapse:collapse;margin:8px 0 14px;font-size:13.5px}
+th,td{border-bottom:1px solid var(--line);padding:9px 10px;text-align:left;vertical-align:top}
+th{background:#f7f9fc;font-size:12.5px;color:#455263;font-weight:700;white-space:nowrap}
+td:last-child,th:last-child{text-align:right}
+td:first-child,th:first-child{text-align:left}
+tr:last-child td{border-bottom:0}
+blockquote{border-left:3px solid var(--blue);background:var(--blue-bg);padding:11px 14px;
+  border-radius:0 8px 8px 0;margin:10px 0 14px;font-size:13.5px;color:#274a6b}
+blockquote p:last-child{margin-bottom:0}
+pre{background:#fbfcfe;border:1px solid var(--line);border-radius:10px;padding:0;margin:10px 0 16px;
+  overflow:hidden}
+pre code{display:block;padding:18px 20px;font-family:inherit;font-size:14.2px;line-height:1.85;
+  white-space:pre-wrap;word-break:keep-all;color:#232a33}
+pre.short code{font-size:15px;font-weight:700;color:var(--accent);padding:13px 18px}
+pre code .sh{display:block;font-weight:800;color:var(--navy);font-size:15px;margin:16px 0 4px;
+  padding-top:14px;border-top:1px dashed #dbe3ec}
+pre code .sh:first-child{margin-top:0;padding-top:0;border-top:0}
+pre code .q{color:var(--navy);font-weight:700;display:block;margin:14px 0 2px}
+strong{font-weight:700}
+hr{border:0;border-top:1px dashed #d6dee8;margin:20px 0}
+.foot{color:var(--muted);font-size:12.5px;text-align:center;margin-top:26px;line-height:1.8}
+.toc{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
+.toc a{font-size:12.5px;text-decoration:none;color:#3d4b59;background:#fff;border:1px solid var(--line);
+  border-radius:999px;padding:5px 12px}
+.toc a:hover{border-color:var(--navy-2);color:var(--navy)}
+@media(max-width:760px){
+  body{font-size:14.5px}
+  .stats{grid-template-columns:1fr 1fr;margin-top:-18px}
+  h1{font-size:20px}
+  section.block{padding:17px 15px;border-radius:10px}
+  table{font-size:12.8px}
+  th,td{padding:7px 8px}
+  th{white-space:normal}
+  pre code{font-size:13.4px;padding:14px}
+}
+@media print{
+  body{background:#fff}
+  .topbar,.toc{display:none}
+  section.block{break-inside:avoid;box-shadow:none;border-color:#ccc}
+  header.head{background:#fff;color:#000;border-bottom:2px solid #000;padding:0 0 10px}
+  header.head .sub,.chip{color:#333}
+}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="inner"><span class="dot"></span><b>심플테크</b><span>외주 제안서</span>
+<span class="sp"></span><span>2026-11-19 15:07</span></div></div>
+<header class="head"><div class="inner">
+  <div class="chips"><span class="chip">모집 중</span><span class="chip hot">마감 2026-11-26</span><span class="chip">예산의 93%</span></div>
+  <h1>산모·관리사 중개 플랫폼 기존 코드 보완 및 PG 결제 연동</h1>
+  <div class="sub">클라이언트 예산 3,000,000원 · 제안 14일 · <a href="https://project.wishket.com/project/159741/" style="color:#bcd3e6">공고 원문</a></div>
+</div></header>
+<div class="wrap">
+
+  <div class="stats">
+    <div class="stat hl"><div class="k">지원가</div><div class="v">2,800,000<small>원</small></div></div>
+    <div class="stat"><div class="k">지원 기간</div><div class="v">14<small>일</small></div></div>
+    <div class="stat"><div class="k">일당</div><div class="v">200,000<small>원</small></div></div>
+    <div class="stat"><div class="k">실수령 (수수료 20%)</div><div class="v">2,240,000<small>원</small></div></div>
+  </div>
+  <div class="toc"><a href="#금액-근거">금액 근거</a><a href="#지원-금액-">지원 금액 *</a><a href="#지원-기간-">지원 기간 *</a><a href="#지원-내용-">지원 내용 *</a><a href="#데모-URL">데모 URL</a><a href="#관련-포트폴리오">관련 포트폴리오</a></div>
+  <section class="block"><h1>위시켓 지원서 초안 — 산모·관리사 중개 플랫폼 기존 코드 보완 및 PG 결제 연동</h1>
+<ul>
+<li>공고: https://project.wishket.com/project/159741/</li>
+<li>상태: 프라이빗 매칭 / 등록 2026.11.19 / 마감 2026.11.26 / 서울 강남구 / 지원자 17</li>
+<li>클라이언트 예산: 300만~400만원 (부가세 별도) / 목표 2027년 1월(조정 가능)</li>
+<li><strong>제안: 2,800,000원 / 14일</strong> — 착수 2026.11.24, 완료 2026.12.07</li>
+</ul>
+</section><section class="block" id="금액-근거"><h2>금액 근거</h2>
+<table>
+<thead>
+<tr>
+<th>구분</th>
+<th>값</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>클라이언트 예산 하한</td>
+<td>3,000,000원</td>
+</tr>
+<tr>
+<td>지원가</td>
+<td>2,800,000원 (예산 하한의 93.3%)</td>
+</tr>
+<tr>
+<td>공수</td>
+<td>14일 (2주 집중, 1인)</td>
+</tr>
+<tr>
+<td>실무 일당</td>
+<td>200,000원</td>
+</tr>
+<tr>
+<td>수수료 20% → 실수령</td>
+<td>2,240,000원</td>
+</tr>
+<tr>
+<td>수수료 25% → 실수령</td>
+<td>2,100,000원</td>
+</tr>
+</tbody>
+</table>
+</section><section class="block" id="지원-금액-"><h2>지원 금액 *</h2>
+<pre class="short"><code>2800000
+</code></pre>
+<p>부가세 별도.</p>
+</section><section class="block" id="지원-기간-"><h2>지원 기간 *</h2>
+<pre class="short"><code>14
+</code></pre>
+</section><section class="block" id="지원-내용-"><h2>지원 내용 *</h2>
+<pre><code><span class="sh">&lt;프로젝트 진단&gt;
+지금 상태는 기능이 없는 것이 아니라 구조가 화면 단위로 흩어져 있는 상태로 읽힙니다. Claude Code와 Codex로 화면을 하나씩 만들면 각 화면은 동작하지만, 화면 사이를 잇는 규칙(권한, 상태 전이, 예외)은 아무도 쓰지 않은 채 남습니다. 실제 운영을 막는 지점은 세 곳입니다. 첫째, 권한입니다. 산모가 다른 산모의 계약이나 관리사 연락처를 볼 수 있으면 안 되는데, Supabase에서는 이 규칙이 RLS 정책으로만 강제됩니다. 화면 단위로 생성된 테이블은 정책이 비어 있거나 과하게 열려 있는 경우가 많습니다. 둘째, 결제가 붙는 순간 상태 전이가 서버에서 강제되어야 합니다. 요청→매칭→계약→결제→근무→정산 중 어느 단계에서 결제가 일어나는지, 결제 성공 후 계약 상태를 누가 바꾸는지가 코드에 없으면 환불과 정산에서 바로 분쟁이 납니다. 셋째, 예외입니다. 매칭 취소, 일정 변경, 관리사 노쇼, 부분 환불이 화면마다 다르게 처리되고 있을 가능성이 높습니다.
+
+<span class="sh">&lt;작업 범위&gt;
+진행할 범위 — ①코드·스키마 진단 리포트(테이블 관계, 중복 필드, RLS 정책 현황, 화면-기능 불일치 목록). ②RLS 정책 재정의와 스키마 정리(역할 3개: 산모·관리사·운영자). ③상태 전이 규칙을 서버에서 강제(결제 성공·취소·환불 웹훅이 계약 상태를 바꾸는 단일 경로). ④예외 시나리오 도출과 처리(취소, 일정 변경, 노쇼, 부분 환불, 관리사 정보 미충족). ⑤PG 연동(카드·간편결제, 웹훅 기반 상태 동기화, 영수증 검증, 취소·부분취소). ⑥디자이너 산출물 반영. ⑦운영 전환(도메인, 백업, 에러 로그, 문의 대응 화면).
+제외할 범위 — 신규 기획과 디자인 제작(별도 디자이너 진행분), iOS·안드로이드 앱, 관리사 자격·범죄이력 자동 검증(외부 API 계약 필요), 정산 대행과 에스크로, 마케팅 페이지.
+추가 제안 — 에스크로형 정산(결제 대금을 근무 완료 확인 후 지급) 400,000원 / 3일. 계약 테이블에 정산 상태 필드를 지금 넣어 두면 나중에 붙일 때 구조를 다시 만들지 않습니다. 필요하시면 이번 일정에 함께 넣거나 오픈 후에 붙일 수 있습니다.
+
+<span class="sh">&lt;실행 플랜&gt;
+2026.11.24~12.07, 14일, 1인.
+D1–D2 코드·스키마 진단, 예외 목록 작성. 게이트 1: 진단 리포트와 작업 우선순위 합의.
+D3–D4 테이블 정리와 RLS 정책 적용, 역할별 접근 테스트.
+D5–D6 상태 전이 규칙 구현(계약 상태 머신), 화면-서버 규칙 불일치 정리.
+D7–D9 PG 연동. 테스트 키로 결제·취소·부분취소·웹훅 재전송까지 전 구간 확인.
+D10–D11 디자이너 산출물 반영, 반응형 점검.
+D12 QA. 시나리오 20개(정상 흐름 5, 예외 15) 통과 확인.
+D13–D14 운영 전환, 로그·백업 설정, 인수인계 문서.
+총 공수 14일, 버퍼 1일 포함. 디자인 반영은 디자이너 산출물이 D8까지 나오는 것을 전제로 잡았고, 늦어지면 D13으로 밀립니다. 게이트 피드백은 3영업일 안에 반영합니다.
+
+<span class="sh">&lt;리스크와 대응&gt;
+첫째, PG 심사입니다. 통신판매업 신고와 사업자 정보가 준비되지 않으면 심사에 1~2주가 걸려 결제 테스트가 막힙니다. 착수 전에 신고 상태와 PG사(토스페이먼츠·포트원 등)를 확인하고, 심사 중에는 테스트 키로 전 구간을 검증해 두었다가 승인 후 운영 키만 교체합니다. 둘째, Supabase 프로젝트 접근 권한입니다. DB 콘솔과 소스 저장소 권한이 없으면 진단 자체가 늦어집니다. 셋째, AI가 생성한 코드를 전면 재작성하는 유혹입니다. 예산과 기간상 재작성은 성립하지 않으므로, 유지하되 위험한 지점(권한·상태·결제)만 걷어내는 방향으로 갑니다. 넷째, RLS 정책 변경 중 데이터 노출입니다. 정책 적용은 스테이징에서 먼저 검증하고 역할별 테스트 계정으로 확인한 뒤 운영에 반영합니다.
+
+<span class="sh">&lt;기대 결과&gt;
+완료 시점에 산모와 관리사가 가입하고 연결되고 결제까지 끝난 흐름이 실제로 돌아갑니다. 운영자는 결제·취소·환불 내역을 화면에서 확인하고 처리할 수 있고, 누가 어떤 데이터를 볼 수 있는지가 정책으로 남습니다. 코드에는 상태 전이 규칙이 한 곳에 모여 있어, 다음에 기능을 붙일 때 화면마다 다른 처리를 만들지 않아도 됩니다.
+
+<span class="sh">&lt;확인이 필요한 질문&gt;
+1. 기술 스택은 Next.js와 Supabase를 유지할 것을 권합니다. 지금 구조에서 교체가 성립하는 것은 인증·DB뿐이고, 그마저 옮기는 비용이 이번 예산을 넘습니다. 유지하되 권한·상태·결제 세 곳만 다시 세우는 쪽이 낫습니다.
+2. 결제가 일어나는 시점이 언제인가요? 매칭 확정 시 결제인지, 근무 완료 후 결제인지에 따라 상태 전이와 환불 규칙이 달라집니다.
+3. PG사를 지정해 두셨는지, 통신판매업 신고는 완료되었는지 알려주세요. 심사 기간이 일정에 직접 영향을 줍니다.
+4. 관리사에게 지급되는 수수료 구조(플랫폼 수수료율, 정산 주기)를 알려주세요. 결제만 붙이고 정산이 비어 있으면 운영 첫 달에 손으로 맞춰야 합니다.
+5. Supabase 프로젝트와 저장소 접근 권한, 디자이너의 산출물 형식(Figma 여부)과 전달 시점을 알려주세요. 예외 시나리오는 배포된 시연 링크를 직접 눌러보며 뽑겠습니다.
+</code></pre>
+</section><section class="block" id="데모-URL"><h2>데모 URL</h2>
+<pre class="short"><code>(미팅에서 전달)
+</code></pre>
+</section><section class="block" id="관련-포트폴리오"><h2>관련 포트폴리오</h2>
+<ul>
+<li>결제와 상태 전이가 얽힌 흐름(주문·정산·취소)을 서버에서 강제하도록 만든 작업과, 권한 모델을 정책으로 정리한 백엔드 작업을 근거로 제시합니다. 중개·매칭 도메인 사례는 미팅에서 구체적으로 말씀드립니다.</li>
+</ul></section>
+  <div class="foot">이 페이지는 검토용 초안입니다. 제출 전 문의는 위시켓 메시지로 부탁드립니다.<br>
+  심플테크 · simpletech</div>
+</div>
+</body>
+</html>
