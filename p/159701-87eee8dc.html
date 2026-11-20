@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>시식 행사용 라면 입맛 매칭 퀴즈 웹앱 구축 — 제안서</title>
+<style>
+:root{
+  --navy:#12324f; --navy-2:#1c4a72; --line:#e3e8ef; --bg:#f5f7fa; --card:#fff;
+  --tx:#1b2027; --muted:#69747f; --accent:#0f7b52; --accent-bg:#e9f6ef;
+  --warn:#8a5a00; --warn-bg:#fdf4e3; --blue:#1d5b94; --blue-bg:#eaf1f9;
+  --radius:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font-size:15px;line-height:1.7;word-break:keep-all;
+  font-family:"Apple SD Gothic Neo","Pretendard","Malgun Gothic",system-ui,-apple-system,sans-serif;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:920px;margin:0 auto;padding:0 16px 80px}
+.topbar{background:var(--navy);color:#cfdce8;font-size:12.5px;letter-spacing:.02em}
+.topbar .inner{max-width:920px;margin:0 auto;padding:9px 16px;display:flex;gap:10px;align-items:center}
+.topbar b{color:#fff;font-weight:700}
+.topbar .sp{flex:1}
+.topbar .dot{width:6px;height:6px;border-radius:50%;background:#5fd39a}
+header.head{background:var(--navy-2);color:#fff;padding:30px 0 26px}
+header.head .inner{max-width:920px;margin:0 auto;padding:0 16px}
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
+.chip{font-size:11.5px;padding:3px 9px;border-radius:999px;background:rgba(255,255,255,.14);
+  color:#eaf2f9;letter-spacing:.01em}
+.chip.hot{background:#ffd9c7;color:#7a2f0d;font-weight:700}
+h1{font-size:23px;line-height:1.38;letter-spacing:-.02em;font-weight:800}
+.head .sub{margin-top:9px;color:#b9cbdb;font-size:13px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:-22px 0 26px;position:relative}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 15px;
+  box-shadow:0 1px 2px rgba(18,50,79,.05)}
+.stat .k{font-size:11.5px;color:var(--muted);letter-spacing:.02em}
+.stat .v{font-size:19px;font-weight:800;letter-spacing:-.02em;margin-top:4px}
+.stat .v small{font-size:12px;font-weight:600;color:var(--muted);margin-left:3px}
+.stat.hl{border-color:#cfe6da;background:var(--accent-bg)}
+.stat.hl .v{color:var(--accent)}
+section.block{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:22px 24px;margin-bottom:16px;box-shadow:0 1px 2px rgba(18,50,79,.04)}
+h2{font-size:17px;letter-spacing:-.015em;margin:0 0 14px;padding-left:11px;border-left:4px solid var(--navy);
+  line-height:1.35}
+h3{font-size:14.5px;margin:18px 0 8px;color:var(--navy)}
+p{margin:0 0 11px}
+ul,ol{margin:0 0 12px 20px}
+li{margin:3px 0}
+li::marker{color:#9aa7b4}
+table{width:100%;border-collapse:collapse;margin:8px 0 14px;font-size:13.5px}
+th,td{border-bottom:1px solid var(--line);padding:9px 10px;text-align:left;vertical-align:top}
+th{background:#f7f9fc;font-size:12.5px;color:#455263;font-weight:700;white-space:nowrap}
+td:last-child,th:last-child{text-align:right}
+td:first-child,th:first-child{text-align:left}
+tr:last-child td{border-bottom:0}
+blockquote{border-left:3px solid var(--blue);background:var(--blue-bg);padding:11px 14px;
+  border-radius:0 8px 8px 0;margin:10px 0 14px;font-size:13.5px;color:#274a6b}
+blockquote p:last-child{margin-bottom:0}
+pre{background:#fbfcfe;border:1px solid var(--line);border-radius:10px;padding:0;margin:10px 0 16px;
+  overflow:hidden}
+pre code{display:block;padding:18px 20px;font-family:inherit;font-size:14.2px;line-height:1.85;
+  white-space:pre-wrap;word-break:keep-all;color:#232a33}
+pre.short code{font-size:15px;font-weight:700;color:var(--accent);padding:13px 18px}
+pre code .sh{display:block;font-weight:800;color:var(--navy);font-size:15px;margin:16px 0 4px;
+  padding-top:14px;border-top:1px dashed #dbe3ec}
+pre code .sh:first-child{margin-top:0;padding-top:0;border-top:0}
+pre code .q{color:var(--navy);font-weight:700;display:block;margin:14px 0 2px}
+strong{font-weight:700}
+hr{border:0;border-top:1px dashed #d6dee8;margin:20px 0}
+.foot{color:var(--muted);font-size:12.5px;text-align:center;margin-top:26px;line-height:1.8}
+.toc{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
+.toc a{font-size:12.5px;text-decoration:none;color:#3d4b59;background:#fff;border:1px solid var(--line);
+  border-radius:999px;padding:5px 12px}
+.toc a:hover{border-color:var(--navy-2);color:var(--navy)}
+@media(max-width:760px){
+  body{font-size:14.5px}
+  .stats{grid-template-columns:1fr 1fr;margin-top:-18px}
+  h1{font-size:20px}
+  section.block{padding:17px 15px;border-radius:10px}
+  table{font-size:12.8px}
+  th,td{padding:7px 8px}
+  th{white-space:normal}
+  pre code{font-size:13.4px;padding:14px}
+}
+@media print{
+  body{background:#fff}
+  .topbar,.toc{display:none}
+  section.block{break-inside:avoid;box-shadow:none;border-color:#ccc}
+  header.head{background:#fff;color:#000;border-bottom:2px solid #000;padding:0 0 10px}
+  header.head .sub,.chip{color:#333}
+}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="inner"><span class="dot"></span><b>심플테크</b><span>외주 제안서</span>
+<span class="sp"></span><span>2026-11-21 02:56</span></div></div>
+<header class="head"><div class="inner">
+  <div class="chips"><span class="chip">프라이빗 매칭</span><span class="chip hot">마감 2026-11-27</span><span class="chip">예산의 80%</span><span class="chip">평균 입찰가의 97%</span></div>
+  <h1>시식 행사용 라면 입맛 매칭 퀴즈 웹앱 구축</h1>
+  <div class="sub">클라이언트 예산 45,000,000원 · 제안 90일 · <a href="https://project.wishket.com/project/159701/" style="color:#bcd3e6">공고 원문</a></div>
+</div></header>
+<div class="wrap">
+
+  <div class="stats">
+    <div class="stat hl"><div class="k">지원가</div><div class="v">36,000,000<small>원</small></div></div>
+    <div class="stat"><div class="k">지원 기간</div><div class="v">90<small>일</small></div></div>
+    <div class="stat"><div class="k">일당</div><div class="v">400,000<small>원</small></div></div>
+    <div class="stat"><div class="k">실수령 (수수료 20%)</div><div class="v">28,800,000<small>원</small></div></div>
+  </div>
+  <div class="toc"><a href="#금액-근거-BOOST-실시간-입찰가-기준-">금액 근거 (BOOST 실시간 입찰가 기준)</a><a href="#지원-금액-">지원 금액 *</a><a href="#지원-기간-">지원 기간 *</a><a href="#지원-내용-2842-5-000자-">지원 내용 * (2842/5,000자)</a><a href="#데모-URL">데모 URL</a><a href="#관련-포트폴리오">관련 포트폴리오</a><a href="#내가-임의로-정한-값-승인-필요-">내가 임의로 정한 값 (승인 필요)</a><a href="#제출-전-체크">제출 전 체크</a><a href="#축약-우선순위">축약 우선순위</a></div>
+  <section class="block"><h1>위시켓 지원서 초안 — 시식 행사용 라면 입맛 매칭 퀴즈 웹앱 구축</h1>
+<ul>
+<li>공고: https://project.wishket.com/project/159701/</li>
+<li>상태: 프라이빗 매칭 (BOOST 공개) / 등록 2026.11.20 / 마감 2026.11.27</li>
+<li>예산 4,500만원 (공고 표기 4,000만~6,000만) / 예상 기간 90일 / 완료 희망 2027년 2월</li>
+<li>클라이언트: 유럽 라면 판매법인(네덜란드), 시차 7~8시간, 소통 전면 온라인</li>
+<li>기존 시스템: Next.js + MongoDB + Vercel, 제품 정보는 공개 JSON API</li>
+</ul>
+</section><section class="block" id="금액-근거-BOOST-실시간-입찰가-기준-"><h2>금액 근거 (BOOST 실시간 입찰가 기준)</h2>
+<table>
+<thead>
+<tr>
+<th>구분</th>
+<th>금액</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>예산 표기</td>
+<td>4,000만~6,000만원 (게시 4,500만원)</td>
+</tr>
+<tr>
+<td>경쟁 최저</td>
+<td>18,000,000원</td>
+</tr>
+<tr>
+<td>경쟁 평균</td>
+<td>37,100,000원</td>
+</tr>
+<tr>
+<td>경쟁 최고</td>
+<td>60,000,000원</td>
+</tr>
+<tr>
+<td><strong>지원가</strong></td>
+<td><strong>36,000,000원</strong> (예산의 80%, 평균의 97%)</td>
+</tr>
+<tr>
+<td>일당 (90일)</td>
+<td>400,000원</td>
+</tr>
+<tr>
+<td>수수료 20% → 실수령</td>
+<td>7,200,000원 차감 → 28,800,000원</td>
+</tr>
+<tr>
+<td>수수료 25% → 실수령</td>
+<td>9,000,000원 차감 → 27,000,000원</td>
+</tr>
+</tbody>
+</table>
+<p><strong>단계별 고정 금액 (합계 36,000,000원)</strong></p>
+<table>
+<thead>
+<tr>
+<th>단계</th>
+<th>금액</th>
+<th>전제 조건</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. 리서치·맛 모델</td>
+<td>5,000,000원</td>
+<td>제품 20개 데이터·리뷰 제공, 맛 속성 8~10개 합의</td>
+</tr>
+<tr>
+<td>2. UI·UX 디자인</td>
+<td>6,500,000원</td>
+<td>브랜드 가이드·맵기 단계 에셋 제공, 화면 6종</td>
+</tr>
+<tr>
+<td>3. 개발</td>
+<td>20,500,000원</td>
+<td>1단계 범위 확정 후 착수, 주 1회 리뷰</td>
+</tr>
+<tr>
+<td>4. 런칭·인수</td>
+<td>4,000,000원</td>
+<td>EU 호스팅 계정 제공, 인수인계 미팅 1회</td>
+</tr>
+</tbody>
+</table>
+</section><section class="block" id="지원-금액-"><h2>지원 금액 *</h2>
+<pre class="short"><code>36000000
+</code></pre>
+<p>부가세 별도.</p>
+</section><section class="block" id="지원-기간-"><h2>지원 기간 *</h2>
+<pre class="short"><code>90
+</code></pre>
+</section><section class="block" id="지원-내용-2842-5-000자-"><h2>지원 내용 * (2842/5,000자)</h2>
+<pre><code><span class="sh">&lt;프로젝트 진단&gt;
+이 과제의 병목은 화면이 아니라 맛 모델입니다. 지금 가진 데이터는 제품명·형태·맵기 수치·식단 여부까지이고, 20개 제품을 취향 축으로 비교할 속성과 점수 기준이 없습니다. 추천 엔진은 그 위에만 성립하므로 1단계를 &quot;속성 정의→점수 산정→전체 조합 시뮬레이션&quot;으로 고정하고, 이 검증을 통과한 뒤 개발에 들어가는 순서가 맞습니다. 두 번째 목표인 익명 선호도 수집은 추적 도구 없이 세션 단위 이벤트만 쌓는 구조로 설계하면 GDPR 쿠키 배너 없이도 성립합니다. 기술 스택은 Next.js(App Router) + TypeScript + PostgreSQL, 배포는 EU 리전(Frankfurt) 컨테이너 + 관리형 DB로 제안합니다. 기존 사이트가 Next.js·MongoDB·Vercel이므로 팀이 읽기 쉬운 스택이 유지보수에 유리하고, EU 호스팅 요구는 Vercel EU 리전 대신 EU 리전 컨테이너로 두어 데이터 저장 위치를 명확히 합니다.
+
+<span class="sh">&lt;작업 범위&gt;
+진행할 범위 (1단계)
+1) 리서치·맛 모델: 맛 속성 8~10개 정의, 20개 제품 점수 산정, 한국어 검토 엑셀, 전체 답변 조합 시뮬레이션 결과 보고(추천되지 않는 제품·독점 제품 목록 포함).
+2) 디자인: 모바일 우선 퀴즈 6화면(시작·질문·식단·계산·결과·조리법), 360×640에서 스크롤 없는 한 화면, 결과 공개 애니메이션, Figma 원본.
+3) 개발: 퀴즈 웹(비로그인), 가중치 매칭 엔진, 필터·우선순위·역할 배정(베스트/클래식/새로운 맛), 관리자 웹(제품·맛 항목·질문·조리법·점수 설정·행사·시뮬레이션), 익명 이벤트 수집과 행사별 분석·CSV.
+4) 인프라: EU 리전 배포, 전용 도메인·HTTPS, DB 자동 백업, 자동 재시작, 명령어 1회 재배포.
+5) 인수: 브라우저 검수(iOS Safari·Android Chrome 최신 2버전·데스크톱), 관리자 가이드, 인수인계 미팅 1회.
+
+제외할 범위
+- 자사 웹사이트 삽입·제품 API 연동(별도 견적), 결제·회원 기능.
+- 6개 언어 전체 번역(1단계는 영어·독일어, 나머지는 구조만 준비), 한국어 관리자 페이지.
+- 행사 현장 장비·네트워크, 제품 사진 촬영.
+
+별도 견적 (1단계와 분리)
+- 웹사이트 퀴즈 삽입(링크·임베드): 1,500,000원 / 3일.
+- 제품 정보 JSON API 연동: 2,500,000원 / 5일. (두 항목 합산 시 3,500,000원)
+- 월 유지보수·호스팅: 450,000원/월(모니터링·백업·보안 패치·장애 대응), 기능 추가는 시간당 90,000원.
+- 2단계(5개 언어 추가·한국어 관리자·다중 관리자 권한·통합 대시보드): 22,000,000원 / 45일.
+
+<span class="sh">&lt;실행 플랜&gt;
+1단계 R1~R3 (12.01~12.19) 맛 속성 정의·점수 산정·시뮬레이션 → 1차 승인 게이트.
+2단계 D1~D15 (12.22~01.09) 디자인 6화면·디자인 시스템 → 2차 게이트.
+3단계 개발 (01.12~02.12) 퀴즈·엔진·관리자·분석, 주 1회 리뷰.
+4단계 런칭 (02.15~02.26) EU 배포·검수·인수인계.
+총 공수 62일 / 90일 중 버퍼 28일(콘텐츠·번역 지연 대응). 투입은 백엔드 1명 상시 + 프론트·디자인 1명 단계별 투입입니다.
+온라인 협업: 한국 시간 오후 3~6시가 네덜란드 오전 8~11시와 겹칩니다. 주간 리뷰는 이 구간에 고정하고, 이슈는 위시켓 메시지 + 주 1회 화상, 긴급 건은 24시간 내 회신을 기준으로 합니다. 모든 산출물은 문서(Notion 또는 공유 문서)로 남겨 시차 중 비동기 확인이 가능하게 합니다.
+
+<span class="sh">&lt;리스크와 대응&gt;
+1) 맛 모델 승인이 늦으면 전체가 밀립니다. R1~R3에 시뮬레이션 결과를 먼저 보여드리고, 속성 정의는 2회 수정까지 포함해 확정합니다.
+2) 콘텐츠(제품별 조리법·다국어 문구·사진) 제공이 늦는 경우. 문구가 비어 있어도 화면이 깨지지 않도록 기본 문구·플레이스홀더를 넣고, 콘텐츠는 관리자에서 나중에 채우는 구조로 만듭니다.
+3) EU 호스팅·데이터 위치 요구. 컨테이너와 DB 리전을 EU로 고정하고 데이터 이동 경로를 문서화합니다. 개인정보를 수집하지 않으므로 별도 동의 절차는 두지 않습니다.
+4) 행사당 최대 2만 명 접속. 정적 자산 CDN 분리와 API 응답 캐시로 대응하고, 행사 전 부하 점검 절차를 런칭 단계에 포함합니다. 실측 수치는 배포 후 리포트로 제출합니다.
+
+<span class="sh">&lt;기대 결과&gt;
+완료 시점에 마케팅팀은 개발자 없이 제품 20개·질문·행사를 관리자에서 직접 관리하고, 행사별로 전용 링크와 QR을 만들어 운영합니다. 방문객은 20초 안에 자신에게 맞는 제품과 대안 2개를 받고 조리법까지 이어서 봅니다. 경영 측면에서는 행사·국가별 입맛 선호도가 익명 데이터로 축적되어 다음 제품 기획의 근거가 됩니다. 성공 기준은 ①추천되지 않는 제품 0건(시뮬레이션 검증) ②행사 링크 생성 후 10분 내 운영 가능 ③퀴즈 완료율과 평균 소요 시간이 관리자 화면에서 즉시 확인됨 ④개발자 개입 없이 제품·질문 변경 가능 — 네 가지로 제안합니다.
+
+<span class="sh">&lt;확인이 필요한 질문&gt;
+1. 제품 20개의 원재료·리뷰 데이터를 맛 점수 산정에 쓸 수 있나요? 리뷰 데이터가 없으면 원재료와 공식 맵기 단계 중심으로 산정합니다.
+2. 행사 1건당 최대 2만 명 기준으로, 동시 접속 피크를 어느 정도로 보시나요? 부하 점검 기준을 잡겠습니다.
+3. EU 호스팅은 어느 사업자·리전을 쓰고 있나요? 계정 제공 방식(프로젝트 단위 권한 등)을 확인하고 싶습니다.
+4. 사전 검증 질문 원문을 위시켓 메시지로 받을 수 있을까요? 프라이빗 공고라 화면에서 확인되지 않습니다.
+5. 1단계 완료 후 2단계(다국어·다중 관리자) 진행 시점을 미리 알려주시면, 1단계 구조를 그에 맞춰 준비해 둡니다.
+</code></pre>
+</section><section class="block" id="데모-URL"><h2>데모 URL</h2>
+<pre><code>(없음 — 퀴즈 3화면을 클릭 가능한 시안으로 48시간 내 제작해 드릴 수 있습니다. 요청 주시면 링크로 전달합니다.)
+</code></pre>
+</section><section class="block" id="관련-포트폴리오"><h2>관련 포트폴리오</h2>
+<pre><code>소비재 브랜드 캠페인용 웹앱과 이벤트성 트래픽 대응 사례 2건을 정리해 두었습니다. 외부 주소는 플랫폼 정책상 본문에 쓰지 않으므로, 위시켓 메시지로 요청 주시면 즉시 전달합니다.
+</code></pre>
+</section><section class="block" id="내가-임의로-정한-값-승인-필요-"><h2>내가 임의로 정한 값 (승인 필요)</h2>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>정한 값</th>
+<th>근거</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>지원가</td>
+<td>36,000,000원</td>
+<td>예산(4,500만)의 80%, 경쟁 평균(3,710만)의 97%</td>
+</tr>
+<tr>
+<td>단계별 배분</td>
+<td>500 / 650 / 2,050 / 400만</td>
+<td>리서치 14%·디자인 18%·개발 57%·런칭 11%</td>
+</tr>
+<tr>
+<td>지원 기간</td>
+<td>90일</td>
+<td>완료 희망 2027.02 역산, 버퍼 28일</td>
+</tr>
+<tr>
+<td>실제 공수</td>
+<td>62일</td>
+<td>2인 단계별 투입</td>
+</tr>
+<tr>
+<td>웹사이트 삽입</td>
+<td>150만 / 3일</td>
+<td>별도 견적</td>
+</tr>
+<tr>
+<td>제품 API 연동</td>
+<td>250만 / 5일</td>
+<td>별도 견적</td>
+</tr>
+<tr>
+<td>월 유지보수</td>
+<td>45만원/월</td>
+<td>호스팅·모니터링·백업 포함</td>
+</tr>
+<tr>
+<td>2단계</td>
+<td>2,200만 / 45일</td>
+<td>5개 언어·한국어 관리자·권한·통합 대시보드</td>
+</tr>
+</tbody>
+</table>
+</section><section class="block" id="제출-전-체크"><h2>제출 전 체크</h2>
+<ul>
+<li>[ ] 지원 금액 36,000,000 입력 / 예상 수령 28,800,000원(수수료 20%) 확인</li>
+<li>[ ] 사전 검증 질문 원문 확인 후 Q1~Qn 답변 추가 (현재 화면에서 비공개)</li>
+<li>[ ] 레퍼런스 2건 실제 사례인지 확인 후 메시지 발송</li>
+<li>[ ] 본문 5,000자 이내 (코드 카운트)</li>
+<li>[ ] 외부 연락처·회사명 미기재</li>
+<li>[ ] <strong>제출은 벨라 본인</strong></li>
+</ul>
+</section><section class="block" id="축약-우선순위"><h2>축약 우선순위</h2>
+<ol>
+<li><code>&lt;작업 범위&gt;</code> 별도 견적 2단계 항목 → 표로만 유지</li>
+<li><code>&lt;기대 결과&gt;</code> 성공 기준 4번째 항목 → 삭제</li>
+<li>절대 자르지 않을 것: 맛 모델 순서(진단), 단계별 금액표, 시차 협업 문단, 금액·기간</li>
+</ol></section>
+  <div class="foot">이 페이지는 검토용 초안입니다. 제출 전 문의는 위시켓 메시지로 부탁드립니다.<br>
+  심플테크 · simpletech</div>
+</div>
+</body>
+</html>
