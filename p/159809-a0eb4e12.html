@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>등기부등본·토지대장·건축물대장 자동 발급 및 명부 추출 프로그램 개발 — 제안서</title>
+<style>
+:root{
+  --navy:#12324f; --navy-2:#1c4a72; --line:#e3e8ef; --bg:#f5f7fa; --card:#fff;
+  --tx:#1b2027; --muted:#69747f; --accent:#0f7b52; --accent-bg:#e9f6ef;
+  --warn:#8a5a00; --warn-bg:#fdf4e3; --blue:#1d5b94; --blue-bg:#eaf1f9;
+  --radius:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font-size:15px;line-height:1.7;word-break:keep-all;
+  font-family:"Apple SD Gothic Neo","Pretendard","Malgun Gothic",system-ui,-apple-system,sans-serif;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:920px;margin:0 auto;padding:0 16px 80px}
+.topbar{background:var(--navy);color:#cfdce8;font-size:12.5px;letter-spacing:.02em}
+.topbar .inner{max-width:920px;margin:0 auto;padding:9px 16px;display:flex;gap:10px;align-items:center}
+.topbar b{color:#fff;font-weight:700}
+.topbar .sp{flex:1}
+.topbar .dot{width:6px;height:6px;border-radius:50%;background:#5fd39a}
+header.head{background:var(--navy-2);color:#fff;padding:30px 0 26px}
+header.head .inner{max-width:920px;margin:0 auto;padding:0 16px}
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
+.chip{font-size:11.5px;padding:3px 9px;border-radius:999px;background:rgba(255,255,255,.14);
+  color:#eaf2f9;letter-spacing:.01em}
+.chip.hot{background:#ffd9c7;color:#7a2f0d;font-weight:700}
+h1{font-size:23px;line-height:1.38;letter-spacing:-.02em;font-weight:800}
+.head .sub{margin-top:9px;color:#b9cbdb;font-size:13px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:-22px 0 26px;position:relative}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 15px;
+  box-shadow:0 1px 2px rgba(18,50,79,.05)}
+.stat .k{font-size:11.5px;color:var(--muted);letter-spacing:.02em}
+.stat .v{font-size:19px;font-weight:800;letter-spacing:-.02em;margin-top:4px}
+.stat .v small{font-size:12px;font-weight:600;color:var(--muted);margin-left:3px}
+.stat.hl{border-color:#cfe6da;background:var(--accent-bg)}
+.stat.hl .v{color:var(--accent)}
+section.block{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:22px 24px;margin-bottom:16px;box-shadow:0 1px 2px rgba(18,50,79,.04)}
+h2{font-size:17px;letter-spacing:-.015em;margin:0 0 14px;padding-left:11px;border-left:4px solid var(--navy);
+  line-height:1.35}
+h3{font-size:14.5px;margin:18px 0 8px;color:var(--navy)}
+p{margin:0 0 11px}
+ul,ol{margin:0 0 12px 20px}
+li{margin:3px 0}
+li::marker{color:#9aa7b4}
+table{width:100%;border-collapse:collapse;margin:8px 0 14px;font-size:13.5px}
+th,td{border-bottom:1px solid var(--line);padding:9px 10px;text-align:left;vertical-align:top}
+th{background:#f7f9fc;font-size:12.5px;color:#455263;font-weight:700;white-space:nowrap}
+td:last-child,th:last-child{text-align:right}
+td:first-child,th:first-child{text-align:left}
+tr:last-child td{border-bottom:0}
+blockquote{border-left:3px solid var(--blue);background:var(--blue-bg);padding:11px 14px;
+  border-radius:0 8px 8px 0;margin:10px 0 14px;font-size:13.5px;color:#274a6b}
+blockquote p:last-child{margin-bottom:0}
+pre{background:#fbfcfe;border:1px solid var(--line);border-radius:10px;padding:0;margin:10px 0 16px;
+  overflow:hidden}
+pre code{display:block;padding:18px 20px;font-family:inherit;font-size:14.2px;line-height:1.85;
+  white-space:pre-wrap;word-break:keep-all;color:#232a33}
+pre.short code{font-size:15px;font-weight:700;color:var(--accent);padding:13px 18px}
+pre code .sh{display:block;font-weight:800;color:var(--navy);font-size:15px;margin:16px 0 4px;
+  padding-top:14px;border-top:1px dashed #dbe3ec}
+pre code .sh:first-child{margin-top:0;padding-top:0;border-top:0}
+pre code .q{color:var(--navy);font-weight:700;display:block;margin:14px 0 2px}
+strong{font-weight:700}
+hr{border:0;border-top:1px dashed #d6dee8;margin:20px 0}
+.foot{color:var(--muted);font-size:12.5px;text-align:center;margin-top:26px;line-height:1.8}
+.toc{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
+.toc a{font-size:12.5px;text-decoration:none;color:#3d4b59;background:#fff;border:1px solid var(--line);
+  border-radius:999px;padding:5px 12px}
+.toc a:hover{border-color:var(--navy-2);color:var(--navy)}
+@media(max-width:760px){
+  body{font-size:14.5px}
+  .stats{grid-template-columns:1fr 1fr;margin-top:-18px}
+  h1{font-size:20px}
+  section.block{padding:17px 15px;border-radius:10px}
+  table{font-size:12.8px}
+  th,td{padding:7px 8px}
+  th{white-space:normal}
+  pre code{font-size:13.4px;padding:14px}
+}
+@media print{
+  body{background:#fff}
+  .topbar,.toc{display:none}
+  section.block{break-inside:avoid;box-shadow:none;border-color:#ccc}
+  header.head{background:#fff;color:#000;border-bottom:2px solid #000;padding:0 0 10px}
+  header.head .sub,.chip{color:#333}
+}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="inner"><span class="dot"></span><b>심플테크</b><span>외주 제안서</span>
+<span class="sp"></span><span>2026-11-24 14:06</span></div></div>
+<header class="head"><div class="inner">
+  <div class="chips"><span class="chip">모집 중</span><span class="chip hot">마감 2026-12-01</span><span class="chip">예산의 85%</span></div>
+  <h1>등기부등본·토지대장·건축물대장 자동 발급 및 명부 추출 프로그램 개발</h1>
+  <div class="sub">클라이언트 예산 15,000,000원 · 제안 60일 · <a href="https://project.wishket.com/project/159809/" style="color:#bcd3e6">공고 원문</a></div>
+</div></header>
+<div class="wrap">
+
+  <div class="stats">
+    <div class="stat hl"><div class="k">지원가</div><div class="v">12,800,000<small>원</small></div></div>
+    <div class="stat"><div class="k">지원 기간</div><div class="v">60<small>일</small></div></div>
+    <div class="stat"><div class="k">일당</div><div class="v">213,333<small>원</small></div></div>
+    <div class="stat"><div class="k">총 수령 (수수료 20% + 부가세)</div><div class="v">11,264,000<small>원</small></div></div>
+  </div>
+  <section class="block" style="padding:16px 20px">
+    <div class="k" style="font-size:12px;color:#69747f;margin-bottom:8px">정산 (사업자 파트너 기준 · 부가세 별도 계약)</div>
+    <table style="margin:0">
+      <tr><th>항목</th><th>금액</th></tr>
+      <tr><td>지원가 (공급가액)</td><td>12,800,000원</td></tr>
+      <tr><td>위시켓 수수료 20% (500만원 이상 구간)</td><td>-2,560,000원</td></tr>
+      <tr><td>파트너 지급액</td><td>10,240,000원</td></tr>
+      <tr><td>부가세 10%</td><td>+1,024,000원</td></tr>
+      <tr style="background:#f7f9fc"><td><b>총 수령액</b></td><td><b>11,264,000원</b></td></tr>
+    </table>
+  </section>
+  <div class="toc"><a href="#금액-근거">금액 근거</a><a href="#정산-사업자-파트너-">정산 (사업자 파트너)</a><a href="#지원-금액-">지원 금액 *</a><a href="#지원-기간-">지원 기간 *</a><a href="#지원-내용-">지원 내용 *</a><a href="#데모-URL">데모 URL</a></div>
+  <section class="block"><h1>위시켓 지원서 초안 — 등기부등본·토지대장·건축물대장 자동 발급 및 명부 추출</h1>
+<ul>
+<li>공고: https://project.wishket.com/project/159809/</li>
+<li>상태: 모집 중 / 마감 2026.12.01 / 지원자 45 / 예상 금액 15,000,000원 / 예상 기간 60일</li>
+<li>기존 동일 기능 프로그램 운영 중, 소스 미제공·데이터 이관 없음. 월 약 7만 통, 연 50만~80만 통 처리.</li>
+</ul>
+</section><section class="block" id="금액-근거"><h2>금액 근거</h2>
+<table>
+<thead>
+<tr>
+<th>구분</th>
+<th>값</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>지원가</td>
+<td>12,800,000원 (예산의 85%, 부가세 별도)</td>
+</tr>
+<tr>
+<td>공수</td>
+<td>55일 (60일 중 버퍼 5일)</td>
+</tr>
+<tr>
+<td>일당</td>
+<td>232,727원</td>
+</tr>
+</tbody>
+</table>
+</section><section class="block" id="정산-사업자-파트너-"><h2>정산 (사업자 파트너)</h2>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>금액</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>지원가 (공급가액)</td>
+<td>12,800,000원</td>
+</tr>
+<tr>
+<td>위시켓 수수료 20%</td>
+<td>-2,560,000원</td>
+</tr>
+<tr>
+<td>파트너 지급액</td>
+<td>10,240,000원</td>
+</tr>
+<tr>
+<td>부가세 10%</td>
+<td>+1,024,000원</td>
+</tr>
+<tr>
+<td><strong>총 수령액</strong></td>
+<td><strong>11,264,000원</strong></td>
+</tr>
+</tbody>
+</table>
+</section><section class="block" id="지원-금액-"><h2>지원 금액 *</h2>
+<pre class="short"><code>12800000
+</code></pre>
+</section><section class="block" id="지원-기간-"><h2>지원 기간 *</h2>
+<pre class="short"><code>60
+</code></pre>
+</section><section class="block" id="지원-내용-"><h2>지원 내용 *</h2>
+<pre><code><span class="sh">&lt;프로젝트 진단&gt;
+이 업무의 실패는 발급 오류로 드러나지 않습니다. 사이트 개편, 인증서 만료, 세션 끊김으로 일부 지번만 발급이 안 되는데 결과 파일은 정상처럼 보입니다. 월 7만 통이면 하루 3,000건이 넘어 사람이 건별로 확인할 수 없고, 오류는 고객이 명부를 받은 뒤에 발견됩니다. 그래서 이 프로그램의 핵심 요구사항은 발급 속도가 아니라 추적 가능성이라고 봅니다. ①모든 지번에 상태(대기·진행·성공·실패·재시도)가 남고 ②실패 목록만 따로 뽑아 재처리할 수 있고 ③PDF에서 추출한 값이 원문과 대조 검증을 통과해야 명부에 들어가는 구조. 세 가지를 초기 설계에 넣지 않으면 나중에 붙일 때 데이터 구조를 다시 만들어야 합니다. 기존 프로그램 소스가 없다는 점도 전제로, 요구사항을 문서로 확정한 뒤 개발에 들어갑니다.
+
+<span class="sh">&lt;작업 범위&gt;
+진행할 범위 — 요구사항 정의서와 데이터 구조 설계, 지번 목록 입력(엑셀·CSV, 오류 행 사전 검증), 인터넷등기소·정부24·세움터 발급 자동화(인증서 로그인, 발급 요청, 파일 수집), 지번별 열람·발급 문서 합본 PDF 생성과 목차·페이지 번호, PDF 항목 추출(소유자·지번·면적·권리관계 등 항목 표를 확정해 구현), 명부 엑셀 출력과 양식 지정, 건별 상태 이력과 실패 재처리, 발급 수수료 집계, 작업 스케줄과 중복 실행 방지, 관리자 화면(작업 등록·진행률·실패 목록·결과 다운로드), 운영 매뉴얼과 장애 대응 절차.
+제외할 범위 — 기존 프로그램 소스 인수와 데이터 이관(공고 기준 없음), 발급 수수료 결제 대행, 등기·토지 권리관계의 법적 판단이나 검토, 외부 고객용 웹서비스(사내 업무용).
+추가 제안 — 발급량·실패율 모니터링 대시보드, 세 사이트 화면 개편 시 자동화 스크립트 긴급 대응을 월 단위로 받는 유지보수, 지번 대량 등록용 템플릿 검증 도구. 필요하시면 지금 함께 진행하거나 오픈 후에 붙일 수 있습니다.
+
+<span class="sh">&lt;실행 플랜&gt;
+착수일 기준 60일입니다.
+D1–D8 요구사항과 설계. 현재 업무 흐름 청취, 입력·출력 양식 확정, 항목 추출 표 확정, 사이트 3곳의 발급 절차와 제약(일일 한도·인증 방식) 조사. 게이트 1: 요구사항 정의서 승인. 여기서 양식이 확정되지 않으면 이후가 전부 흔들립니다.
+D9–D28 1차 개발. 입력 검증, 발급 자동화 1개 사이트부터, 상태 이력, 파일 수집. 게이트 2: 100건 실발급 테스트.
+D29–D45 2차 개발. 나머지 두 사이트, 합본 PDF, 항목 추출과 대조 검증, 명부 출력.
+D46–D53 관리자 화면과 재처리, 수수료 집계, 스케줄.
+D54–D58 실데이터 검증. 실제 지번 1,000건 규모로 처리 시간·실패율 측정 후 결과 보고.
+D59–D60 인수인계와 매뉴얼.
+총 공수 55일 / 60일 중 버퍼 5일. 검토 피드백은 3영업일 안에 반영하고, 늦어지는 만큼 이후 일정이 같이 밀립니다.
+
+<span class="sh">&lt;리스크와 대응&gt;
+가장 먼저 확인할 것은 세 사이트의 자동화 가능 범위입니다. 캡차·추가 인증·IP 차단 정책이 바뀌면 방식이 달라지므로 D1–D8에 실제 계정으로 소량 발급을 해 보고 제약을 문서화합니다. 이 조사가 늦어지면 전체 일정이 밀리므로 가장 앞에 둡니다. 둘째, 항목 추출입니다. 문서 종류마다 서식이 달라 규칙만으로는 부족하므로, 추출 후 원문과 대조해 불일치 건을 사람이 확인하는 검증 단계를 둡니다. 100% 자동을 약속하지 않고 불일치를 드러내는 쪽을 택합니다. 셋째, 발급 수수료와 일일 한도입니다. 대량 발급 시 한도에 걸리면 분산·대기 정책이 필요하므로 실제 한도를 먼저 확인합니다. 넷째, 사이트 개편입니다. 연 1~2회 구조가 바뀌는 것을 전제로, 사이트별 처리를 한 덩어리로 묶지 않고 교체 가능한 단위로 나눠 두어 개편 시 그 부분만 고치면 되게 만듭니다. 다섯째, 인증서 보관입니다. 공동인증서 비밀번호 관리 방식은 클라이언트 기준을 따릅니다.
+
+<span class="sh">&lt;기대 결과&gt;
+완료 시점에 지번 목록을 넣으면 발급·합본·명부까지 사람 손 없이 진행되고, 실패한 건만 모아 다시 돌릴 수 있습니다. 운영 담당자는 오늘 몇 건이 성공했고 어떤 지번이 실패했는지 화면에서 확인하며, 명부는 정해진 양식으로 바로 나옵니다. 사이트가 개편돼도 고칠 곳이 한정되어 있어 복구 시간이 예측됩니다.
+
+<span class="sh">&lt;확인이 필요한 질문&gt;
+1. 명부 양식(엑셀 열 구성)과 추출해야 할 항목 표를 받을 수 있나요? 이 표가 개발 범위를 결정합니다.
+2. 세 사이트 발급에 쓰는 인증 방식(공동인증서·간편인증)과 계정 수를 알려주세요.
+3. 일일 발급 한도에 걸린 경험이 있나요? 있다면 현재 어떻게 분산하고 계신가요?
+4. 입력은 보통 몇 건 단위로 들어오나요? 최대 1회 등록 건수를 알고 싶습니다.
+5. 기존 프로그램에서 불편했던 점을 두세 가지만 알려주시면 우선순위에 반영하겠습니다.
+</code></pre>
+</section><section class="block" id="데모-URL"><h2>데모 URL</h2>
+<pre class="short"><code>(미팅에서 전달)
+</code></pre></section>
+  <div class="foot">이 페이지는 검토용 초안입니다. 제출 전 문의는 위시켓 메시지로 부탁드립니다.<br>
+  심플테크 · simpletech</div>
+</div>
+</body>
+</html>
