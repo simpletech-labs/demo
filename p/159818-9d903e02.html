@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Proxmox VE 7노드 클러스터 구축·검수 — 제안서</title>
+<style>
+:root{
+  --navy:#12324f; --navy-2:#1c4a72; --line:#e3e8ef; --bg:#f5f7fa; --card:#fff;
+  --tx:#1b2027; --muted:#69747f; --accent:#0f7b52; --accent-bg:#e9f6ef;
+  --warn:#8a5a00; --warn-bg:#fdf4e3; --blue:#1d5b94; --blue-bg:#eaf1f9;
+  --radius:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font-size:15px;line-height:1.7;word-break:keep-all;
+  font-family:"Apple SD Gothic Neo","Pretendard","Malgun Gothic",system-ui,-apple-system,sans-serif;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:920px;margin:0 auto;padding:0 16px 80px}
+.topbar{background:var(--navy);color:#cfdce8;font-size:12.5px;letter-spacing:.02em}
+.topbar .inner{max-width:920px;margin:0 auto;padding:9px 16px;display:flex;gap:10px;align-items:center}
+.topbar b{color:#fff;font-weight:700}
+.topbar .sp{flex:1}
+.topbar .dot{width:6px;height:6px;border-radius:50%;background:#5fd39a}
+header.head{background:var(--navy-2);color:#fff;padding:30px 0 26px}
+header.head .inner{max-width:920px;margin:0 auto;padding:0 16px}
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
+.chip{font-size:11.5px;padding:3px 9px;border-radius:999px;background:rgba(255,255,255,.14);
+  color:#eaf2f9;letter-spacing:.01em}
+.chip.hot{background:#ffd9c7;color:#7a2f0d;font-weight:700}
+h1{font-size:23px;line-height:1.38;letter-spacing:-.02em;font-weight:800}
+.head .sub{margin-top:9px;color:#b9cbdb;font-size:13px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:-22px 0 26px;position:relative}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 15px;
+  box-shadow:0 1px 2px rgba(18,50,79,.05)}
+.stat .k{font-size:11.5px;color:var(--muted);letter-spacing:.02em}
+.stat .v{font-size:19px;font-weight:800;letter-spacing:-.02em;margin-top:4px}
+.stat .v small{font-size:12px;font-weight:600;color:var(--muted);margin-left:3px}
+.stat.hl{border-color:#cfe6da;background:var(--accent-bg)}
+.stat.hl .v{color:var(--accent)}
+section.block{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:22px 24px;margin-bottom:16px;box-shadow:0 1px 2px rgba(18,50,79,.04)}
+h2{font-size:17px;letter-spacing:-.015em;margin:0 0 14px;padding-left:11px;border-left:4px solid var(--navy);
+  line-height:1.35}
+h3{font-size:14.5px;margin:18px 0 8px;color:var(--navy)}
+p{margin:0 0 11px}
+ul,ol{margin:0 0 12px 20px}
+li{margin:3px 0}
+li::marker{color:#9aa7b4}
+table{width:100%;border-collapse:collapse;margin:8px 0 14px;font-size:13.5px}
+th,td{border-bottom:1px solid var(--line);padding:9px 10px;text-align:left;vertical-align:top}
+th{background:#f7f9fc;font-size:12.5px;color:#455263;font-weight:700;white-space:nowrap}
+td:last-child,th:last-child{text-align:right}
+td:first-child,th:first-child{text-align:left}
+tr:last-child td{border-bottom:0}
+blockquote{border-left:3px solid var(--blue);background:var(--blue-bg);padding:11px 14px;
+  border-radius:0 8px 8px 0;margin:10px 0 14px;font-size:13.5px;color:#274a6b}
+blockquote p:last-child{margin-bottom:0}
+pre{background:#fbfcfe;border:1px solid var(--line);border-radius:10px;padding:0;margin:10px 0 16px;
+  overflow:hidden}
+pre code{display:block;padding:18px 20px;font-family:inherit;font-size:14.2px;line-height:1.85;
+  white-space:pre-wrap;word-break:keep-all;color:#232a33}
+pre.short code{font-size:15px;font-weight:700;color:var(--accent);padding:13px 18px}
+pre code .sh{display:block;font-weight:800;color:var(--navy);font-size:15px;margin:16px 0 4px;
+  padding-top:14px;border-top:1px dashed #dbe3ec}
+pre code .sh:first-child{margin-top:0;padding-top:0;border-top:0}
+pre code .q{color:var(--navy);font-weight:700;display:block;margin:14px 0 2px}
+strong{font-weight:700}
+hr{border:0;border-top:1px dashed #d6dee8;margin:20px 0}
+.foot{color:var(--muted);font-size:12.5px;text-align:center;margin-top:26px;line-height:1.8}
+.toc{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
+.toc a{font-size:12.5px;text-decoration:none;color:#3d4b59;background:#fff;border:1px solid var(--line);
+  border-radius:999px;padding:5px 12px}
+.toc a:hover{border-color:var(--navy-2);color:var(--navy)}
+@media(max-width:760px){
+  body{font-size:14.5px}
+  .stats{grid-template-columns:1fr 1fr;margin-top:-18px}
+  h1{font-size:20px}
+  section.block{padding:17px 15px;border-radius:10px}
+  table{font-size:12.8px}
+  th,td{padding:7px 8px}
+  th{white-space:normal}
+  pre code{font-size:13.4px;padding:14px}
+}
+@media print{
+  body{background:#fff}
+  .topbar,.toc{display:none}
+  section.block{break-inside:avoid;box-shadow:none;border-color:#ccc}
+  header.head{background:#fff;color:#000;border-bottom:2px solid #000;padding:0 0 10px}
+  header.head .sub,.chip{color:#333}
+}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="inner"><span class="dot"></span><b>심플테크</b><span>외주 제안서</span>
+<span class="sp"></span><span>2026-11-24 14:06</span></div></div>
+<header class="head"><div class="inner">
+  <div class="chips"><span class="chip">모집 중</span><span class="chip hot">마감 2026-12-01</span><span class="chip">예산의 95%</span></div>
+  <h1>Proxmox VE 7노드 클러스터 구축·검수</h1>
+  <div class="sub">클라이언트 예산 2,000,000원 · 제안 14일 · <a href="https://project.wishket.com/project/159818/" style="color:#bcd3e6">공고 원문</a></div>
+</div></header>
+<div class="wrap">
+
+  <div class="stats">
+    <div class="stat hl"><div class="k">지원가</div><div class="v">1,900,000<small>원</small></div></div>
+    <div class="stat"><div class="k">지원 기간</div><div class="v">14<small>일</small></div></div>
+    <div class="stat"><div class="k">일당</div><div class="v">135,714<small>원</small></div></div>
+    <div class="stat"><div class="k">총 수령 (수수료 25% + 부가세)</div><div class="v">1,567,500<small>원</small></div></div>
+  </div>
+  <section class="block" style="padding:16px 20px">
+    <div class="k" style="font-size:12px;color:#69747f;margin-bottom:8px">정산 (사업자 파트너 기준 · 부가세 별도 계약)</div>
+    <table style="margin:0">
+      <tr><th>항목</th><th>금액</th></tr>
+      <tr><td>지원가 (공급가액)</td><td>1,900,000원</td></tr>
+      <tr><td>위시켓 수수료 25% (500만원 미만 구간)</td><td>-475,000원</td></tr>
+      <tr><td>파트너 지급액</td><td>1,425,000원</td></tr>
+      <tr><td>부가세 10%</td><td>+142,500원</td></tr>
+      <tr style="background:#f7f9fc"><td><b>총 수령액</b></td><td><b>1,567,500원</b></td></tr>
+    </table>
+  </section>
+  <div class="toc"><a href="#금액-근거">금액 근거</a><a href="#정산-사업자-파트너-">정산 (사업자 파트너)</a><a href="#지원-금액-">지원 금액 *</a><a href="#지원-기간-">지원 기간 *</a><a href="#지원-내용-">지원 내용 *</a><a href="#데모-URL">데모 URL</a></div>
+  <section class="block"><h1>위시켓 지원서 초안 — Proxmox VE 7노드 클러스터 구축·검수</h1>
+<ul>
+<li>공고: https://project.wishket.com/project/159818/</li>
+<li>상태: 모집 중 / 마감 2026.12.01 / 지원자 3 / 예상 금액 2,000,000원 / 예상 기간 14일</li>
+<li>클라이언트 소개: kt cloud에서 게임 서버 플랫폼 운영 중, 자체 물리 서버 7대로 이전할 기반 구축</li>
+<li>설계 문서 4종이 준비되어 있고, VM 이전은 이번 범위에서 제외(별도 진행)</li>
+</ul>
+</section><section class="block" id="금액-근거"><h2>금액 근거</h2>
+<table>
+<thead>
+<tr>
+<th>구분</th>
+<th>값</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>지원가</td>
+<td>1,900,000원 (예산의 95%, 부가세 별도)</td>
+</tr>
+<tr>
+<td>공수</td>
+<td>10일 (14일 중 버퍼 4일)</td>
+</tr>
+<tr>
+<td>일당</td>
+<td>190,000원</td>
+</tr>
+</tbody>
+</table>
+<p>설계가 이미 끝난 구축·검수 건이라 공수가 짧습니다. 예산 상한이 200만원인 공고라 일당은 19만원 수준이며, 이 금액이 성립하는 이유는 설계·검토를 다시 하지 않고 문서대로 구축하고 시험 결과를 남기는 데 집중하기 때문입니다. 사전 검토와 원격 작업 비중이 높고 현장 출입이 필요한 날만 이동합니다.</p>
+</section><section class="block" id="정산-사업자-파트너-"><h2>정산 (사업자 파트너)</h2>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>금액</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>지원가 (공급가액)</td>
+<td>1,900,000원</td>
+</tr>
+<tr>
+<td>위시켓 수수료 25%</td>
+<td>-475,000원</td>
+</tr>
+<tr>
+<td>파트너 지급액</td>
+<td>1,425,000원</td>
+</tr>
+<tr>
+<td>부가세 10%</td>
+<td>+142,500원</td>
+</tr>
+<tr>
+<td><strong>총 수령액</strong></td>
+<td><strong>1,567,500원</strong></td>
+</tr>
+</tbody>
+</table>
+</section><section class="block" id="지원-금액-"><h2>지원 금액 *</h2>
+<pre class="short"><code>1900000
+</code></pre>
+</section><section class="block" id="지원-기간-"><h2>지원 기간 *</h2>
+<pre class="short"><code>14
+</code></pre>
+</section><section class="block" id="지원-내용-"><h2>지원 내용 *</h2>
+<pre><code><span class="sh">&lt;프로젝트 진단&gt;
+설계 문서 4종이 준비되어 있다는 점이 이 건의 성격을 정합니다. 제가 할 일은 설계를 다시 쓰는 것이 아니라, 그 설계가 실제 하드웨어 위에서 그대로 성립하는지 확인하며 구축하고 시험 결과를 남기는 것입니다. 위험은 설치가 아니라 세 곳에 있습니다. 첫째, ZFS 복제와 HA를 함께 켜면 복제가 밀리는 동안 VM이 다른 노드로 넘어가지 않습니다. 복제 주기와 ARC 상한을 노드별로 고정하지 않으면 게스트 메모리가 밀리거나 페일오버가 늦습니다. 둘째, 스위치 2대 독립 구성에서 서버 본딩을 active-backup과 LACP 중 무엇으로 잡느냐에 따라 페일오버 시험 결과가 달라집니다. 셋째, 펜싱과 쿼럼이 실제로 동작하는지는 전원을 끊어 봐야 확인됩니다. 문서 확인만으로 끝내면 검수가 아니라 설치 보고가 됩니다.
+
+<span class="sh">&lt;작업 범위&gt;
+진행할 범위 — 설계 문서 4종 사전 검토와 실장비 차이 목록화, 7대에 Proxmox VE 설치와 초기 설정(디스크·ZFS, 본딩·VLAN), 클러스터 조인과 쿼럼·펜싱·HA 그룹 구성, ZFS 복제 정책, PBS 구성과 백업 스케줄, 시험 항목 수행(노드 1대 전원 차단 시 VM 자동 이전, 복제 지연 확인, 본딩 페일오버, 백업 복구 1회), 시험 결과서와 설정값 시트, 운영 시 확인해야 할 점검 항목 목록.
+제외할 범위 — VM 이전(공고 기준 별도 진행), 하드웨어 조립과 발주, 방화벽·UTM 정책 설계, 게스트 OS 내부 설정 변경, Proxmox 상용 구독 계약 대행.
+추가 제안 — VM 이전 단계에서 컷오버 계획과 롤백 절차 수립, 이전 후 2주 원격 점검. 이전을 별도로 진행하실 때 붙이면 전체 위험이 줄어듭니다. 필요하시면 지금 함께 진행하거나 이전 착수 시점에 맞춰 붙일 수 있습니다.
+
+<span class="sh">&lt;실행 플랜&gt;
+착수일 기준 14일, 실작업 10일입니다.
+D1–D2 사전 검토. 설계 문서 4종과 실장비 사양(디스크 수량·NIC 슬롯·펌웨어)을 대조해 차이 목록을 만들고 먼저 공유합니다. 게이트 1: 차이 목록 확인.
+D3–D7 설치와 클러스터 구성. ZFS 미러, 본딩·VLAN, 클러스터 조인, 쿼럼·펜싱, HA 그룹, ZFS 복제, PBS와 백업 1회. 게이트 2: 노드 1대 전원 차단 시험 통과.
+D8–D9 시험과 검수. 본딩 페일오버, 복제 지연 측정, 백업 복구 1회, 결과 기록.
+D10 결과서 제출. 설정값 시트, 점검 항목, 남은 이슈 목록.
+총 공수 10일 / 14일 중 버퍼 4일. 시험에서 문제가 나오면 결과서 제출만 늦추고 일정 전체를 밀지 않습니다. 검토 피드백은 3영업일 안에 반영합니다.
+
+<span class="sh">&lt;리스크와 대응&gt;
+가장 먼저 확인할 것은 서버 7대의 준비 상태입니다. 조립과 OS 설치가 끝나 원격 관리(iLO 등)로 접속되는 상태여야 D3에 착수할 수 있으므로, 착수 전에 원격 접속 가능 여부와 디스크·NIC 실물 구성을 확인합니다. 둘째, 설계 문서와 실장비의 차이입니다. 문서상 디스크 수량이나 10G 포트 수가 실물과 다르면 본딩·복제 구성이 바뀌므로 D2에 차이를 먼저 뽑아 문서로 남기고, 큰 차이는 작업 전에 알립니다. 셋째, 시험을 위해 노드 전원을 실제로 끊는 구간이 있어 사전에 시간대를 합의합니다. 넷째, 쿼럼 손실 시나리오는 7노드라 여유가 있지만 3노드 이하로 줄여 운영하실 계획이면 구성이 달라지므로 미리 알려주세요. 다섯째, Proxmox 구독이 없을 경우 저장소 접근이 제한될 수 있어 저장소 구성 방식을 D1에 정합니다.
+
+<span class="sh">&lt;기대 결과&gt;
+완료 시점에 7노드 클러스터가 HA·복제·백업까지 동작하고, 어떤 노드가 죽으면 무엇이 자동으로 넘어가고 무엇을 사람이 해야 하는지 문서로 확인할 수 있습니다. 시험 결과서에는 실제로 전원을 끊었을 때의 동작과 복구 시간이 수치로 남아, 이후 VM 이전 작업의 기준선이 됩니다. 인수인계 후에는 설정값 시트만 보고 같은 구성을 재현할 수 있습니다.
+
+<span class="sh">&lt;확인이 필요한 질문&gt;
+1. 설계 문서 4종(구성도·네트워크·VM 배치표·절차서)을 착수 전에 받을 수 있나요? 사전 검토에 2일이 필요합니다.
+2. 서버 7대는 현재 조립·OS 설치가 끝나 원격 관리로 접속 가능한 상태인가요?
+3. 노드별 디스크 구성과 10G NIC 포트 수, 스위치 2대의 실제 연결 방식을 알려주세요.
+4. 노드 전원 차단 시험을 할 수 있는 시간대(업무 외 시간)를 정할 수 있나요?
+5. Proxmox 구독을 사용하실 계획인가요? 저장소 구성을 그에 맞춰 정하겠습니다.
+</code></pre>
+</section><section class="block" id="데모-URL"><h2>데모 URL</h2>
+<pre class="short"><code>(미팅에서 전달)
+</code></pre></section>
+  <div class="foot">이 페이지는 검토용 초안입니다. 제출 전 문의는 위시켓 메시지로 부탁드립니다.<br>
+  심플테크 · simpletech</div>
+</div>
+</body>
+</html>
