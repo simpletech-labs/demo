@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>이커머스 채널별 매출·손익 BigQuery 구조 재설계 및 운영 대시보드 구축 — 제안서</title>
+<style>
+:root{
+  --navy:#12324f; --navy-2:#1c4a72; --line:#e3e8ef; --bg:#f5f7fa; --card:#fff;
+  --tx:#1b2027; --muted:#69747f; --accent:#0f7b52; --accent-bg:#e9f6ef;
+  --warn:#8a5a00; --warn-bg:#fdf4e3; --blue:#1d5b94; --blue-bg:#eaf1f9;
+  --radius:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font-size:15px;line-height:1.7;word-break:keep-all;
+  font-family:"Apple SD Gothic Neo","Pretendard","Malgun Gothic",system-ui,-apple-system,sans-serif;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:920px;margin:0 auto;padding:0 16px 80px}
+.topbar{background:var(--navy);color:#cfdce8;font-size:12.5px;letter-spacing:.02em}
+.topbar .inner{max-width:920px;margin:0 auto;padding:9px 16px;display:flex;gap:10px;align-items:center}
+.topbar b{color:#fff;font-weight:700}
+.topbar .sp{flex:1}
+.topbar .dot{width:6px;height:6px;border-radius:50%;background:#5fd39a}
+header.head{background:var(--navy-2);color:#fff;padding:30px 0 26px}
+header.head .inner{max-width:920px;margin:0 auto;padding:0 16px}
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
+.chip{font-size:11.5px;padding:3px 9px;border-radius:999px;background:rgba(255,255,255,.14);
+  color:#eaf2f9;letter-spacing:.01em}
+.chip.hot{background:#ffd9c7;color:#7a2f0d;font-weight:700}
+h1{font-size:23px;line-height:1.38;letter-spacing:-.02em;font-weight:800}
+.head .sub{margin-top:9px;color:#b9cbdb;font-size:13px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:-22px 0 26px;position:relative}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 15px;
+  box-shadow:0 1px 2px rgba(18,50,79,.05)}
+.stat .k{font-size:11.5px;color:var(--muted);letter-spacing:.02em}
+.stat .v{font-size:19px;font-weight:800;letter-spacing:-.02em;margin-top:4px}
+.stat .v small{font-size:12px;font-weight:600;color:var(--muted);margin-left:3px}
+.stat.hl{border-color:#cfe6da;background:var(--accent-bg)}
+.stat.hl .v{color:var(--accent)}
+section.block{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:22px 24px;margin-bottom:16px;box-shadow:0 1px 2px rgba(18,50,79,.04)}
+h2{font-size:17px;letter-spacing:-.015em;margin:0 0 14px;padding-left:11px;border-left:4px solid var(--navy);
+  line-height:1.35}
+h3{font-size:14.5px;margin:18px 0 8px;color:var(--navy)}
+p{margin:0 0 11px}
+ul,ol{margin:0 0 12px 20px}
+li{margin:3px 0}
+li::marker{color:#9aa7b4}
+table{width:100%;border-collapse:collapse;margin:8px 0 14px;font-size:13.5px}
+th,td{border-bottom:1px solid var(--line);padding:9px 10px;text-align:left;vertical-align:top}
+th{background:#f7f9fc;font-size:12.5px;color:#455263;font-weight:700;white-space:nowrap}
+td:last-child,th:last-child{text-align:right}
+td:first-child,th:first-child{text-align:left}
+tr:last-child td{border-bottom:0}
+blockquote{border-left:3px solid var(--blue);background:var(--blue-bg);padding:11px 14px;
+  border-radius:0 8px 8px 0;margin:10px 0 14px;font-size:13.5px;color:#274a6b}
+blockquote p:last-child{margin-bottom:0}
+pre{background:#fbfcfe;border:1px solid var(--line);border-radius:10px;padding:0;margin:10px 0 16px;
+  overflow:hidden}
+pre code{display:block;padding:18px 20px;font-family:inherit;font-size:14.2px;line-height:1.85;
+  white-space:pre-wrap;word-break:keep-all;color:#232a33}
+pre.short code{font-size:15px;font-weight:700;color:var(--accent);padding:13px 18px}
+pre code .sh{display:block;font-weight:800;color:var(--navy);font-size:15px;margin:16px 0 4px;
+  padding-top:14px;border-top:1px dashed #dbe3ec}
+pre code .sh:first-child{margin-top:0;padding-top:0;border-top:0}
+pre code .q{color:var(--navy);font-weight:700;display:block;margin:14px 0 2px}
+strong{font-weight:700}
+hr{border:0;border-top:1px dashed #d6dee8;margin:20px 0}
+.foot{color:var(--muted);font-size:12.5px;text-align:center;margin-top:26px;line-height:1.8}
+.toc{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
+.toc a{font-size:12.5px;text-decoration:none;color:#3d4b59;background:#fff;border:1px solid var(--line);
+  border-radius:999px;padding:5px 12px}
+.toc a:hover{border-color:var(--navy-2);color:var(--navy)}
+@media(max-width:760px){
+  body{font-size:14.5px}
+  .stats{grid-template-columns:1fr 1fr;margin-top:-18px}
+  h1{font-size:20px}
+  section.block{padding:17px 15px;border-radius:10px}
+  table{font-size:12.8px}
+  th,td{padding:7px 8px}
+  th{white-space:normal}
+  pre code{font-size:13.4px;padding:14px}
+}
+@media print{
+  body{background:#fff}
+  .topbar,.toc{display:none}
+  section.block{break-inside:avoid;box-shadow:none;border-color:#ccc}
+  header.head{background:#fff;color:#000;border-bottom:2px solid #000;padding:0 0 10px}
+  header.head .sub,.chip{color:#333}
+}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="inner"><span class="dot"></span><b>심플테크</b><span>외주 제안서</span>
+<span class="sp"></span><span>2026-11-25 14:08</span></div></div>
+<header class="head"><div class="inner">
+  <div class="chips"><span class="chip">프라이빗 매칭</span><span class="chip hot">마감 2026-12-08</span><span class="chip">예산의 85%</span></div>
+  <h1>이커머스 채널별 매출·손익 BigQuery 구조 재설계 및 운영 대시보드 구축</h1>
+  <div class="sub">클라이언트 예산 41,460,000원 · 제안 84일 · <a href="https://project.wishket.com/project/159717/" style="color:#bcd3e6">공고 원문</a></div>
+</div></header>
+<div class="wrap">
+
+  <div class="stats">
+    <div class="stat hl"><div class="k">지원가</div><div class="v">35,200,000<small>원</small></div></div>
+    <div class="stat"><div class="k">지원 기간</div><div class="v">84<small>일</small></div></div>
+    <div class="stat"><div class="k">일당</div><div class="v">419,047<small>원</small></div></div>
+    <div class="stat"><div class="k">총 수령 (수수료 20% + 부가세)</div><div class="v">30,976,000<small>원</small></div></div>
+  </div>
+  <section class="block" style="padding:16px 20px">
+    <div class="k" style="font-size:12px;color:#69747f;margin-bottom:8px">정산 (사업자 파트너 기준 · 부가세 별도 계약)</div>
+    <table style="margin:0">
+      <tr><th>항목</th><th>금액</th></tr>
+      <tr><td>지원가 (공급가액)</td><td>35,200,000원</td></tr>
+      <tr><td>위시켓 수수료 20% (500만원 이상 구간)</td><td>-7,040,000원</td></tr>
+      <tr><td>파트너 지급액</td><td>28,160,000원</td></tr>
+      <tr><td>부가세 10%</td><td>+2,816,000원</td></tr>
+      <tr style="background:#f7f9fc"><td><b>총 수령액</b></td><td><b>30,976,000원</b></td></tr>
+    </table>
+  </section>
+  <div class="toc"><a href="#지원-금액-">지원 금액 *</a><a href="#지원-기간-">지원 기간 *</a><a href="#지원-내용-본문-">지원 내용 (본문)</a><a href="#지원-금액과-조건">지원 금액과 조건</a><a href="#축약-우선순위-폼-5-000자-초과-시-">축약 우선순위 (폼 5,000자 초과 시)</a></div>
+  <section class="block"><h1>위시켓 지원서 초안 — 이커머스 채널별 매출·손익 BigQuery 구조 재설계 및 운영 대시보드 구축 (상세 비공개)</h1>
+<p>프로젝트: 이커머스 채널별 매출·손익 BigQuery 구조 재설계 및 운영 대시보드 구축 (위시켓 159717 · 프라이빗 매칭)<br />
+클라이언트 예상: 41,460,000원 / 84일 → <strong>제안: 35,200,000원 / 84일</strong></p>
+<hr />
+</section><section class="block" id="지원-금액-"><h2>지원 금액 *</h2>
+<pre class="short"><code>35200000
+</code></pre>
+</section><section class="block" id="지원-기간-"><h2>지원 기간 *</h2>
+<pre class="short"><code>84
+</code></pre>
+</section><section class="block" id="지원-내용-본문-"><h2>지원 내용 (본문)</h2>
+<pre><code><span class="sh">&lt;프로젝트 진단&gt;
+채널이 여러 개로 늘어난 이커머스에서 매출·손익 집계가 어긋나는 원인은 거의 정해져 있습니다. 채널마다 기준일이 다르고(주문일·결제일·배송완료일), 취소·반품이 매출에 섞여 들어가고, 수수료·배송비·광고비가 채널별로 다른 이름으로 들어옵니다. 이 상태에서 대시보드를 먼저 만들면 화면만 예쁘고 숫자는 못 믿는 결과가 됩니다. 그래서 이 과업의 순서는 ① 지표 정의를 문서로 고정 ② BigQuery 적재 구조를 원천·정제·마트 3계층으로 재설계 ③ 그 위에 대시보드를 올리는 것입니다.
+84일은 세 단계를 순서대로 하기에 충분하지만, 지표 정의를 2주 안에 확정하지 못하면 ③이 계속 밀립니다. 정의 확정을 첫 승인 게이트로 두었습니다.
+
+<span class="sh">&lt;작업 범위&gt;
+진행할 범위
+1. 지표 정의서 — 매출(총액·순액), 취소·반품, 채널 수수료, 배송비, 광고비, 공헌이익의 계산식을 채널별 원천 컬럼과 함께 표로 확정합니다. 이 문서가 이후 모든 숫자의 기준입니다.
+2. 적재 구조 재설계 — raw(원천 그대로) / staging(정제·표준화) / mart(채널·상품·일자 단위 손익) 3계층, 파티션·클러스터링, 증분 적재.
+3. 수집 파이프라인 — 채널 API와 정산 파일을 받아 적재하고, 실패·중복·지연을 기록합니다.
+4. 정합성 검증 — 주문 원장과 채널 정산 금액의 차이를 자동으로 대사해 차액 목록을 냅니다. 이 검증이 &quot;숫자를 믿을 수 있는가&quot;의 답입니다.
+5. 데이터 품질 테스트 — 중복 키, 음수 수량, 미분류 채널, 기간 누락을 매일 점검하고 실패 시 알림.
+6. 대시보드 — 채널별 매출·손익 추이, 상품별 공헌이익, 반품률, 광고비 대비 매출, 기간 비교.
+7. 이관 — 쿼리·뷰·스케줄 문서화, 담당자 교육 2회, 운영 매뉴얼.
+
+제외할 범위
+채널 계정 신규 개설과 API 권한 신청 대행, 회계 시스템 결산 처리, 광고 운영 대행, 원천 ERP 개조.
+
+추가로 제안하는 범위
+월 마감 자동화(마감 체크리스트와 잠금 스냅샷)와 손익 예측 화면. 필요하면 지금 함께 진행하거나 V2에서 붙일 수 있습니다.
+
+<span class="sh">&lt;실행 플랜&gt;
+D1–D14 (2026.12.14–12.27) 현행 쿼리·테이블 진단, 지표 정의서 승인
+D15–D35 (12.28–2027.01.17) 3계층 구조 설계, 수집 파이프라인, 원천 적재 검증
+D36–D56 (01.18–02.07) mart 구축, 채널 정산 대사, 품질 테스트
+D57–D74 (02.08–02.25) 대시보드 화면 승인본 개발, 지표 검산
+D75–D84 (02.26–03.07) 병행 운영(기존 리포트와 숫자 대조), 교육, 인수인계
+총 공수 54일 / 지원 기간 84일(영업일 60일) 중 버퍼 6일. 병행 운영 10일 동안 기존 리포트와 신규 마트의 숫자를 매일 대조해 차이를 0으로 만든 뒤 넘깁니다.
+
+<span class="sh">&lt;리스크와 대응&gt;
+가장 먼저 확인할 것은 채널 API 권한과 과거 데이터 소급 범위입니다. 권한이 늦게 나오면 수집 파이프라인 검증이 밀리고, 소급 범위가 12개월을 넘으면 초기 적재 공수가 늘어납니다. 착수 첫 주에 채널 목록·권한 상태·소급 기간을 표로 확정합니다.
+두 번째는 기존 테이블입니다. 이미 쓰이는 뷰와 스케줄이 있으면 이름을 바꾸는 순간 다른 리포트가 깨집니다. 기존 객체는 유지하고 새 데이터셋에 병렬로 쌓은 뒤, 숫자가 일치하는 것을 확인하고 전환합니다.
+세 번째는 취소·반품의 시점 처리입니다. 주문 시점 기준과 환불 시점 기준이 섞이면 월별 손익이 흔들립니다. 두 기준을 모두 계산해 두고 화면에서 선택하게 합니다.
+네 번째는 비용입니다. BigQuery는 스캔량 과금이라 구조를 잘못 잡으면 월 비용이 몇 배가 됩니다. 파티션·클러스터링과 머티리얼라이즈드 뷰로 스캔량을 줄이고, 월 예상 비용을 산정해 알려드립니다.
+
+<span class="sh">&lt;기대 결과&gt;
+84일 뒤에는 &quot;이번 달 어느 채널이 남았는가&quot;를 채널·상품 단위로 확인할 수 있고, 그 숫자의 계산식과 원천 컬럼이 문서로 남습니다. 채널 정산과 주문 원장의 차액은 매일 자동으로 목록화되어, 담당자가 차액 원인을 찾는 데 쓰던 시간이 사라집니다. 새 채널이 추가되면 같은 계층에 소스만 붙이면 됩니다.
+
+<span class="sh">&lt;확인이 필요한 질문&gt;
+1. 현재 판매 채널 목록과 각 채널의 데이터 확보 방식(API/정산 엑셀/수동)을 알려주실 수 있습니까?
+2. 기존 BigQuery 데이터셋과 테이블 규모, 이미 쓰고 있는 리포트·뷰가 있습니까?
+3. 손익에 포함할 비용 항목의 범위(광고비·물류비·인건비 배분 포함 여부)는 어떻게 정하십니까?
+4. 과거 데이터는 어느 시점까지 소급해 쌓아야 합니까?
+5. 대시보드를 볼 사용자 수와 권한 구분(대표/재무/운영)이 필요합니까?
+</code></pre>
+</section><section class="block" id="지원-금액과-조건"><h2>지원 금액과 조건</h2>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>값</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>지원가</td>
+<td>35,200,000원 (부가세 별도)</td>
+</tr>
+<tr>
+<td>위시켓 수수료 20% (500만원 이상 구간)</td>
+<td>-7,040,000원</td>
+</tr>
+<tr>
+<td>파트너 지급액</td>
+<td>28,160,000원</td>
+</tr>
+<tr>
+<td>부가세 10%</td>
+<td>+2,816,000원</td>
+</tr>
+<tr>
+<td>총 수령액</td>
+<td>30,976,000원</td>
+</tr>
+<tr>
+<td>일당 (지원 기간 84일 기준)</td>
+<td>419,048원</td>
+</tr>
+</tbody>
+</table>
+<p>과업별 배분은 지표 정의·진단 8일, 구조 설계 8일, 수집 파이프라인 12일, mart·대사 14일, 대시보드 8일, 병행 운영·문서 4일입니다. 채널 수와 소급 기간이 늘면 수집·대사 일수를 조정합니다.</p>
+</section><section class="block" id="축약-우선순위-폼-5-000자-초과-시-"><h2>축약 우선순위 (폼 5,000자 초과 시)</h2>
+<ol>
+<li>자를 수 있음: 실행 플랜 날짜 괄호, 확인 질문 4~5번, 작업 범위 하위 번호.</li>
+<li>자르지 않음: 진단의 세 단계 순서, 정합성 검증 항목, 금액·기간, 제외 범위, BigQuery 비용 리스크.</li>
+</ol></section>
+  <div class="foot">이 페이지는 검토용 초안입니다. 제출 전 문의는 위시켓 메시지로 부탁드립니다.<br>
+  심플테크 · simpletech</div>
+</div>
+</body>
+</html>
