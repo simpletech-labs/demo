@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>크리에이터 정산 관리자 웹 시스템 개발 — 제안서</title>
+<style>
+:root{
+  --navy:#12324f; --navy-2:#1c4a72; --line:#e3e8ef; --bg:#f5f7fa; --card:#fff;
+  --tx:#1b2027; --muted:#69747f; --accent:#0f7b52; --accent-bg:#e9f6ef;
+  --warn:#8a5a00; --warn-bg:#fdf4e3; --blue:#1d5b94; --blue-bg:#eaf1f9;
+  --radius:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font-size:15px;line-height:1.7;word-break:keep-all;
+  font-family:"Apple SD Gothic Neo","Pretendard","Malgun Gothic",system-ui,-apple-system,sans-serif;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:920px;margin:0 auto;padding:0 16px 80px}
+.topbar{background:var(--navy);color:#cfdce8;font-size:12.5px;letter-spacing:.02em}
+.topbar .inner{max-width:920px;margin:0 auto;padding:9px 16px;display:flex;gap:10px;align-items:center}
+.topbar b{color:#fff;font-weight:700}
+.topbar .sp{flex:1}
+.topbar .dot{width:6px;height:6px;border-radius:50%;background:#5fd39a}
+header.head{background:var(--navy-2);color:#fff;padding:30px 0 26px}
+header.head .inner{max-width:920px;margin:0 auto;padding:0 16px}
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
+.chip{font-size:11.5px;padding:3px 9px;border-radius:999px;background:rgba(255,255,255,.14);
+  color:#eaf2f9;letter-spacing:.01em}
+.chip.hot{background:#ffd9c7;color:#7a2f0d;font-weight:700}
+h1{font-size:23px;line-height:1.38;letter-spacing:-.02em;font-weight:800}
+.head .sub{margin-top:9px;color:#b9cbdb;font-size:13px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:-22px 0 26px;position:relative}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 15px;
+  box-shadow:0 1px 2px rgba(18,50,79,.05)}
+.stat .k{font-size:11.5px;color:var(--muted);letter-spacing:.02em}
+.stat .v{font-size:19px;font-weight:800;letter-spacing:-.02em;margin-top:4px}
+.stat .v small{font-size:12px;font-weight:600;color:var(--muted);margin-left:3px}
+.stat.hl{border-color:#cfe6da;background:var(--accent-bg)}
+.stat.hl .v{color:var(--accent)}
+section.block{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:22px 24px;margin-bottom:16px;box-shadow:0 1px 2px rgba(18,50,79,.04)}
+h2{font-size:17px;letter-spacing:-.015em;margin:0 0 14px;padding-left:11px;border-left:4px solid var(--navy);
+  line-height:1.35}
+h3{font-size:14.5px;margin:18px 0 8px;color:var(--navy)}
+p{margin:0 0 11px}
+ul,ol{margin:0 0 12px 20px}
+li{margin:3px 0}
+li::marker{color:#9aa7b4}
+table{width:100%;border-collapse:collapse;margin:8px 0 14px;font-size:13.5px}
+th,td{border-bottom:1px solid var(--line);padding:9px 10px;text-align:left;vertical-align:top}
+th{background:#f7f9fc;font-size:12.5px;color:#455263;font-weight:700;white-space:nowrap}
+td:last-child,th:last-child{text-align:right}
+td:first-child,th:first-child{text-align:left}
+tr:last-child td{border-bottom:0}
+blockquote{border-left:3px solid var(--blue);background:var(--blue-bg);padding:11px 14px;
+  border-radius:0 8px 8px 0;margin:10px 0 14px;font-size:13.5px;color:#274a6b}
+blockquote p:last-child{margin-bottom:0}
+pre{background:#fbfcfe;border:1px solid var(--line);border-radius:10px;padding:0;margin:10px 0 16px;
+  overflow:hidden}
+pre code{display:block;padding:18px 20px;font-family:inherit;font-size:14.2px;line-height:1.85;
+  white-space:pre-wrap;word-break:keep-all;color:#232a33}
+pre.short code{font-size:15px;font-weight:700;color:var(--accent);padding:13px 18px}
+pre code .sh{display:block;font-weight:800;color:var(--navy);font-size:15px;margin:16px 0 4px;
+  padding-top:14px;border-top:1px dashed #dbe3ec}
+pre code .sh:first-child{margin-top:0;padding-top:0;border-top:0}
+pre code .q{color:var(--navy);font-weight:700;display:block;margin:14px 0 2px}
+strong{font-weight:700}
+hr{border:0;border-top:1px dashed #d6dee8;margin:20px 0}
+.foot{color:var(--muted);font-size:12.5px;text-align:center;margin-top:26px;line-height:1.8}
+.toc{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
+.toc a{font-size:12.5px;text-decoration:none;color:#3d4b59;background:#fff;border:1px solid var(--line);
+  border-radius:999px;padding:5px 12px}
+.toc a:hover{border-color:var(--navy-2);color:var(--navy)}
+@media(max-width:760px){
+  body{font-size:14.5px}
+  .stats{grid-template-columns:1fr 1fr;margin-top:-18px}
+  h1{font-size:20px}
+  section.block{padding:17px 15px;border-radius:10px}
+  table{font-size:12.8px}
+  th,td{padding:7px 8px}
+  th{white-space:normal}
+  pre code{font-size:13.4px;padding:14px}
+}
+@media print{
+  body{background:#fff}
+  .topbar,.toc{display:none}
+  section.block{break-inside:avoid;box-shadow:none;border-color:#ccc}
+  header.head{background:#fff;color:#000;border-bottom:2px solid #000;padding:0 0 10px}
+  header.head .sub,.chip{color:#333}
+}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="inner"><span class="dot"></span><b>심플테크</b><span>외주 제안서</span>
+<span class="sp"></span><span>2026-11-25 15:06</span></div></div>
+<header class="head"><div class="inner">
+  <div class="chips"><span class="chip">모집 중</span><span class="chip hot">마감 2026-12-02</span><span class="chip">예산의 95%</span></div>
+  <h1>크리에이터 정산 관리자 웹 시스템 개발</h1>
+  <div class="sub">클라이언트 예산 8,000,000원 · 제안 45일 · <a href="https://project.wishket.com/project/159845/" style="color:#bcd3e6">공고 원문</a></div>
+</div></header>
+<div class="wrap">
+
+  <div class="stats">
+    <div class="stat hl"><div class="k">지원가</div><div class="v">7,600,000<small>원</small></div></div>
+    <div class="stat"><div class="k">지원 기간</div><div class="v">45<small>일</small></div></div>
+    <div class="stat"><div class="k">일당</div><div class="v">168,888<small>원</small></div></div>
+    <div class="stat"><div class="k">총 수령 (수수료 20% + 부가세)</div><div class="v">6,688,000<small>원</small></div></div>
+  </div>
+  <section class="block" style="padding:16px 20px">
+    <div class="k" style="font-size:12px;color:#69747f;margin-bottom:8px">정산 (사업자 파트너 기준 · 부가세 별도 계약)</div>
+    <table style="margin:0">
+      <tr><th>항목</th><th>금액</th></tr>
+      <tr><td>지원가 (공급가액)</td><td>7,600,000원</td></tr>
+      <tr><td>위시켓 수수료 20% (500만원 이상 구간)</td><td>-1,520,000원</td></tr>
+      <tr><td>파트너 지급액</td><td>6,080,000원</td></tr>
+      <tr><td>부가세 10%</td><td>+608,000원</td></tr>
+      <tr style="background:#f7f9fc"><td><b>총 수령액</b></td><td><b>6,688,000원</b></td></tr>
+    </table>
+  </section>
+  <div class="toc"><a href="#지원-금액-">지원 금액 *</a><a href="#지원-기간-">지원 기간 *</a><a href="#지원-내용-본문-">지원 내용 (본문)</a><a href="#지원-금액과-조건">지원 금액과 조건</a><a href="#축약-우선순위-폼-5-000자-초과-시-">축약 우선순위 (폼 5,000자 초과 시)</a></div>
+  <section class="block"><h1>위시켓 지원서 초안 — 크리에이터 정산 관리자 웹 시스템 개발</h1>
+<p>프로젝트: 크리에이터 정산 관리자 웹 시스템 개발 (위시켓 159845)<br />
+클라이언트 예상: 8,000,000원 / 45일 → <strong>제안: 7,600,000원 / 45일</strong></p>
+<hr />
+</section><section class="block" id="지원-금액-"><h2>지원 금액 *</h2>
+<pre class="short"><code>7600000
+</code></pre>
+</section><section class="block" id="지원-기간-"><h2>지원 기간 *</h2>
+<pre class="short"><code>45
+</code></pre>
+</section><section class="block" id="지원-내용-본문-"><h2>지원 내용 (본문)</h2>
+<pre><code><span class="sh">&lt;프로젝트 진단&gt;
+공고에서 확인되는 범위는 좁고 분명합니다. 엑셀로 수동 처리하던 크리에이터 정산을 관리자용 웹과 서버·DB로 옮기는 일, 크리에이터가 로그인하는 화면은 이번 범위에서 제외, 지급액은 계약 조건에 따라 계산. 외부 서비스가 아니라 사내 업무 시스템이라는 점이 이 프로젝트의 성격을 정합니다.
+이런 시스템에서 실제 위험은 화면이 아니라 계산입니다. 계약이 크리에이터마다 다르고 수수료율·등급·최소 지급액·차등 조건이 섞이면, 같은 입력에도 담당자마다 다른 금액이 나옵니다. 지금 엑셀이 감당하고 있는 이유는 계산이 규칙표가 아니라 담당자의 경험으로 돌아가기 때문입니다. 그래서 이 견적은 화면 수를 줄이고 정산 규칙을 문서로 확정하는 데 공수를 먼저 배분했습니다. 규칙표가 없으면 어떤 시스템을 만들어도 매달 같은 문의가 돌아옵니다.
+45일은 32영업일입니다. 규칙 확정 5일, 개발 3주, 실제 3개월치 데이터로 엑셀 결과와 대조하는 기간을 반드시 남겨야 한다고 봤습니다. 대조 없이 오픈하면 첫 마감일에 차액이 나옵니다.
+
+<span class="sh">&lt;작업 범위&gt;
+진행할 범위
+1. 정산 규칙 정의서 — 계약 유형별 계산식, 반올림·절사, 부가세 포함 여부, 마이너스 조정 처리까지 표로 확정하고 승인받습니다.
+2. 데이터 입력 — 월별 실적 엑셀 업로드와 수기 보정, 업로드 시 누락·중복·크리에이터 코드 불일치 검증 리포트.
+3. 계산 엔진 — 규칙표 기반 지급액 산출, 실행 시점의 규칙·입력을 스냅샷으로 보관해 나중에 근거를 확인할 수 있게 합니다.
+4. 관리자 화면 — 대상월 목록, 계산 실행, 예외 건 검토, 확정, 확정 후 수정 시 재계산과 차액 표시.
+5. 내보내기 — 지금 쓰는 정산 양식 그대로 엑셀·CSV 출력.
+6. 계정·권한 — 관리자·검토자 역할 분리, 확정 권한 분리, 모든 변경의 처리자·시각 기록.
+7. 서버·DB 구축, 일 단위 백업과 복구 절차 문서화.
+
+제외할 범위
+크리에이터가 로그인해 정산 내역을 보는 화면, 세금계산서 발행과 은행 이체 연동, 원천세 신고, 모바일 앱.
+
+추가로 제안하는 범위
+계약 조건 변경 이력 관리(적용 기간별 요율)와 확정 후 차액 정산 대장. 계약이 자주 바뀌는 편이면 지금 함께 넣는 편이 싸고, 필요 없으면 V2에서 붙일 수 있습니다.
+
+<span class="sh">&lt;실행 플랜&gt;
+D1–D5   (2026.12.08–12.12) 정산 규칙 정의서·화면 정의서 승인 — 규칙표, 와이어프레임
+D6–D15  (12.13–12.22) 데이터 모델, 업로드·검증, 계산 엔진 — 계산 단위 테스트 결과
+D16–D30 (12.23–2027.01.06) 관리자 화면, 검토·확정 흐름, 내보내기 — 검수 가능한 빌드
+D31–D38 (01.07–01.14) 실제 3개월치 병행 검증, 엑셀 결과와 건별 대조 — 대조 결과표
+D39–D45 (01.15–01.21) 수정·안정화, 운영 매뉴얼·인수인계 — 매뉴얼, 배포본
+총 공수 29일 / 지원 기간 45일(영업일 32일) 중 버퍼 3일. 검토 요청은 3영업일 회신을 전제로 하고, 지연되면 일정 전체가 같은 일수만큼 이동합니다.
+
+<span class="sh">&lt;리스크와 대응&gt;
+가장 먼저 확인할 것은 정산 규칙이 문서로 존재하는지입니다. 없으면 첫 5일에 함께 만들어 승인받고, 그 전에는 계산 엔진을 만들지 않습니다. 규칙을 코드보다 먼저 고정하는 것이 이 프로젝트의 유일한 방어선입니다.
+두 번째는 단수 처리입니다. 원 단위 절사인지 반올림인지, 부가세 포함 금액인지에 따라 1원씩 어긋나고 그 1원이 매달 문의가 됩니다. 정의서에 명시하고 대조 단계에서 건별로 확인합니다.
+세 번째는 기존 엑셀 양식입니다. 결과 파일이 지금 양식과 다르면 담당자 업무가 오히려 늘어납니다. 실제 사용 중인 양식을 받아 역설계하고, 대조표에 항목을 1대1로 맞춥니다.
+네 번째는 데이터 정합성입니다. 월별 입력 누락, 중복 등록, 크리에이터 코드 불일치는 업로드 단계에서 막고, 확정 전 예외 목록으로 보여드립니다.
+
+<span class="sh">&lt;기대 결과&gt;
+45일 뒤 월 마감은 입력, 계산, 검토, 확정 네 단계로 바뀌고, 모든 지급액에 계산 근거가 남습니다. 담당자가 바뀌어도 같은 금액이 나오고, 확정 후 수정은 차액으로 기록됩니다. 정산 규칙표가 문서로 남아 다음 계약 변경 때도 그 표만 고치면 됩니다.
+
+<span class="sh">&lt;확인이 필요한 질문&gt;
+1. 계약 유형과 계산식(수수료율, 등급, 최소 지급액, 차등 조건)을 문서로 받을 수 있습니까?
+2. 지금 쓰는 정산 엑셀 양식과 월 평균 처리 건수, 크리에이터 수를 알려주실 수 있습니까?
+3. 반올림·절사 기준과 부가세 포함 여부는 어떻게 정하고 계십니까?
+4. 확정 후 수정이 얼마나 자주 발생합니까? 차액 관리가 필요하면 범위에 넣겠습니다.
+5. 결과를 회계 시스템이나 이체 파일로 넘기는 단계가 있습니까?
+</code></pre>
+</section><section class="block" id="지원-금액과-조건"><h2>지원 금액과 조건</h2>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>값</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>지원가</td>
+<td>7,600,000원 (부가세 별도)</td>
+</tr>
+<tr>
+<td>위시켓 수수료 20% (500만원 이상 구간)</td>
+<td>-1,520,000원</td>
+</tr>
+<tr>
+<td>파트너 지급액</td>
+<td>6,080,000원</td>
+</tr>
+<tr>
+<td>부가세 10%</td>
+<td>+608,000원</td>
+</tr>
+<tr>
+<td>총 수령액</td>
+<td>6,688,000원</td>
+</tr>
+<tr>
+<td>일당 (지원 기간 45일 기준)</td>
+<td>168,889원</td>
+</tr>
+</tbody>
+</table>
+<p>과업별 배분(규칙 정의·설계 7일, 데이터·계산 엔진 8일, 관리자 화면 8일, 검증·문서 6일)이며 일수 × 단가 산식이 아닙니다. 예산 상한이 800만원이라 일당은 45일 기준 16.9만원으로 낮게 잡혔습니다. 화면 수를 줄이고 규칙 확정과 병행 검증에 공수를 옮긴 결과이며, 계약 조건이 단순하면 같은 금액에서 화면을 더 넣을 수 있습니다.</p>
+</section><section class="block" id="축약-우선순위-폼-5-000자-초과-시-"><h2>축약 우선순위 (폼 5,000자 초과 시)</h2>
+<ol>
+<li>자를 수 있음: 실행 플랜 날짜 괄호, 확인 질문 4~5번, 작업 범위 하위 항목의 부연.</li>
+<li>자르지 않음: 진단의 계산 위험 문단, 규칙 정의서 우선 원칙, 제외 범위, 금액·기간.</li>
+</ol></section>
+  <div class="foot">이 페이지는 검토용 초안입니다. 제출 전 문의는 위시켓 메시지로 부탁드립니다.<br>
+  심플테크 · simpletech</div>
+</div>
+</body>
+</html>
