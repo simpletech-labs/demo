@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>제로페이 금액변동형 QR 허브 게이트웨이 구축 — 제안서</title>
+<style>
+:root{
+  --navy:#12324f; --navy-2:#1c4a72; --line:#e3e8ef; --bg:#f5f7fa; --card:#fff;
+  --tx:#1b2027; --muted:#69747f; --accent:#0f7b52; --accent-bg:#e9f6ef;
+  --warn:#8a5a00; --warn-bg:#fdf4e3; --blue:#1d5b94; --blue-bg:#eaf1f9;
+  --radius:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font-size:15px;line-height:1.7;word-break:keep-all;
+  font-family:"Apple SD Gothic Neo","Pretendard","Malgun Gothic",system-ui,-apple-system,sans-serif;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:920px;margin:0 auto;padding:0 16px 80px}
+.topbar{background:var(--navy);color:#cfdce8;font-size:12.5px;letter-spacing:.02em}
+.topbar .inner{max-width:920px;margin:0 auto;padding:9px 16px;display:flex;gap:10px;align-items:center}
+.topbar b{color:#fff;font-weight:700}
+.topbar .sp{flex:1}
+.topbar .dot{width:6px;height:6px;border-radius:50%;background:#5fd39a}
+header.head{background:var(--navy-2);color:#fff;padding:30px 0 26px}
+header.head .inner{max-width:920px;margin:0 auto;padding:0 16px}
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
+.chip{font-size:11.5px;padding:3px 9px;border-radius:999px;background:rgba(255,255,255,.14);
+  color:#eaf2f9;letter-spacing:.01em}
+.chip.hot{background:#ffd9c7;color:#7a2f0d;font-weight:700}
+h1{font-size:23px;line-height:1.38;letter-spacing:-.02em;font-weight:800}
+.head .sub{margin-top:9px;color:#b9cbdb;font-size:13px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:-22px 0 26px;position:relative}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 15px;
+  box-shadow:0 1px 2px rgba(18,50,79,.05)}
+.stat .k{font-size:11.5px;color:var(--muted);letter-spacing:.02em}
+.stat .v{font-size:19px;font-weight:800;letter-spacing:-.02em;margin-top:4px}
+.stat .v small{font-size:12px;font-weight:600;color:var(--muted);margin-left:3px}
+.stat.hl{border-color:#cfe6da;background:var(--accent-bg)}
+.stat.hl .v{color:var(--accent)}
+section.block{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:22px 24px;margin-bottom:16px;box-shadow:0 1px 2px rgba(18,50,79,.04)}
+h2{font-size:17px;letter-spacing:-.015em;margin:0 0 14px;padding-left:11px;border-left:4px solid var(--navy);
+  line-height:1.35}
+h3{font-size:14.5px;margin:18px 0 8px;color:var(--navy)}
+p{margin:0 0 11px}
+ul,ol{margin:0 0 12px 20px}
+li{margin:3px 0}
+li::marker{color:#9aa7b4}
+table{width:100%;border-collapse:collapse;margin:8px 0 14px;font-size:13.5px}
+th,td{border-bottom:1px solid var(--line);padding:9px 10px;text-align:left;vertical-align:top}
+th{background:#f7f9fc;font-size:12.5px;color:#455263;font-weight:700;white-space:nowrap}
+td:last-child,th:last-child{text-align:right}
+td:first-child,th:first-child{text-align:left}
+tr:last-child td{border-bottom:0}
+blockquote{border-left:3px solid var(--blue);background:var(--blue-bg);padding:11px 14px;
+  border-radius:0 8px 8px 0;margin:10px 0 14px;font-size:13.5px;color:#274a6b}
+blockquote p:last-child{margin-bottom:0}
+pre{background:#fbfcfe;border:1px solid var(--line);border-radius:10px;padding:0;margin:10px 0 16px;
+  overflow:hidden}
+pre code{display:block;padding:18px 20px;font-family:inherit;font-size:14.2px;line-height:1.85;
+  white-space:pre-wrap;word-break:keep-all;color:#232a33}
+pre.short code{font-size:15px;font-weight:700;color:var(--accent);padding:13px 18px}
+pre code .sh{display:block;font-weight:800;color:var(--navy);font-size:15px;margin:16px 0 4px;
+  padding-top:14px;border-top:1px dashed #dbe3ec}
+pre code .sh:first-child{margin-top:0;padding-top:0;border-top:0}
+pre code .q{color:var(--navy);font-weight:700;display:block;margin:14px 0 2px}
+strong{font-weight:700}
+hr{border:0;border-top:1px dashed #d6dee8;margin:20px 0}
+.foot{color:var(--muted);font-size:12.5px;text-align:center;margin-top:26px;line-height:1.8}
+.toc{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
+.toc a{font-size:12.5px;text-decoration:none;color:#3d4b59;background:#fff;border:1px solid var(--line);
+  border-radius:999px;padding:5px 12px}
+.toc a:hover{border-color:var(--navy-2);color:var(--navy)}
+@media(max-width:760px){
+  body{font-size:14.5px}
+  .stats{grid-template-columns:1fr 1fr;margin-top:-18px}
+  h1{font-size:20px}
+  section.block{padding:17px 15px;border-radius:10px}
+  table{font-size:12.8px}
+  th,td{padding:7px 8px}
+  th{white-space:normal}
+  pre code{font-size:13.4px;padding:14px}
+}
+@media print{
+  body{background:#fff}
+  .topbar,.toc{display:none}
+  section.block{break-inside:avoid;box-shadow:none;border-color:#ccc}
+  header.head{background:#fff;color:#000;border-bottom:2px solid #000;padding:0 0 10px}
+  header.head .sub,.chip{color:#333}
+}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="inner"><span class="dot"></span><b>심플테크</b><span>외주 제안서</span>
+<span class="sp"></span><span>2026-11-26 14:07</span></div></div>
+<header class="head"><div class="inner">
+  <div class="chips"><span class="chip">프라이빗 매칭</span><span class="chip hot">마감 2026-12-02</span><span class="chip">평균 입찰가의 93%</span></div>
+  <h1>제로페이 금액변동형 QR 허브 게이트웨이 구축</h1>
+  <div class="sub">제안 120일 · <a href="https://project.wishket.com/project/159762/" style="color:#bcd3e6">공고 원문</a></div>
+</div></header>
+<div class="wrap">
+
+  <div class="stats">
+    <div class="stat hl"><div class="k">지원가</div><div class="v">40,900,000<small>원</small></div></div>
+    <div class="stat"><div class="k">지원 기간</div><div class="v">120<small>일</small></div></div>
+    <div class="stat"><div class="k">일당</div><div class="v">340,833<small>원</small></div></div>
+    <div class="stat"><div class="k">총 수령 (수수료 20% + 부가세)</div><div class="v">35,992,000<small>원</small></div></div>
+  </div>
+  <section class="block" style="padding:16px 20px">
+    <div class="k" style="font-size:12px;color:#69747f;margin-bottom:8px">정산 (사업자 파트너 기준 · 부가세 별도 계약)</div>
+    <table style="margin:0">
+      <tr><th>항목</th><th>금액</th></tr>
+      <tr><td>지원가 (공급가액)</td><td>40,900,000원</td></tr>
+      <tr><td>위시켓 수수료 20% (500만원 이상 구간)</td><td>-8,180,000원</td></tr>
+      <tr><td>파트너 지급액</td><td>32,720,000원</td></tr>
+      <tr><td>부가세 10%</td><td>+3,272,000원</td></tr>
+      <tr style="background:#f7f9fc"><td><b>총 수령액</b></td><td><b>35,992,000원</b></td></tr>
+    </table>
+  </section>
+  <div class="toc"><a href="#지원-금액">지원 금액</a><a href="#지원-기간">지원 기간</a><a href="#지원-내용-본문-">지원 내용 (본문)</a><a href="#견적-산출-근거">견적 산출 근거</a></div>
+  <section class="block"><h1>위시켓 지원서 초안 — 제로페이 금액변동형 QR 허브 게이트웨이 구축</h1>
+<p>프로젝트: 제로페이 금액변동형 QR 허브 게이트웨이 구축 (서울 중구)<br />
+클라이언트 예상: 협의 후 결정 / 120일 → 제안: 40,900,000원 / 120일</p>
+</section><section class="block" id="지원-금액"><h2>지원 금액</h2>
+<p>40900000</p>
+</section><section class="block" id="지원-기간"><h2>지원 기간</h2>
+<p>120</p>
+</section><section class="block" id="지원-내용-본문-"><h2>지원 내용 (본문)</h2>
+<p>&lt;프로젝트 진단&gt;<br />
+이 시스템의 핵심은 결제 성공이 아니라 돈이 어긋나지 않는 것입니다. 금액변동형 MPM은 QR 50바이트 안에 가맹점ID 12바이트, 단말기ID 16바이트, 결제금액 10바이트가 고정 길이로 들어가고 체크문자 4바이트로 무결성을 검증합니다. 여기서 한 바이트만 밀려도 금액이 다른 가맹점으로 가거나 0원 결제가 됩니다. 그래서 파서를 일반 라이브러리에 맡기지 않고 필드 단위 검증과 길이·구분자·체크문자 대조를 명시적으로 구현하고, 파싱 실패는 결제 진행 전에 거절하는 것을 첫 번째 원칙으로 잡았습니다. 두 번째는 중복 결제입니다. 피크타임 동시 요청에서 같은 주문번호가 두 번 승인되면 정산에서 반드시 문제가 됩니다. 주문번호 기준 분산 락과 승인 결과 멱등 저장을 코어에 넣습니다.</p>
+<p>&lt;작업 범위&gt;<br />
+진행합니다. 요구사항 분석과 시스템 설계서, 금액변동형 QR 파싱·무결성 검증 모듈, 결제·취소·망취소·입금·정산 통합 중계 코어, 금융결제원 전문 송수신 모듈(전용회선·VPN 경유), 가맹점·제휴사 표준 REST API와 전문 인터페이스, 관리자 관제 웹(가맹점·단말기, 실시간 거래, 대사, 장애·로그), 단위·통합 테스트, 부하 테스트 시나리오와 수행 결과서, 시범 매장 파일럿 검증 지원입니다.<br />
+포함하지 않습니다. 가맹점 단말 앱 개발, POS·KIOSK 제조사별 커스텀 개발(표준 API만 제공), 금융결제원 이용기관 심사 대행, 외부 보안업체의 웹 취약점 진단 비용(진단 결과서 기반 조치 개발은 포함)입니다.<br />
+추가로 제안합니다. 대사 자동화를 1일 1회 배치로 돌리고 차액 항목만 관리자 화면에 남깁니다. 수기 대사 시간을 줄이는 부분이 운영 단계에서 가장 크게 남습니다.</p>
+<p>&lt;실행 플랜&gt;<br />
+D1–D28 (12.15–01.11) 요구사항 분석, 아키텍처·전문 규격 설계서, 금융결제원 연동 규격 확인<br />
+D29–D35 (01.12–01.18) QR 파서·무결성 검증 모듈, 코어 골격, 단위 테스트<br />
+D36–D70 (01.19–02.22) 결제·취소·망취소·입금·정산 중계, 표준 API, 재전송·Fallback<br />
+D71–D85 (02.23–03.09) 관리자 관제 웹, 대사 배치, 장애 알림<br />
+D86–D100 (03.10–03.24) 통합 테스트, 부하 테스트 수행과 결과서 작성<br />
+D101–D112 (03.25–04.05) 시범 매장 파일럿 검증 지원, 보안 진단 조치<br />
+D113–D120 (04.06–04.13) 안정화, 인수인계, 운영 문서<br />
+총 공수 78일 / 120일 중 버퍼 42일. 파일럿 매장 수와 부하 목표 TPS가 확정되면 이 구간만 조정합니다.</p>
+<p>&lt;리스크와 대응&gt;<br />
+첫째, 금융결제원 전용회선과 VPN, 이용기관 코드 발급입니다. 이 세 가지가 늦어지면 개발이 끝나도 실제 전문 송수신 검증을 못 합니다. 착수 즉시 신청 일정과 담당자를 확인하고, 개통 전까지는 규격 기반 모의 응답기로 선행 개발합니다. 둘째, 목표 TPS와 응답시간 기준이 숫자로 확정되지 않았습니다. 부하 테스트는 시나리오와 합격 기준을 먼저 문서로 합의한 뒤 수행하고, 결과는 측정값 그대로 제출합니다. 측정 전 수치를 약속하지 않습니다. 셋째, 대외 연동처(POS·KIOSK·ERP)별 전문 규격 차이입니다. 표준 API를 먼저 확정하고 연동처별 어댑터로 분리해 한 곳의 변경이 코어에 영향을 주지 않게 만듭니다.</p>
+<p>&lt;기대 결과&gt;<br />
+가맹점은 금액 입력 없이 QR 하나로 결제하고, 결제·취소·입금·정산이 한 파이프라인에서 처리됩니다. 운영자는 실시간 거래 화면에서 실패 건과 차액 건만 보고, 월 대사는 자동 결과를 확인하는 절차로 바뀝니다. 완료 기준은 세 가지입니다. ①규격 필드 검증 케이스 100건과 중복 결제 차단 시나리오 통과 ②결제·취소·정산 대사 금액 일치율 100%(파일럿 기간) ③합의한 TPS에서 오류율과 p95 응답시간 기준 충족. ①②③ 모두 실측 결과서로 제출합니다.</p>
+<p>&lt;확인이 필요한 질문&gt;<br />
+1. 금융결제원 이용기관 신청과 전용회선 개통은 어느 단계까지 진행되어 있나요.<br />
+2. 목표 TPS와 p95 응답시간 기준이 정해져 있나요. 피크 시간대 기준도 알려 주세요.<br />
+3. 정산 주기는 일 단위인가요, 건별 실시간인가요.<br />
+4. 연동 대상 POS·KIOSK·ERP 중 우선순위 1~2곳과 각 사의 인터페이스 문서가 있나요.<br />
+5. 시범 매장은 몇 곳이며 파일럿 기간은 얼마로 예정되어 있나요.</p>
+</section><section class="block" id="견적-산출-근거"><h2>견적 산출 근거</h2>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>값</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>지원가</td>
+<td>40,900,000원 (부가세 별도)</td>
+</tr>
+<tr>
+<td>지원 기간</td>
+<td>120일</td>
+</tr>
+<tr>
+<td>일당</td>
+<td>340,833원</td>
+</tr>
+<tr>
+<td>플랫폼 이용요금 20%</td>
+<td>8,180,000원</td>
+</tr>
+<tr>
+<td>파트너 지급액</td>
+<td>32,720,000원</td>
+</tr>
+<tr>
+<td>부가세 10%</td>
+<td>3,272,000원</td>
+</tr>
+<tr>
+<td>총 수령액</td>
+<td>35,992,000원</td>
+</tr>
+</tbody>
+</table></section>
+  <div class="foot">이 페이지는 검토용 초안입니다. 제출 전 문의는 위시켓 메시지로 부탁드립니다.<br>
+  심플테크 · simpletech</div>
+</div>
+</body>
+</html>
