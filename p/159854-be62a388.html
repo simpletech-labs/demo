@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>법인카드 결제 관리용 사내 웹앱 업무 시스템 구축 — 제안서</title>
+<style>
+:root{
+  --navy:#12324f; --navy-2:#1c4a72; --line:#e3e8ef; --bg:#f5f7fa; --card:#fff;
+  --tx:#1b2027; --muted:#69747f; --accent:#0f7b52; --accent-bg:#e9f6ef;
+  --warn:#8a5a00; --warn-bg:#fdf4e3; --blue:#1d5b94; --blue-bg:#eaf1f9;
+  --radius:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font-size:15px;line-height:1.7;word-break:keep-all;
+  font-family:"Apple SD Gothic Neo","Pretendard","Malgun Gothic",system-ui,-apple-system,sans-serif;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:920px;margin:0 auto;padding:0 16px 80px}
+.topbar{background:var(--navy);color:#cfdce8;font-size:12.5px;letter-spacing:.02em}
+.topbar .inner{max-width:920px;margin:0 auto;padding:9px 16px;display:flex;gap:10px;align-items:center}
+.topbar b{color:#fff;font-weight:700}
+.topbar .sp{flex:1}
+.topbar .dot{width:6px;height:6px;border-radius:50%;background:#5fd39a}
+header.head{background:var(--navy-2);color:#fff;padding:30px 0 26px}
+header.head .inner{max-width:920px;margin:0 auto;padding:0 16px}
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
+.chip{font-size:11.5px;padding:3px 9px;border-radius:999px;background:rgba(255,255,255,.14);
+  color:#eaf2f9;letter-spacing:.01em}
+.chip.hot{background:#ffd9c7;color:#7a2f0d;font-weight:700}
+h1{font-size:23px;line-height:1.38;letter-spacing:-.02em;font-weight:800}
+.head .sub{margin-top:9px;color:#b9cbdb;font-size:13px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:-22px 0 26px;position:relative}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 15px;
+  box-shadow:0 1px 2px rgba(18,50,79,.05)}
+.stat .k{font-size:11.5px;color:var(--muted);letter-spacing:.02em}
+.stat .v{font-size:19px;font-weight:800;letter-spacing:-.02em;margin-top:4px}
+.stat .v small{font-size:12px;font-weight:600;color:var(--muted);margin-left:3px}
+.stat.hl{border-color:#cfe6da;background:var(--accent-bg)}
+.stat.hl .v{color:var(--accent)}
+section.block{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:22px 24px;margin-bottom:16px;box-shadow:0 1px 2px rgba(18,50,79,.04)}
+h2{font-size:17px;letter-spacing:-.015em;margin:0 0 14px;padding-left:11px;border-left:4px solid var(--navy);
+  line-height:1.35}
+h3{font-size:14.5px;margin:18px 0 8px;color:var(--navy)}
+p{margin:0 0 11px}
+ul,ol{margin:0 0 12px 20px}
+li{margin:3px 0}
+li::marker{color:#9aa7b4}
+table{width:100%;border-collapse:collapse;margin:8px 0 14px;font-size:13.5px}
+th,td{border-bottom:1px solid var(--line);padding:9px 10px;text-align:left;vertical-align:top}
+th{background:#f7f9fc;font-size:12.5px;color:#455263;font-weight:700;white-space:nowrap}
+td:last-child,th:last-child{text-align:right}
+td:first-child,th:first-child{text-align:left}
+tr:last-child td{border-bottom:0}
+blockquote{border-left:3px solid var(--blue);background:var(--blue-bg);padding:11px 14px;
+  border-radius:0 8px 8px 0;margin:10px 0 14px;font-size:13.5px;color:#274a6b}
+blockquote p:last-child{margin-bottom:0}
+pre{background:#fbfcfe;border:1px solid var(--line);border-radius:10px;padding:0;margin:10px 0 16px;
+  overflow:hidden}
+pre code{display:block;padding:18px 20px;font-family:inherit;font-size:14.2px;line-height:1.85;
+  white-space:pre-wrap;word-break:keep-all;color:#232a33}
+pre.short code{font-size:15px;font-weight:700;color:var(--accent);padding:13px 18px}
+pre code .sh{display:block;font-weight:800;color:var(--navy);font-size:15px;margin:16px 0 4px;
+  padding-top:14px;border-top:1px dashed #dbe3ec}
+pre code .sh:first-child{margin-top:0;padding-top:0;border-top:0}
+pre code .q{color:var(--navy);font-weight:700;display:block;margin:14px 0 2px}
+strong{font-weight:700}
+hr{border:0;border-top:1px dashed #d6dee8;margin:20px 0}
+.foot{color:var(--muted);font-size:12.5px;text-align:center;margin-top:26px;line-height:1.8}
+.toc{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
+.toc a{font-size:12.5px;text-decoration:none;color:#3d4b59;background:#fff;border:1px solid var(--line);
+  border-radius:999px;padding:5px 12px}
+.toc a:hover{border-color:var(--navy-2);color:var(--navy)}
+@media(max-width:760px){
+  body{font-size:14.5px}
+  .stats{grid-template-columns:1fr 1fr;margin-top:-18px}
+  h1{font-size:20px}
+  section.block{padding:17px 15px;border-radius:10px}
+  table{font-size:12.8px}
+  th,td{padding:7px 8px}
+  th{white-space:normal}
+  pre code{font-size:13.4px;padding:14px}
+}
+@media print{
+  body{background:#fff}
+  .topbar,.toc{display:none}
+  section.block{break-inside:avoid;box-shadow:none;border-color:#ccc}
+  header.head{background:#fff;color:#000;border-bottom:2px solid #000;padding:0 0 10px}
+  header.head .sub,.chip{color:#333}
+}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="inner"><span class="dot"></span><b>심플테크</b><span>외주 제안서</span>
+<span class="sp"></span><span>2026-11-26 14:07</span></div></div>
+<header class="head"><div class="inner">
+  <div class="chips"><span class="chip">프라이빗 매칭</span><span class="chip hot">마감 2026-12-01</span><span class="chip">평균 입찰가의 93%</span></div>
+  <h1>법인카드 결제 관리용 사내 웹앱 업무 시스템 구축</h1>
+  <div class="sub">제안 120일 · <a href="https://project.wishket.com/project/159854/" style="color:#bcd3e6">공고 원문</a></div>
+</div></header>
+<div class="wrap">
+
+  <div class="stats">
+    <div class="stat hl"><div class="k">지원가</div><div class="v">22,500,000<small>원</small></div></div>
+    <div class="stat"><div class="k">지원 기간</div><div class="v">120<small>일</small></div></div>
+    <div class="stat"><div class="k">일당</div><div class="v">187,500<small>원</small></div></div>
+    <div class="stat"><div class="k">총 수령 (수수료 20% + 부가세)</div><div class="v">19,800,000<small>원</small></div></div>
+  </div>
+  <section class="block" style="padding:16px 20px">
+    <div class="k" style="font-size:12px;color:#69747f;margin-bottom:8px">정산 (사업자 파트너 기준 · 부가세 별도 계약)</div>
+    <table style="margin:0">
+      <tr><th>항목</th><th>금액</th></tr>
+      <tr><td>지원가 (공급가액)</td><td>22,500,000원</td></tr>
+      <tr><td>위시켓 수수료 20% (500만원 이상 구간)</td><td>-4,500,000원</td></tr>
+      <tr><td>파트너 지급액</td><td>18,000,000원</td></tr>
+      <tr><td>부가세 10%</td><td>+1,800,000원</td></tr>
+      <tr style="background:#f7f9fc"><td><b>총 수령액</b></td><td><b>19,800,000원</b></td></tr>
+    </table>
+  </section>
+  <div class="toc"><a href="#지원-금액">지원 금액</a><a href="#지원-기간">지원 기간</a><a href="#지원-내용-본문-">지원 내용 (본문)</a><a href="#공정별-투입과-기간-요청-항목-">공정별 투입과 기간 (요청 항목)</a><a href="#하자보수와-유지보수-요청-항목-">하자보수와 유지보수 (요청 항목)</a><a href="#견적-산출-근거">견적 산출 근거</a></div>
+  <section class="block"><h1>위시켓 지원서 초안 — 법인카드 결제 관리용 사내 웹앱 업무 시스템 구축</h1>
+<p>프로젝트: 법인카드 결제 관리용 사내 웹앱 업무 시스템 구축 (서울 영등포)<br />
+클라이언트 예상: 협의 후 결정 / 120일 → 제안: 22,500,000원 / 120일</p>
+</section><section class="block" id="지원-금액"><h2>지원 금액</h2>
+<p>22500000</p>
+</section><section class="block" id="지원-기간"><h2>지원 기간</h2>
+<p>120</p>
+</section><section class="block" id="지원-내용-본문-"><h2>지원 내용 (본문)</h2>
+<p>&lt;프로젝트 진단&gt;<br />
+요구사항 정의서가 이미 있다는 점이 이 프로젝트의 성격을 결정합니다. 범위를 새로 해석할 여지가 적고, 대신 세 곳에서 실제로 깨집니다. 첫째, 카드 결제 문자가 유실되거나 형식이 바뀌면 사용내역이 비어 채워지지 않습니다. 둘째, 승인취소와 매입 대조가 맞지 않으면 월 마감이 멈춥니다. 셋째, 권한이 화면에서만 막히고 서버에서 다시 확인되지 않으면 부서장이 다른 부서 자료를 봅니다. 그래서 문자 수집 상태를 항상 모니터링하고(인식 성공률 지표), 매입 대조 화면을 별도 단계로 만들며, 모든 API에서 권한을 서버에서 재확인하도록 구현 방향을 잡았습니다.</p>
+<p>&lt;작업 범위&gt;<br />
+진행합니다. 요구사항 정리와 화면 설계, 디자인(모바일 우선 반응형·PWA), 프론트·백엔드 개발, 문자 웹훅 수집(아이폰 단축어·안드로이드 문자 전달 앱), 신한카드 문자 해석(승인·취소·해외), 카드사 승인·매입 엑셀 업로드와 대조, 월 마감과 잠금, 부서장·관리자 권한 3종 서버 통제, 예산 조회와 리포트, 알림 발송과 매일 9시 미입력 안내, 기존 자료 이관, 기기별 시험, 운영 배포·백업, 사용 설명서 2종과 인수인계입니다.<br />
+포함하지 않습니다. 회계 프로그램 전표 연동, PG·카드사 직접 API 계약(문자·엑셀 방식 유지), 네이티브 앱, 다국어입니다.<br />
+추가로 제안합니다. 문자 인식 실패 건을 모아 관리자 화면에서 한 번에 보정하는 도구를 넣습니다. 성공률이 떨어지는 패턴을 초기에 잡는 용도입니다.</p>
+</section><section class="block" id="공정별-투입과-기간-요청-항목-"><h2>공정별 투입과 기간 (요청 항목)</h2>
+<table>
+<thead>
+<tr>
+<th>공정</th>
+<th>인력</th>
+<th>기간</th>
+<th>M/M</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>기획·화면 설계</td>
+<td>1명</td>
+<td>3주</td>
+<td>0.7</td>
+</tr>
+<tr>
+<td>디자인</td>
+<td>1명</td>
+<td>3주</td>
+<td>0.6</td>
+</tr>
+<tr>
+<td>프론트엔드</td>
+<td>1명</td>
+<td>9주</td>
+<td>2.1</td>
+</tr>
+<tr>
+<td>백엔드</td>
+<td>1명</td>
+<td>11주</td>
+<td>2.5</td>
+</tr>
+<tr>
+<td>시험·인수인계</td>
+<td>1명</td>
+<td>3주</td>
+<td>0.7</td>
+</tr>
+</tbody>
+</table>
+<p>합계 6.6 M/M를 4개월(약 17주)에 걸쳐 단계별로 투입합니다. M/M은 확정 투입이 아니라 제안 단계 예상치이고, 금액은 공수 곱하기 단가가 아니라 과업별 배분입니다. 항목 단가는 기획·디자인 25만원/일, 개발 32만원/일, 시험 22만원/일을 기준으로 산정했습니다.</p>
+</section><section class="block" id="하자보수와-유지보수-요청-항목-"><h2>하자보수와 유지보수 (요청 항목)</h2>
+<p>무상 하자보수는 오픈 후 3개월, 요구사항 정의서 범위 내 오류 수정과 기기별 동작 보정입니다. 그 뒤 유지보수는 월 45만원(월 8시간, 평일 18시 이전 대응, 장애 4시간 내 착수)을 제안합니다. 초과 작업은 시간당 7만원이며, 연간 선납 시 2개월분을 할인합니다. 유지보수 계약이 없어도 시스템은 그대로 운영됩니다.</p>
+<p>&lt;실행 플랜&gt;<br />
+D1–D10 (12.15–12.24) 요구사항 정의서 대조, 화면 설계 확정, 데이터 모델<br />
+D11–D25 (12.25–01.08) 디자인, 공통·로그인·권한, 직원 홈·사용내역<br />
+D26–D45 (01.09–01.28) 내역 입력·예산·리포트, 부서장 화면<br />
+D46–D65 (01.29–02.17) 관리자(직원·카드·예산·엑셀 일괄), 문자 웹훅·파서<br />
+D66–D80 (02.18–03.04) 월 마감, 매입 대조, 알림·예약 실행<br />
+D81–D100 (03.05–03.24) 기기별 시험(iPhone·Android·PC), 문자·푸시 실기기 검증<br />
+D101–D112 (03.25–04.05) 자료 이관, 운영 배포·백업, 설명서 작성<br />
+D113–D120 (04.06–04.13) 인수인계, 2주 안정화<br />
+총 공수 82일 / 120일 중 버퍼 38일.</p>
+<p>&lt;리스크와 대응&gt;<br />
+첫째, 문자 수집은 카드사 정책과 휴대폰 설정에 의존합니다. 아이폰 단축어와 안드로이드 문자 전달 앱은 사용자가 직접 설정해야 하므로, 40명 전원 설정을 돕는 안내문과 설정 확인 화면을 넣고 오픈 첫 주에 설정 완료율을 확인합니다. 둘째, 신한카드 문자 형식이 바뀌면 파서가 깨집니다. 파서 규칙을 코드가 아니라 설정 데이터로 분리해 두고, 인식 실패가 기준치를 넘으면 관리자에게 알립니다. 셋째, 실제 카드 자료는 시험 단계에서 제공되지 않습니다. 형식을 반영한 가상 데이터로 시험하고, 오픈 전 실제 문자 3~5건으로 확인하는 절차를 일정에 넣었습니다.</p>
+<p>&lt;기대 결과&gt;<br />
+직원은 결제 직후 휴대폰에서 계정과목을 입력하고 잔여 예산을 확인합니다. 관리자는 엑셀 취합 없이 전사 사용률과 위험 부서를 보고, 월말에는 매입 엑셀을 올려 대조만 확인한 뒤 마감합니다. 월 1,000~2,000건 기준으로 담당자의 월말 취합 작업이 사라지는 상태를 목표로 합니다. 완료 기준은 요구사항 정의서의 화면 26개·서버 처리 80종 전 항목 동작, 권한 3종 교차 접근 차단 시험 통과, 문자 인식 성공률 측정값 제출입니다.</p>
+<p>&lt;확인이 필요한 질문&gt;<br />
+1. 요구사항 정의서와 화면 목록을 지금 받을 수 있나요.<br />
+2. 신한카드 외에 다른 카드사 법인카드가 섞여 있나요.<br />
+3. 문자 전달 앱은 안드로이드에서 어떤 앱을 허용하나요(사내 보안 정책).<br />
+4. Supabase·Vercel 사용이 사내 보안 검토를 통과할 수 있나요. 자체 서버가 필요하면 비용이 달라집니다.<br />
+5. 이관 대상 직원·카드·거래 데이터의 기간과 건수를 알려 주세요.</p>
+</section><section class="block" id="견적-산출-근거"><h2>견적 산출 근거</h2>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>값</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>지원가</td>
+<td>22,500,000원 (부가세 별도)</td>
+</tr>
+<tr>
+<td>지원 기간</td>
+<td>120일</td>
+</tr>
+<tr>
+<td>일당</td>
+<td>187,500원</td>
+</tr>
+<tr>
+<td>플랫폼 이용요금 20%</td>
+<td>4,500,000원</td>
+</tr>
+<tr>
+<td>파트너 지급액</td>
+<td>18,000,000원</td>
+</tr>
+<tr>
+<td>부가세 10%</td>
+<td>1,800,000원</td>
+</tr>
+<tr>
+<td>총 수령액</td>
+<td>19,800,000원</td>
+</tr>
+</tbody>
+</table></section>
+  <div class="foot">이 페이지는 검토용 초안입니다. 제출 전 문의는 위시켓 메시지로 부탁드립니다.<br>
+  심플테크 · simpletech</div>
+</div>
+</body>
+</html>
