@@ -482,9 +482,12 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
         sel.style.borderColor = '#17a05e';
         setTimeout(()=>{ sel.style.borderColor = '#e2e8ef'; }, 1500);
       } catch(e) {
-        alert('로컬 콘솔이 꺼져 있습니다.
-터미널에서 실행: bash ~/.hermes/scripts/wishket/console.sh start
-(또는 https://localhost:8787 확인)');
+        alert('로컬 콘솔에 연결하지 못했습니다.
+
+① 콘솔 실행: bash ~/.hermes/scripts/wishket/console.sh start
+② 인증서 신뢰(최초 1회): sudo mkcert -install
+
+직접 열기: https://localhost:8787');
       }
     };
     sortBy('conf-desc');
