@@ -2,18 +2,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"><title>제출 현황</title>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <style>
-body{font-family:-apple-system,'Apple SD Gothic Neo',sans-serif;background:#f6f8fa;color:#1a2530;margin:0;padding:28px 22px}
-.wrap{max-width:1000px;margin:0 auto;padding-top:22px}
-.hd{position:sticky;top:0;z-index:20;background:#12324f;color:#cfdce8;margin:-28px -22px 0}
-.hdin{max-width:1000px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
-.brand{color:#fff;text-decoration:none;font-size:14px;font-weight:600}
-.brand b{font-weight:800}
+.hd{position:sticky;top:0;z-index:20;background:#12324f;color:#cfdce8}
+.hdin{max-width:1000px;margin:0 auto;padding:11px 16px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.brand{color:#fff;text-decoration:none;font-size:14px;font-weight:600;letter-spacing:-.01em}
+.brand b{font-weight:800;letter-spacing:.01em}
 .hnav{display:flex;gap:4px;margin-left:auto}
 .hnav a{color:#cfdce8;text-decoration:none;font-size:12.5px;padding:6px 11px;border-radius:8px}
 .hnav a:hover{background:rgba(255,255,255,.1);color:#fff}
 .hnav a.on{background:rgba(255,255,255,.16);color:#fff;font-weight:700}
-h1{font-size:21px;margin:0 0 4px}
-.lead{color:#6b7684;font-size:13px;margin-bottom:18px}
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#f5f7fa;color:#1b2027;font-size:15px;line-height:1.6;word-break:keep-all;
+  font-family:"Apple SD Gothic Neo","Pretendard","Malgun Gothic",system-ui,sans-serif}
+.wrap{max-width:1000px;margin:0 auto;padding:26px 16px 70px}
+
+h1{font-size:22px;letter-spacing:-.02em;margin:0 0 6px}
+.lead{color:#69747f;font-size:13px;margin-bottom:20px}
 a.back{font-size:12.5px;color:#1265a8;text-decoration:none}
 .sblock{background:#fff;border:1px solid #e6ebf1;border-radius:14px;padding:14px 16px;margin-bottom:14px}
 .sblock h2{font-size:14px;margin:0 0 10px;display:flex;align-items:center;gap:8px}
@@ -26,14 +30,7 @@ td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .m{color:#8b95a1;font-size:11.5px;margin-top:3px}
 .empty{background:#fff;border:1px dashed #d8e0e8;border-radius:12px;padding:28px;color:#8b95a1;font-size:13px;text-align:center}
 </style></head><body><div class="wrap">
-<header class="hd"><div class="hdin">
-  <a class="brand" href="/p/latest.html"><b>[심플테크]</b> 외주 제안서 목록</a>
-  <nav class="hnav">
-    <a href="/p/latest.html">제안서 목록</a>
-    <a class="on" href="/p/submitted.html">제출 현황</a>
-    <a href="http://127.0.0.1:8787/list" target="_blank" rel="noopener">관리</a>
-  </nav>
-</div></header>
+<header class="hd"><div class="hdin"><a class="brand" href="/p/latest.html"><b>[심플테크]</b> 제출 현황</a><nav class="hnav"><a href="/p/latest.html">외주 제안서 목록</a><a class="on" href="/p/submitted.html">제출 현황</a></nav></div></header>
 <div class="wrap">
 <h1>제출 현황</h1>
 <div class="lead">없음</div>
