@@ -30,6 +30,11 @@ a.card:hover{border-color:#12324f}
   border-radius:999px;padding:6px 12px;cursor:pointer;line-height:1.2}
 .sortbtn:hover{border-color:#12324f;color:#12324f}
 .sortbtn.on{background:#12324f;border-color:#12324f;color:#fff;font-weight:700}
+.card.top1{border:2px solid #c8a253;background:linear-gradient(180deg,#fffdf6,#fff);box-shadow:0 6px 20px rgba(200,162,83,.16)}
+.card.top2{border:2px solid #9aa8b6;background:linear-gradient(180deg,#fbfcfd,#fff);box-shadow:0 4px 16px rgba(154,168,182,.14)}
+.card.top3,.card.top4{border:2px solid #b9c6cf;background:linear-gradient(180deg,#fafcfd,#fff);box-shadow:0 4px 14px rgba(185,198,207,.12)}
+.medal{font-size:10.5px;font-weight:800;letter-spacing:.04em;padding:3px 8px;border-radius:999px;color:#fff}
+.m1{background:#c8a253}.m2{background:#8e9aa8}.m3,.m4{background:#a9b6c1}
 .conf{font-size:11px;padding:2px 8px;border-radius:999px;font-weight:700}
 .conf.hi{background:#e9f6ef;color:#0f7b52}
 .conf.mid{background:#eaf1f9;color:#1d5b94}
@@ -42,18 +47,18 @@ a.card:hover{border-color:#12324f}
 <body>
 <div class="topbar"><div class="inner"><b>심플테크</b><span>외주 제안서 목록</span></div></div>
 <div class="wrap">
-  <h1>발행된 제안서 12건</h1>
+  <h1>발행된 제안서 24건</h1>
   <div class="sub">최근 발행 순. 각 카드를 누르면 제안서 페이지가 열립니다. 제출은 직접 진행해 주세요.</div>
   <div class="sortbar">
     <span class="sortlabel">정렬</span>
-    <button class="sortbtn on" data-sort="order">최근 발행</button>
+    <button class="sortbtn" data-sort="order">최근 발행</button>
     <button class="sortbtn" data-sort="deadline-asc">마감 임박순</button>
     <button class="sortbtn" data-sort="deadline-desc">마감 여유순</button>
     <button class="sortbtn" data-sort="quote-desc">금액 높은순</button>
     <button class="sortbtn" data-sort="quote-asc">금액 낮은순</button>
     <button class="sortbtn" data-sort="days-asc">기간 짧은순</button>
     <button class="sortbtn" data-sort="days-desc">기간 긴순</button>
-    <button class="sortbtn" data-sort="conf-desc">적합도 높은순</button>
+    <button class="sortbtn on" data-sort="conf-desc">적합도 높은순</button>
     <button class="sortbtn" data-sort="conf-asc">적합도 낮은순</button>
   </div>
   <div class="grid" id="grid"><a class="card" href="/p/159773-bbf6be80.html"
@@ -61,145 +66,289 @@ a.card:hover{border-color:#12324f}
    data-deadline="2026-12-04"
    data-quote="19000000"
    data-days="95"
-   data-conf="57"
+   data-conf="65"
    data-title="판촉물 쇼핑몰 실시간 1:1 상담 채팅 솔루션 구축·연동">
-  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag pv">프라이빗</span><span class="tag soon">마감 2026-12-04</span><span class="conf mid">적합도 57 · 보통</span></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-04</span><span class="conf mid">적합도 65 · 보통</span></div>
   <div class="t">판촉물 쇼핑몰 실시간 1:1 상담 채팅 솔루션 구축·연동</div>
   <div class="meta"><span class="p">19,000,000원</span><span>95일</span><span>일당 200,000원</span><span>총 수령 16,720,000원</span></div>
   <div class="meta"><span class="ap">지원자 비공개</span></div>
-  <div class="why">신규 구축/설계</div>
+  <div class="why">웹/시스템 개발 · 커머스/마켓 경험</div>
 </a><a class="card" href="/p/159896-1528af96.html"
    data-order="1"
    data-deadline="2026-12-04"
    data-quote="5000000"
    data-days="25"
-   data-conf="53"
+   data-conf="58"
    data-title="중고차 검수 결과 고객용 모바일 리포트 웹 시스템 구축">
-  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-04</span><span class="conf mid">적합도 53 · 보통</span></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-04</span><span class="conf mid">적합도 58 · 보통</span></div>
   <div class="t">중고차 검수 결과 고객용 모바일 리포트 웹 시스템 구축</div>
   <div class="meta"><span class="p">5,000,000원</span><span>25일</span><span>일당 200,000원</span><span>총 수령 4,400,000원</span></div>
-  <div class="meta"><span class="ap">지원자 157명 · 전일 +126</span></div>
-  <div class="why">신규 구축/설계</div>
+  <div class="meta"><span class="ap">지원자 167명 · 전일 +136</span></div>
+  <div class="why">웹/시스템 개발</div>
 </a><a class="card" href="/p/159881-1b3a3a4c.html"
    data-order="2"
    data-deadline="2026-12-03"
    data-quote="8500000"
    data-days="40"
-   data-conf="35"
+   data-conf="48"
    data-title="노동조합 홈페이지 워드프레스 리뉴얼 및 기존 게시물 이전">
-  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-03</span><span class="conf lo">적합도 35 · 낮음</span></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-03</span><span class="conf lo">적합도 48 · 낮음</span></div>
   <div class="t">노동조합 홈페이지 워드프레스 리뉴얼 및 기존 게시물 이전</div>
   <div class="meta"><span class="p">8,500,000원</span><span>40일</span><span>일당 212,500원</span><span>총 수령 7,480,000원</span></div>
-  <div class="meta"><span class="ap">지원자 173명 · 전일 +33</span></div>
-  <div class="why"></div>
+  <div class="meta"><span class="ap">지원자 177명 · 전일 +37</span></div>
+  <div class="why">신규 구축/설계</div>
 </a><a class="card" href="/p/159882-581b453e.html"
    data-order="3"
    data-deadline="2026-12-10"
    data-quote="9000000"
    data-days="45"
-   data-conf="49"
+   data-conf="63"
    data-title="셀프 포토부스 프로그램 꾸미기 기능 추가 개발">
-  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-10</span><span class="conf mid">적합도 49 · 보통</span></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-10</span><span class="conf mid">적합도 63 · 보통</span></div>
   <div class="t">셀프 포토부스 프로그램 꾸미기 기능 추가 개발</div>
   <div class="meta"><span class="p">9,000,000원</span><span>45일</span><span>일당 200,000원</span><span>총 수령 7,920,000원</span></div>
-  <div class="meta"><span class="ap">지원자 99명 · 전일 +19</span></div>
-  <div class="why">AI 연계</div>
+  <div class="meta"><span class="ap">지원자 104명 · 전일 +24</span></div>
+  <div class="why">웹/시스템 개발 · 결제 경험</div>
 </a><a class="card" href="/p/159892-0b620a6e.html"
    data-order="4"
    data-deadline="2026-12-04"
    data-quote="23800000"
    data-days="90"
-   data-conf="49"
+   data-conf="50"
    data-title="수행도 평가 통계 계산·판정 프로그램 개발">
-  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag pv">프라이빗</span><span class="tag soon">마감 2026-12-04</span><span class="conf mid">적합도 49 · 보통</span></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-04</span><span class="conf lo">적합도 50 · 낮음</span></div>
   <div class="t">수행도 평가 통계 계산·판정 프로그램 개발</div>
   <div class="meta"><span class="p">23,800,000원</span><span>90일</span><span>일당 264,444원</span><span>총 수령 20,944,000원</span></div>
   <div class="meta"><span class="ap">지원자 비공개</span></div>
-  <div class="why">AI 연계</div>
+  <div class="why">웹/시스템 개발</div>
 </a><a class="card" href="/p/159890-d5b7a964.html"
    data-order="5"
    data-deadline="2026-12-04"
    data-quote="42500000"
    data-days="150"
-   data-conf="57"
+   data-conf="65"
    data-title="직영 8개 캠퍼스 보습학원 통합 관리 웹 프로그램 구축">
-  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag pv">프라이빗</span><span class="tag soon">마감 2026-12-04</span><span class="conf mid">적합도 57 · 보통</span></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-04</span><span class="conf mid">적합도 65 · 보통</span></div>
   <div class="t">직영 8개 캠퍼스 보습학원 통합 관리 웹 프로그램 구축</div>
   <div class="meta"><span class="p">42,500,000원</span><span>150일</span><span>일당 283,333원</span><span>총 수령 37,400,000원</span></div>
   <div class="meta"><span class="ap">지원자 비공개</span></div>
-  <div class="why">신규 구축/설계</div>
-</a><a class="card" href="/p/159816-47b753cd.html"
+  <div class="why">웹/시스템 개발 · 교육 도메인 경험</div>
+</a><a class="card" href="/p/159854-be62a388.html"
    data-order="6"
+   data-deadline="2026-12-01"
+   data-quote="22500000"
+   data-days="120"
+   data-conf="65"
+   data-title="법인카드 결제 관리용 사내 웹앱 업무 시스템 구축">
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-01</span><span class="conf mid">적합도 65 · 보통</span></div>
+  <div class="t">법인카드 결제 관리용 사내 웹앱 업무 시스템 구축</div>
+  <div class="meta"><span class="p">22,500,000원</span><span>120일</span><span>일당 187,500원</span><span>총 수령 19,800,000원</span></div>
+  <div class="meta"><span class="ap">지원자 비공개</span></div>
+  <div class="why">웹/시스템 개발 · 결제 경험</div>
+</a><a class="card" href="/p/159762-78575e2e.html"
+   data-order="7"
+   data-deadline="2026-12-02"
+   data-quote="40900000"
+   data-days="120"
+   data-conf="48"
+   data-title="제로페이 금액변동형 QR 허브 게이트웨이 구축">
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-02</span><span class="conf lo">적합도 48 · 낮음</span></div>
+  <div class="t">제로페이 금액변동형 QR 허브 게이트웨이 구축</div>
+  <div class="meta"><span class="p">40,900,000원</span><span>120일</span><span>일당 340,833원</span><span>총 수령 35,992,000원</span></div>
+  <div class="meta"><span class="ap">지원자 비공개</span></div>
+  <div class="why">신규 구축/설계</div>
+</a><a class="card" href="/p/159837-4292ab96.html"
+   data-order="8"
+   data-deadline="2026-12-01"
+   data-quote="4700000"
+   data-days="30"
+   data-conf="58"
+   data-title="대부업체 광고·중개 플랫폼 웹사이트 구축">
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-01</span><span class="conf mid">적합도 58 · 보통</span></div>
+  <div class="t">대부업체 광고·중개 플랫폼 웹사이트 구축</div>
+  <div class="meta"><span class="p">4,700,000원</span><span>30일</span><span>일당 156,666원</span><span>총 수령 3,877,500원</span></div>
+  <div class="meta"><span class="ap">지원자 129명 · 전일 +10</span></div>
+  <div class="why">웹/시스템 개발</div>
+</a><a class="card" href="/p/159832-98ec1663.html"
+   data-order="9"
+   data-deadline="2026-12-02"
+   data-quote="9500000"
+   data-days="90"
+   data-conf="55"
+   data-title="주방가전 하드웨어 B2B 카탈로그형 자사몰 리뉴얼">
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-02</span><span class="conf lo">적합도 55 · 낮음</span></div>
+  <div class="t">주방가전 하드웨어 B2B 카탈로그형 자사몰 리뉴얼</div>
+  <div class="meta"><span class="p">9,500,000원</span><span>90일</span><span>일당 105,555원</span><span>총 수령 8,360,000원</span></div>
+  <div class="meta"><span class="ap">지원자 173명 · 전일 +13</span></div>
+  <div class="why">신규 구축/설계 · 커머스/마켓 경험</div>
+</a><a class="card" href="/p/159866-4ef90f80.html"
+   data-order="10"
+   data-deadline="2026-12-03"
+   data-quote="24000000"
+   data-days="90"
+   data-conf="66"
+   data-title="이카운트 ERP 연동 B2B 거래처 주문관리시스템 구축">
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-03</span><span class="conf mid">적합도 66 · 보통</span></div>
+  <div class="t">이카운트 ERP 연동 B2B 거래처 주문관리시스템 구축</div>
+  <div class="meta"><span class="p">24,000,000원</span><span>90일</span><span>일당 266,666원</span><span>총 수령 21,120,000원</span></div>
+  <div class="meta"><span class="ap">지원자 비공개</span></div>
+  <div class="why">웹/시스템 개발 · ERP 연동 경험</div>
+</a><a class="card" href="/p/159868-b50c4a12.html"
+   data-order="11"
+   data-deadline="2026-12-02"
+   data-quote="9500000"
+   data-days="30"
+   data-conf="50"
+   data-title="반도체 기업 소개 웹사이트 신규 제작">
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-02</span><span class="conf lo">적합도 50 · 낮음</span></div>
+  <div class="t">반도체 기업 소개 웹사이트 신규 제작</div>
+  <div class="meta"><span class="p">9,500,000원</span><span>30일</span><span>일당 316,666원</span><span>총 수령 8,360,000원</span></div>
+  <div class="meta"><span class="ap">지원자 185명 · 전일 +36</span></div>
+  <div class="why">웹/시스템 개발</div>
+</a><a class="card" href="/p/159844-dcec9024.html"
+   data-order="12"
+   data-deadline="2026-12-02"
+   data-quote="42500000"
+   data-days="120"
+   data-conf="57"
+   data-title="국내·해외 TCG 카드 중고 거래 플랫폼 개발">
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-02</span><span class="conf mid">적합도 57 · 보통</span></div>
+  <div class="t">국내·해외 TCG 카드 중고 거래 플랫폼 개발</div>
+  <div class="meta"><span class="p">42,500,000원</span><span>120일</span><span>일당 354,166원</span><span>총 수령 37,400,000원</span></div>
+  <div class="meta"><span class="ap">지원자 비공개</span></div>
+  <div class="why">웹/시스템 개발 · 커머스/마켓 경험</div>
+</a><a class="card top4" href="/p/159825-bfb87d0b.html"
+   data-order="13"
+   data-deadline="2026-12-01"
+   data-quote="19000000"
+   data-days="120"
+   data-conf="67"
+   data-title="해외 공항 픽업·투어 예약 웹사이트 실서비스 전환(서버·DB·국내외 결제·관리자)">
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="medal m4">TOP 4</span><span class="tag soon">마감 2026-12-01</span><span class="conf mid">적합도 67 · 보통</span></div>
+  <div class="t">해외 공항 픽업·투어 예약 웹사이트 실서비스 전환(서버·DB·국내외 결제·관리자)</div>
+  <div class="meta"><span class="p">19,000,000원</span><span>120일</span><span>일당 158,333원</span><span>총 수령 16,720,000원</span></div>
+  <div class="meta"><span class="ap">지원자 비공개</span></div>
+  <div class="why">웹/시스템 개발 · 결제 경험</div>
+</a><a class="card" href="/p/159845-29e6a994.html"
+   data-order="14"
+   data-deadline="2026-12-02"
+   data-quote="7600000"
+   data-days="45"
+   data-conf="64"
+   data-title="크리에이터 정산 관리자 웹 시스템 개발">
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-02</span><span class="conf mid">적합도 64 · 보통</span></div>
+  <div class="t">크리에이터 정산 관리자 웹 시스템 개발</div>
+  <div class="meta"><span class="p">7,600,000원</span><span>45일</span><span>일당 168,888원</span><span>총 수령 6,688,000원</span></div>
+  <div class="meta"><span class="ap">지원자 291명 · 전일 +35</span></div>
+  <div class="why">웹/시스템 개발 · 정산 경험</div>
+</a><a class="card" href="/p/159814-fdb75c21.html"
+   data-order="15"
+   data-deadline="2026-12-07"
+   data-quote="1900000"
+   data-days="21"
+   data-conf="60"
+   data-title="플랫폼 DB 구축 및 REST API 서버 개발">
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-07</span><span class="conf mid">적합도 60 · 보통</span></div>
+  <div class="t">플랫폼 DB 구축 및 REST API 서버 개발</div>
+  <div class="meta"><span class="p">1,900,000원</span><span>21일</span><span>일당 90,476원</span><span>총 수령 1,567,500원</span></div>
+  <div class="meta"><span class="ap">지원자 209명 · 전일 +12</span></div>
+  <div class="why">백엔드 포지션</div>
+</a><a class="card top2" href="/p/159717-a1a83124.html"
+   data-order="16"
+   data-deadline="2026-12-08"
+   data-quote="35200000"
+   data-days="84"
+   data-conf="71"
+   data-title="이커머스 채널별 매출·손익 BigQuery 구조 재설계 및 운영 대시보드 구축">
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="medal m2">TOP 2</span><span class="tag soon">마감 2026-12-08</span><span class="conf hi">적합도 71 · 높음</span></div>
+  <div class="t">이커머스 채널별 매출·손익 BigQuery 구조 재설계 및 운영 대시보드 구축</div>
+  <div class="meta"><span class="p">35,200,000원</span><span>84일</span><span>일당 419,047원</span><span>총 수령 30,976,000원</span></div>
+  <div class="meta"><span class="ap">지원자 비공개</span></div>
+  <div class="why">신규 구축/설계 · 커머스/마켓 경험 · 요구기술 1/2 보유</div>
+</a><a class="card top1" href="/p/159822-bbf06394.html"
+   data-order="17"
+   data-deadline="2026-12-01"
+   data-quote="32000000"
+   data-days="90"
+   data-conf="73"
+   data-title="의료 영상 AI 분석 프로그램 개발">
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="medal m1">TOP 1</span><span class="tag soon">마감 2026-12-01</span><span class="conf hi">적합도 73 · 높음</span></div>
+  <div class="t">의료 영상 AI 분석 프로그램 개발</div>
+  <div class="meta"><span class="p">32,000,000원</span><span>90일</span><span>일당 355,555원</span><span>총 수령 28,160,000원</span></div>
+  <div class="meta"><span class="ap">지원자 69명 · 전일 +2</span></div>
+  <div class="why">웹/시스템 개발 · 요구기술 3/5 보유</div>
+</a><a class="card" href="/p/159816-47b753cd.html"
+   data-order="18"
    data-deadline="2026-12-01"
    data-quote="17100000"
    data-days="90"
-   data-conf="43"
+   data-conf="58"
    data-title="사후 행정·생활정리 안내 및 전문 서비스 연결 반응형 웹 MVP 구축">
-  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-01</span><span class="conf lo">적합도 43 · 낮음</span></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-01</span><span class="conf mid">적합도 58 · 보통</span></div>
   <div class="t">사후 행정·생활정리 안내 및 전문 서비스 연결 반응형 웹 MVP 구축</div>
   <div class="meta"><span class="p">17,100,000원</span><span>90일</span><span>일당 190,000원</span><span>총 수령 15,048,000원</span></div>
-  <div class="meta"><span class="ap">지원자 195명 · 전일 +7</span></div>
-  <div class="why">신규 구축/설계</div>
+  <div class="meta"><span class="ap">지원자 196명 · 전일 +8</span></div>
+  <div class="why">웹/시스템 개발</div>
 </a><a class="card" href="/p/159809-a0eb4e12.html"
-   data-order="7"
+   data-order="19"
    data-deadline="2026-12-01"
    data-quote="12800000"
    data-days="60"
-   data-conf="45"
+   data-conf="50"
    data-title="등기부등본·토지대장·건축물대장 자동 발급 및 명부 추출 프로그램 개발">
-  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-01</span><span class="conf mid">적합도 45 · 보통</span></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-01</span><span class="conf lo">적합도 50 · 낮음</span></div>
   <div class="t">등기부등본·토지대장·건축물대장 자동 발급 및 명부 추출 프로그램 개발</div>
   <div class="meta"><span class="p">12,800,000원</span><span>60일</span><span>일당 213,333원</span><span>총 수령 11,264,000원</span></div>
-  <div class="meta"><span class="ap">지원자 157명 · 전일 +8</span></div>
-  <div class="why">웹/시스템 구축</div>
+  <div class="meta"><span class="ap">지원자 159명 · 전일 +10</span></div>
+  <div class="why">웹/시스템 개발</div>
 </a><a class="card" href="/p/159818-9d903e02.html"
-   data-order="8"
+   data-order="20"
    data-deadline="2026-12-01"
    data-quote="1900000"
    data-days="14"
-   data-conf="53"
+   data-conf="48"
    data-title="Proxmox VE 7노드 클러스터 구축·검수">
-  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-01</span><span class="conf mid">적합도 53 · 보통</span></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-01</span><span class="conf lo">적합도 48 · 낮음</span></div>
   <div class="t">Proxmox VE 7노드 클러스터 구축·검수</div>
   <div class="meta"><span class="p">1,900,000원</span><span>14일</span><span>일당 135,714원</span><span>총 수령 1,567,500원</span></div>
   <div class="meta"><span class="ap">지원자 7명 · 전일 +1</span></div>
   <div class="why">신규 구축/설계</div>
 </a><a class="card" href="/p/159804-9e07aa2c.html"
-   data-order="9"
+   data-order="21"
    data-deadline="2026-12-07"
    data-quote="8000000"
    data-days="30"
-   data-conf="49"
+   data-conf="61"
    data-title="바이브 코딩으로 만든 법률 AI 검토 웹 서비스 상용화 마무리(서버 이전·결제 연동)">
-  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-07</span><span class="conf mid">적합도 49 · 보통</span></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-07</span><span class="conf mid">적합도 61 · 보통</span></div>
   <div class="t">바이브 코딩으로 만든 법률 AI 검토 웹 서비스 상용화 마무리(서버 이전·결제 연동)</div>
   <div class="meta"><span class="p">8,000,000원</span><span>30일</span><span>일당 266,666원</span><span>총 수령 7,040,000원</span></div>
-  <div class="meta"><span class="ap">지원자 206명 · 전일 +14</span></div>
-  <div class="why">AI 연계</div>
-</a><a class="card" href="/p/159781-0e4cb639.html"
-   data-order="10"
-   data-deadline=""
+  <div class="meta"><span class="ap">지원자 209명 · 전일 +17</span></div>
+  <div class="why">웹/시스템 개발 · 결제 경험</div>
+</a><a class="card top3" href="/p/159781-0e4cb639.html"
+   data-order="22"
+   data-deadline="2026-12-06"
    data-quote="4700000"
    data-days="30"
-   data-conf="76"
+   data-conf="68"
    data-title="교사용 AI 문항·서식 생성 품질 고도화 템플릿 솔루션 MVP">
-  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="conf hi">적합도 76 · 높음</span></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="medal m3">TOP 3</span><span class="tag soon">마감 2026-12-06</span><span class="conf mid">적합도 68 · 보통</span></div>
   <div class="t">교사용 AI 문항·서식 생성 품질 고도화 템플릿 솔루션 MVP</div>
   <div class="meta"><span class="p">4,700,000원</span><span>30일</span><span>일당 156,666원</span><span>총 수령 3,877,500원</span></div>
-  <div class="meta"><span class="ap">지원자 67명 · 전일 +2</span></div>
-  <div class="why">신규 구축/설계 · 스택 Python/Node.js/TypeScript/Next.js</div>
+  <div class="meta"><span class="ap">지원자 68명 · 전일 +3</span></div>
+  <div class="why">웹/시스템 개발 · 요구기술 1/4 보유</div>
 </a><a class="card" href="/p/159741-5868f0aa.html"
-   data-order="11"
+   data-order="23"
    data-deadline="2026-11-26"
    data-quote="2800000"
    data-days="14"
-   data-conf="45"
+   data-conf="57"
    data-title="산모·관리사 중개 플랫폼 기존 코드 보완 및 PG 결제 연동">
-  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag pv">프라이빗</span><span class="tag soon">마감 2026-11-26</span><span class="conf mid">적합도 45 · 보통</span></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-11-26</span><span class="conf mid">적합도 57 · 보통</span></div>
   <div class="t">산모·관리사 중개 플랫폼 기존 코드 보완 및 PG 결제 연동</div>
   <div class="meta"><span class="p">2,800,000원</span><span>14일</span><span>일당 200,000원</span><span>총 수령 2,310,000원</span></div>
   <div class="meta"><span class="ap">지원자 270명 · 전일 +8</span></div>
-  <div class="why">웹/시스템 구축</div>
+  <div class="why">웹/시스템 개발 · 결제 경험</div>
 </a></div>
     <script>
   (function(){
