@@ -473,21 +473,17 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
       cards.forEach(function(c){ grid.appendChild(c); });
     }
     window.setStatus = async function(sel, id){
+      var base = (location.hostname === '127.0.0.1' || location.hostname === 'localhost') ? '' : 'https://localhost:8787';
       try {
-        const r = await fetch('https://localhost:8787/api/set', {
+        var r = await fetch(base + '/api/set', {
           method:'POST', headers:{'Content-Type':'application/json'},
           body: JSON.stringify({id: id, status: sel.value})
         });
         if (!r.ok) throw new Error('HTTP ' + r.status);
         sel.style.borderColor = '#17a05e';
-        setTimeout(()=>{ sel.style.borderColor = '#e2e8ef'; }, 1500);
+        setTimeout(function(){ sel.style.borderColor = '#e2e8ef'; }, 1500);
       } catch(e) {
-        alert('로컬 콘솔에 연결하지 못했습니다.
-
-① 콘솔 실행: bash ~/.hermes/scripts/wishket/console.sh start
-② 인증서 신뢰(최초 1회): sudo mkcert -install
-
-직접 열기: https://localhost:8787');
+        alert('로컬 콘솔에 연결 실패 - 관리 화면: http://127.0.0.1:8787/list (콘솔이 꺼져 있으면 bash ~/.hermes/scripts/wishket/console.sh start)');
       }
     };
     sortBy('conf-desc');
