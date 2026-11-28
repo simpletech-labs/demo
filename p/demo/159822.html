@@ -107,7 +107,7 @@ td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
   <section class="hero">
     <div class="kicker">Concept Demo · 제안 기반 목업</div>
     <h1>의료 영상 AI 분석 프로그램 개발</h1>
-    <p>제안서의 문제 정의를 화면 구조로 옮긴 예시입니다.</p>
+    <p>&amp;gt; 과업이 세 덩어리로 갈립니다</p>
     <div class="meta">
       <span class="pill">지원가 32,000,000</span>
       <span class="pill">기간 90</span>
@@ -117,18 +117,18 @@ td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
   </section>
 
   <div class="kpis">
-    <div class="kpi"><div class="k">화면 수(예시)</div><div class="v">3</div><div class="s">제안 범위 기준</div></div>
-    <div class="kpi"><div class="k">핵심 기능</div><div class="v">1</div><div class="s">작업 범위 항목</div></div>
-    <div class="kpi"><div class="k">진행 구간</div><div class="v">5</div><div class="s">단계별 게이트</div></div>
+    <div class="kpi"><div class="k">화면 수(예시)</div><div class="v">10</div><div class="s">제안 범위 기준</div></div>
+    <div class="kpi"><div class="k">핵심 기능</div><div class="v">5</div><div class="s">작업 범위 항목</div></div>
+    <div class="kpi"><div class="k">진행 구간</div><div class="v">3</div><div class="s">단계별 게이트</div></div>
   </div>
 
-  <section class="block"><h2>핵심 기능</h2><div class="feats"><div class="feat"><div class="t">제안서의 작업 범위를 화면 단위로 옮깁니다.</div></div></div>
+  <section class="block"><h2>핵심 기능</h2><div class="feats"><div class="feat"><div class="n">01</div><div class="t">데이터 파이프라인: DICOM·사진 수집, 익명화(환자 식별정보 제거, 매핑 테이블 분리 보관), 학습/검증 분할 규칙, 데이터 버전 관리, 수집 현황 화면</div></div><div class="feat"><div class="n">02</div><div class="t">분석 웹: 영상 업로드·결과 조회, 판정과 신뢰도 표시, 소견 메모, PDF 자동 보고서(환자·검사일·모델 버전·판정·근거 지표 포함).</div></div><div class="feat"><div class="n">03</div><div class="t">관리자: 의사/연구원/관리자 3역할 권한, 데이터·모델 버전 관리, 감사 로그(누가 어떤 영상에 접근했는지).</div></div><div class="feat"><div class="n">04</div><div class="t">서버·DB: FastAPI 기반 API, PostgreSQL, Docker 배포, AWS(EC2·RDS·S3) 구성</div></div><div class="feat"><div class="n">05</div><div class="t">모델: 1단계에서 지표·평가 방식 합의까지 수행합니다</div></div></div>
     <div class="note">제안서 &lt;작업 범위&gt;의 항목을 그대로 화면 카드로 옮겼습니다. 실제 데이터는 들어 있지 않습니다.</div>
   </section>
 
   <section class="block"><h2>진행 흐름</h2><div class="flow"><span class="step">공고 요구</span><span class="arrow">→</span><span class="step">데이터 설계</span><span class="arrow">→</span><span class="step">API</span><span class="arrow">→</span><span class="step">화면</span><span class="arrow">→</span><span class="step">검증</span></div>
     <table style="margin-top:14px"><thead><tr><th>구간</th><th>내용</th><th>진행률</th><th></th></tr></thead>
-    <tbody><tr><td class="n">D10</td><td>요구사항 정리</td><td style="width:140px"><div class="bar"><i style="width:20%"></i></div></td><td class="n">20%</td></tr><tr><td class="n">D20</td><td>설계</td><td style="width:140px"><div class="bar"><i style="width:40%"></i></div></td><td class="n">40%</td></tr><tr><td class="n">D30</td><td>구현</td><td style="width:140px"><div class="bar"><i style="width:60%"></i></div></td><td class="n">60%</td></tr><tr><td class="n">D40</td><td>검증</td><td style="width:140px"><div class="bar"><i style="width:80%"></i></div></td><td class="n">80%</td></tr><tr><td class="n">D50</td><td>이관</td><td style="width:140px"><div class="bar"><i style="width:100%"></i></div></td><td class="n">100%</td></tr></tbody></table>
+    <tbody><tr><td class="n">D10</td><td>~D15 데이터 감사·익명화·분할 규칙 확정, 평가 지표 합의(게이트1) D16~D45 분석 웹·관리자·API 구축 D46~D70 모델 연동, 보고서 자동화, 권한 테스트 D71~D85 부하 점검, 익명성 검증 리포트, 인수인계 주 </td><td style="width:140px"><div class="bar"><i style="width:20%"></i></div></td><td class="n">20%</td></tr></tbody></table>
   </section>
 
   <section class="block"><h2>다음 단계</h2>

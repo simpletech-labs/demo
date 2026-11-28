@@ -107,7 +107,7 @@ td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
   <section class="hero">
     <div class="kicker">Concept Demo · 제안 기반 목업</div>
     <h1>이커머스 채널별 매출·손익 BigQuery 구조 재설계 및 운영 대시보드 구축</h1>
-    <p>제안서의 문제 정의를 화면 구조로 옮긴 예시입니다.</p>
+    <p>&amp;gt; 문제는 대시보드가 아니라 적재 규칙입니다</p>
     <div class="meta">
       <span class="pill">지원가 35,200,000</span>
       <span class="pill">기간 84</span>
@@ -117,18 +117,18 @@ td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
   </section>
 
   <div class="kpis">
-    <div class="kpi"><div class="k">화면 수(예시)</div><div class="v">3</div><div class="s">제안 범위 기준</div></div>
-    <div class="kpi"><div class="k">핵심 기능</div><div class="v">1</div><div class="s">작업 범위 항목</div></div>
-    <div class="kpi"><div class="k">진행 구간</div><div class="v">5</div><div class="s">단계별 게이트</div></div>
+    <div class="kpi"><div class="k">화면 수(예시)</div><div class="v">12</div><div class="s">제안 범위 기준</div></div>
+    <div class="kpi"><div class="k">핵심 기능</div><div class="v">6</div><div class="s">작업 범위 항목</div></div>
+    <div class="kpi"><div class="k">진행 구간</div><div class="v">3</div><div class="s">단계별 게이트</div></div>
   </div>
 
-  <section class="block"><h2>핵심 기능</h2><div class="feats"><div class="feat"><div class="t">제안서의 작업 범위를 화면 단위로 옮깁니다.</div></div></div>
+  <section class="block"><h2>핵심 기능</h2><div class="feats"><div class="feat"><div class="n">01</div><div class="t">진단: 테이블·뷰·스케줄·권한 목록화, 쿼리별 스캔량·비용 리포트, 중복 발생 지점 식별.</div></div><div class="feat"><div class="n">02</div><div class="t">재설계: 원천/정제/마트 3계층, 일자 파티션과 채널·상품 클러스터링, MERGE 기반 멱등 적재와 적재 이력 테이블.</div></div><div class="feat"><div class="n">03</div><div class="t">집계: 일매출, 채널별 매출·수수료·원가·배송비 손익, 기준표(수수료율·원가·배송비) 관리 화면.</div></div><div class="feat"><div class="n">04</div><div class="t">월 마감: 마감 시점 스냅샷 테이블, 마감 후 재계산 금지 규칙, 마감 후 조정 이력 분리.</div></div><div class="feat"><div class="n">05</div><div class="t">대시보드: 일매출 추이, 월 손익(채널·상품), 기준표 편집</div></div><div class="feat"><div class="n">06</div><div class="t">문서: 구조도, 기준표 정의서, 운영 절차서, 인수인계 세션.</div></div></div>
     <div class="note">제안서 &lt;작업 범위&gt;의 항목을 그대로 화면 카드로 옮겼습니다. 실제 데이터는 들어 있지 않습니다.</div>
   </section>
 
   <section class="block"><h2>진행 흐름</h2><div class="flow"><span class="step">공고 요구</span><span class="arrow">→</span><span class="step">데이터 설계</span><span class="arrow">→</span><span class="step">API</span><span class="arrow">→</span><span class="step">화면</span><span class="arrow">→</span><span class="step">검증</span></div>
     <table style="margin-top:14px"><thead><tr><th>구간</th><th>내용</th><th>진행률</th><th></th></tr></thead>
-    <tbody><tr><td class="n">D10</td><td>요구사항 정리</td><td style="width:140px"><div class="bar"><i style="width:20%"></i></div></td><td class="n">20%</td></tr><tr><td class="n">D20</td><td>설계</td><td style="width:140px"><div class="bar"><i style="width:40%"></i></div></td><td class="n">40%</td></tr><tr><td class="n">D30</td><td>구현</td><td style="width:140px"><div class="bar"><i style="width:60%"></i></div></td><td class="n">60%</td></tr><tr><td class="n">D40</td><td>검증</td><td style="width:140px"><div class="bar"><i style="width:80%"></i></div></td><td class="n">80%</td></tr><tr><td class="n">D50</td><td>이관</td><td style="width:140px"><div class="bar"><i style="width:100%"></i></div></td><td class="n">100%</td></tr></tbody></table>
+    <tbody><tr><td class="n">D10</td><td>~D14 진단 리포트와 재설계안 승인(게이트1) D15~D42 적재·정제·집계 재구축 D43~D63 마감 스냅샷·기준표 관리·대시보드 D64~D84 전월 3개월 대조 검증, 문서, 인수인계 총 공수 60일</td><td style="width:140px"><div class="bar"><i style="width:20%"></i></div></td><td class="n">20%</td></tr></tbody></table>
   </section>
 
   <section class="block"><h2>다음 단계</h2>

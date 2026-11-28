@@ -107,7 +107,7 @@ td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
   <section class="hero">
     <div class="kicker">Concept Demo · 제안 기반 목업</div>
     <h1>수행도 평가 통계 계산·판정 프로그램 개발</h1>
-    <p>제안서의 문제 정의를 화면 구조로 옮긴 예시입니다.</p>
+    <p>&amp;gt; 이 과제의 핵심은 계산식을 새로 만드는 것이 아니라, 지금 엑셀로 나오는 결과와 같은 값이 나온다는 것을 증명하는 일입니다</p>
     <div class="meta">
       <span class="pill">지원가 23,800,000</span>
       <span class="pill">기간 90</span>
@@ -117,18 +117,18 @@ td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
   </section>
 
   <div class="kpis">
-    <div class="kpi"><div class="k">화면 수(예시)</div><div class="v">3</div><div class="s">제안 범위 기준</div></div>
-    <div class="kpi"><div class="k">핵심 기능</div><div class="v">1</div><div class="s">작업 범위 항목</div></div>
-    <div class="kpi"><div class="k">진행 구간</div><div class="v">5</div><div class="s">단계별 게이트</div></div>
+    <div class="kpi"><div class="k">화면 수(예시)</div><div class="v">12</div><div class="s">제안 범위 기준</div></div>
+    <div class="kpi"><div class="k">핵심 기능</div><div class="v">6</div><div class="s">작업 범위 항목</div></div>
+    <div class="kpi"><div class="k">진행 구간</div><div class="v">3</div><div class="s">단계별 게이트</div></div>
   </div>
 
-  <section class="block"><h2>핵심 기능</h2><div class="feats"><div class="feat"><div class="t">제안서의 작업 범위를 화면 단위로 옮깁니다.</div></div></div>
+  <section class="block"><h2>핵심 기능</h2><div class="feats"><div class="feat"><div class="n">01</div><div class="t">계산 엔진: Algorithm A, Q/Hampel, Horwitz 계산과 판정 로직</div></div><div class="feat"><div class="n">02</div><div class="t">회차 관리: 기관 제출값 엑셀 업로드, 형식·범위 검증, 재계산, 회차별 이력.</div></div><div class="feat"><div class="n">03</div><div class="t">골든셋 대조: 기존 엑셀 결과와 자동 비교해 불일치 항목과 원인(규칙 차이·입력 오류·반올림)을 분류해 보여주는 리포트.</div></div><div class="feat"><div class="n">04</div><div class="t">보고서: 기관명·평가 수치 자동 채움, 표준 양식 PDF·엑셀 출력.</div></div><div class="feat"><div class="n">05</div><div class="t">관리자: 사용자·권한, 계산 규칙 버전 관리, 감사 로그.</div></div><div class="feat"><div class="n">06</div><div class="t">테스트: 계산 단위 테스트와 회차 단위 회귀 테스트를 함께 납품합니다.</div></div></div>
     <div class="note">제안서 &lt;작업 범위&gt;의 항목을 그대로 화면 카드로 옮겼습니다. 실제 데이터는 들어 있지 않습니다.</div>
   </section>
 
   <section class="block"><h2>진행 흐름</h2><div class="flow"><span class="step">공고 요구</span><span class="arrow">→</span><span class="step">데이터 설계</span><span class="arrow">→</span><span class="step">API</span><span class="arrow">→</span><span class="step">화면</span><span class="arrow">→</span><span class="step">검증</span></div>
     <table style="margin-top:14px"><thead><tr><th>구간</th><th>내용</th><th>진행률</th><th></th></tr></thead>
-    <tbody><tr><td class="n">D10</td><td>요구사항 정리</td><td style="width:140px"><div class="bar"><i style="width:20%"></i></div></td><td class="n">20%</td></tr><tr><td class="n">D20</td><td>설계</td><td style="width:140px"><div class="bar"><i style="width:40%"></i></div></td><td class="n">40%</td></tr><tr><td class="n">D30</td><td>구현</td><td style="width:140px"><div class="bar"><i style="width:60%"></i></div></td><td class="n">60%</td></tr><tr><td class="n">D40</td><td>검증</td><td style="width:140px"><div class="bar"><i style="width:80%"></i></div></td><td class="n">80%</td></tr><tr><td class="n">D50</td><td>이관</td><td style="width:140px"><div class="bar"><i style="width:100%"></i></div></td><td class="n">100%</td></tr></tbody></table>
+    <tbody><tr><td class="n">D10</td><td>~D20 계산식·규칙 명문화, 골든셋 확보와 1차 대조(게이트1: 재현율 확인) D21~D50 엔진·업로드·검증·대조 도구 개발 D51~D70 보고서·관리자·감사 로그 D71~D85 회귀 테스트, 인수인계, 규칙 문서 정리 대조 결과</td><td style="width:140px"><div class="bar"><i style="width:20%"></i></div></td><td class="n">20%</td></tr></tbody></table>
   </section>
 
   <section class="block"><h2>다음 단계</h2>
