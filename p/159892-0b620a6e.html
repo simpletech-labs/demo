@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>수행도 평가 통계 계산·판정 프로그램 개발 — 제안서</title>
+<style>
+:root{
+  --navy:#12324f; --navy-2:#1c4a72; --line:#e3e8ef; --bg:#f5f7fa; --card:#fff;
+  --tx:#1b2027; --muted:#69747f; --accent:#0f7b52; --accent-bg:#e9f6ef;
+  --warn:#8a5a00; --warn-bg:#fdf4e3; --blue:#1d5b94; --blue-bg:#eaf1f9;
+  --radius:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font-size:15px;line-height:1.7;word-break:keep-all;
+  font-family:"Apple SD Gothic Neo","Pretendard","Malgun Gothic",system-ui,-apple-system,sans-serif;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:920px;margin:0 auto;padding:0 16px 80px}
+.topbar{background:var(--navy);color:#cfdce8;font-size:12.5px;letter-spacing:.02em}
+.topbar .inner{max-width:920px;margin:0 auto;padding:9px 16px;display:flex;gap:10px;align-items:center}
+.topbar b{color:#fff;font-weight:700}
+.topbar .sp{flex:1}
+.topbar .dot{width:6px;height:6px;border-radius:50%;background:#5fd39a}
+header.head{background:var(--navy-2);color:#fff;padding:30px 0 26px}
+header.head .inner{max-width:920px;margin:0 auto;padding:0 16px}
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
+.chip{font-size:11.5px;padding:3px 9px;border-radius:999px;background:rgba(255,255,255,.14);
+  color:#eaf2f9;letter-spacing:.01em}
+.chip.hot{background:#ffd9c7;color:#7a2f0d;font-weight:700}
+h1{font-size:23px;line-height:1.38;letter-spacing:-.02em;font-weight:800}
+.head .sub{margin-top:9px;color:#b9cbdb;font-size:13px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:-22px 0 26px;position:relative}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 15px;
+  box-shadow:0 1px 2px rgba(18,50,79,.05)}
+.stat .k{font-size:11.5px;color:var(--muted);letter-spacing:.02em}
+.stat .v{font-size:19px;font-weight:800;letter-spacing:-.02em;margin-top:4px}
+.stat .v small{font-size:12px;font-weight:600;color:var(--muted);margin-left:3px}
+.stat.hl{border-color:#cfe6da;background:var(--accent-bg)}
+.stat.hl .v{color:var(--accent)}
+section.block{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:22px 24px;margin-bottom:16px;box-shadow:0 1px 2px rgba(18,50,79,.04)}
+h2{font-size:17px;letter-spacing:-.015em;margin:0 0 14px;padding-left:11px;border-left:4px solid var(--navy);
+  line-height:1.35}
+h3{font-size:14.5px;margin:18px 0 8px;color:var(--navy)}
+p{margin:0 0 11px}
+ul,ol{margin:0 0 12px 20px}
+li{margin:3px 0}
+li::marker{color:#9aa7b4}
+table{width:100%;border-collapse:collapse;margin:8px 0 14px;font-size:13.5px}
+th,td{border-bottom:1px solid var(--line);padding:9px 10px;text-align:left;vertical-align:top}
+th{background:#f7f9fc;font-size:12.5px;color:#455263;font-weight:700;white-space:nowrap}
+td:last-child,th:last-child{text-align:right}
+td:first-child,th:first-child{text-align:left}
+tr:last-child td{border-bottom:0}
+blockquote{border-left:3px solid var(--blue);background:var(--blue-bg);padding:11px 14px;
+  border-radius:0 8px 8px 0;margin:10px 0 14px;font-size:13.5px;color:#274a6b}
+blockquote p:last-child{margin-bottom:0}
+pre{background:#fbfcfe;border:1px solid var(--line);border-radius:10px;padding:0;margin:10px 0 16px;
+  overflow:hidden}
+pre code{display:block;padding:18px 20px;font-family:inherit;font-size:14.2px;line-height:1.85;
+  white-space:pre-wrap;word-break:keep-all;color:#232a33}
+pre.short code{font-size:15px;font-weight:700;color:var(--accent);padding:13px 18px}
+pre code .sh{display:block;font-weight:800;color:var(--navy);font-size:15px;margin:16px 0 4px;
+  padding-top:14px;border-top:1px dashed #dbe3ec}
+pre code .sh:first-child{margin-top:0;padding-top:0;border-top:0}
+pre code .q{color:var(--navy);font-weight:700;display:block;margin:14px 0 2px}
+strong{font-weight:700}
+hr{border:0;border-top:1px dashed #d6dee8;margin:20px 0}
+.foot{color:var(--muted);font-size:12.5px;text-align:center;margin-top:26px;line-height:1.8}
+.toc{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
+.toc a{font-size:12.5px;text-decoration:none;color:#3d4b59;background:#fff;border:1px solid var(--line);
+  border-radius:999px;padding:5px 12px}
+.toc a:hover{border-color:var(--navy-2);color:var(--navy)}
+@media(max-width:760px){
+  body{font-size:14.5px}
+  .stats{grid-template-columns:1fr 1fr;margin-top:-18px}
+  h1{font-size:20px}
+  section.block{padding:17px 15px;border-radius:10px}
+  table{font-size:12.8px}
+  th,td{padding:7px 8px}
+  th{white-space:normal}
+  pre code{font-size:13.4px;padding:14px}
+}
+@media print{
+  body{background:#fff}
+  .topbar,.toc{display:none}
+  section.block{break-inside:avoid;box-shadow:none;border-color:#ccc}
+  header.head{background:#fff;color:#000;border-bottom:2px solid #000;padding:0 0 10px}
+  header.head .sub,.chip{color:#333}
+}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="inner"><span class="dot"></span><b>심플테크</b><span>외주 제안서</span>
+<span class="sp"></span><span>2026-11-28 14:04</span></div></div>
+<header class="head"><div class="inner">
+  <div class="chips"><span class="chip">프라이빗 매칭</span><span class="chip hot">마감 2026-12-04</span><span class="chip">예산의 85%</span></div>
+  <h1>수행도 평가 통계 계산·판정 프로그램 개발</h1>
+  <div class="sub">클라이언트 예산 28,000,000원 · 제안 90일 · <a href="https://project.wishket.com/project/159892/" style="color:#bcd3e6">공고 원문</a></div>
+</div></header>
+<div class="wrap">
+
+  <div class="stats">
+    <div class="stat hl"><div class="k">지원가</div><div class="v">23,800,000<small>원</small></div></div>
+    <div class="stat"><div class="k">지원 기간</div><div class="v">90<small>일</small></div></div>
+    <div class="stat"><div class="k">일당</div><div class="v">264,444<small>원</small></div></div>
+    <div class="stat"><div class="k">총 수령 (수수료 20% + 부가세)</div><div class="v">20,944,000<small>원</small></div></div>
+  </div>
+  <section class="block" style="padding:16px 20px">
+    <div class="k" style="font-size:12px;color:#69747f;margin-bottom:8px">정산 (사업자 파트너 기준 · 부가세 별도 계약)</div>
+    <table style="margin:0">
+      <tr><th>항목</th><th>금액</th></tr>
+      <tr><td>지원가 (공급가액)</td><td>23,800,000원</td></tr>
+      <tr><td>위시켓 수수료 20% (500만원 이상 구간)</td><td>-4,760,000원</td></tr>
+      <tr><td>파트너 지급액</td><td>19,040,000원</td></tr>
+      <tr><td>부가세 10%</td><td>+1,904,000원</td></tr>
+      <tr style="background:#f7f9fc"><td><b>총 수령액</b></td><td><b>20,944,000원</b></td></tr>
+    </table>
+  </section>
+  <div class="toc"><a href="#금액-근거">금액 근거</a><a href="#정산-사업자-파트너-">정산 (사업자 파트너)</a><a href="#지원-금액-">지원 금액 *</a><a href="#지원-기간-">지원 기간 *</a><a href="#지원-내용-">지원 내용 *</a></div>
+  <section class="block"><h1>위시켓 지원서 초안 — 수행도 평가 통계 계산·판정 프로그램 개발 (상세 비공개)</h1>
+<ul>
+<li>공고: https://project.wishket.com/project/159892/</li>
+<li>상태: 프라이빗 매칭 / 마감 2026.12.04 / 예상 금액 28,000,000원 / 예상 기간 90일 / 지역 경기도 과천시 / 개발·디자인</li>
+<li>상세 본문 비공개 상태로 작성. 계산식·평가 항목·판정 기준은 공고에서 확인되지 않았으므로 전제로만 다루고, 확인 질문에 몰아 두었습니다.</li>
+</ul>
+</section><section class="block" id="금액-근거"><h2>금액 근거</h2>
+<table>
+<thead>
+<tr>
+<th>구분</th>
+<th>값</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>지원가</td>
+<td>23,800,000원 (예산의 85%, 부가세 별도)</td>
+</tr>
+<tr>
+<td>기간</td>
+<td>90일 (영업일 63일)</td>
+</tr>
+<tr>
+<td>일당</td>
+<td>264,444원</td>
+</tr>
+</tbody>
+</table>
+</section><section class="block" id="정산-사업자-파트너-"><h2>정산 (사업자 파트너)</h2>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>금액</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>지원가 (공급가액)</td>
+<td>23,800,000원</td>
+</tr>
+<tr>
+<td>위시켓 수수료 20%</td>
+<td>-4,760,000원</td>
+</tr>
+<tr>
+<td>파트너 지급액</td>
+<td>19,040,000원</td>
+</tr>
+<tr>
+<td>부가세 10%</td>
+<td>+1,904,000원</td>
+</tr>
+<tr>
+<td><strong>총 수령액</strong></td>
+<td><strong>20,944,000원</strong></td>
+</tr>
+</tbody>
+</table>
+</section><section class="block" id="지원-금액-"><h2>지원 금액 *</h2>
+<pre class="short"><code>23800000
+</code></pre>
+</section><section class="block" id="지원-기간-"><h2>지원 기간 *</h2>
+<pre class="short"><code>90
+</code></pre>
+</section><section class="block" id="지원-내용-"><h2>지원 내용 *</h2>
+<pre><code><span class="sh">&lt;프로젝트 진단&gt;
+통계 계산 프로그램에서 시간이 걸리는 곳은 계산이 아니라 계산의 근거를 남기는 일입니다. 점수가 나왔을 때 왜 그 점수가 나왔는지 항목별로 되짚을 수 없으면, 결과를 받은 쪽에서 이의를 제기하는 순간 담당자가 엑셀로 다시 계산해야 합니다. 판정 프로그램도 같습니다. 등급 컷과 예외 처리 규칙이 코드에만 박혀 있으면 규칙이 바뀔 때마다 개발자를 불러야 하고, 작년 기준으로 재현하려면 코드를 되돌려야 합니다. 그래서 이 프로그램의 설계 기준은 세 가지로 잡습니다. ①계산식과 가중치·컷을 데이터로 두고 화면에서 버전 관리 ②평가별로 적용된 기준 버전과 항목별 산출 내역을 저장 ③같은 원본으로 언제든 재계산해 결과를 재현. 이 세 가지를 초기에 넣지 않으면 나중에 붙일 때 저장 구조를 다시 만들어야 합니다.
+
+<span class="sh">&lt;작업 범위&gt;
+진행할 범위 — 요구사항 정의서, 평가 항목·배점·가중치·판정 기준 정의서(엑셀 등 기존 자료를 기준으로 확정), 원본 데이터 업로드와 검증(누락·범위 초과·중복), 항목별 점수 계산과 집계, 판정(등급·합격·보류) 로직, 기준 버전 관리와 적용 이력, 항목별 산출 내역 조회(점수 → 근거 값까지 추적), 결과 리포트 출력(PDF·엑셀), 통계 요약(분포·평균·표준편차·항목별 기여도), 사용자·권한 관리, 계산 이력과 변경 로그, 운영 매뉴얼.
+제외할 범위 — 원본 데이터의 수집·정제 자체(양식이 정해진 파일을 받는 것을 전제), 평가 항목이나 배점 기준의 내용 결정(클라이언트 확정 사항), 외부 기관 시스템과의 자동 연동, 통계적 모형 개발·검정(기준이 정해진 계산의 구현).
+추가 제안 — 기준 변경 시 영향 범위 미리보기(바꾸기 전후 결과 비교), 과거 평가 재현 시뮬레이션, 결과 대시보드, 다년도 비교 분석. 지금 함께 진행하거나 이후 확장으로 붙일 수 있습니다.
+
+<span class="sh">&lt;실행 플랜&gt;
+착수일 기준 90일입니다.
+D1–D10 기준 확정. 현재 쓰는 계산 방식과 판정 기준을 문서로 옮기고, 원본 데이터 양식과 표본을 받습니다. 게이트 1: 계산·판정 기준 정의서 승인. 여기서 식이 확정되지 않으면 개발한 계산을 전부 다시 짜야 하므로 가장 앞에 둡니다.
+D11–D30 1차 개발. 업로드와 검증, 항목별 계산, 산출 내역 저장 구조. 게이트 2: 기존 방식으로 계산한 표본 100건과 결과 대조.
+D31–D55 2차 개발. 집계와 판정, 기준 버전 관리, 재계산.
+D56–D70 화면과 리포트. 산출 내역 조회, PDF·엑셀 출력, 통계 요약, 권한.
+D71–D85 검증. 실제 평가 1회분 규모로 돌려 기존 결과와 전건 대조하고 차이 원인을 정리합니다. 이 대조가 이 프로젝트의 완료 판정입니다.
+D86–D90 인수인계와 매뉴얼, 운영 교육.
+총 공수 63영업일 / 90일(영업일 기준 약 63일)에서 버퍼를 남기고 역산했습니다. 검토 피드백은 3영업일 안에 반영하며, 늦어지는 만큼 이후 일정이 같이 밀립니다.
+
+<span class="sh">&lt;리스크와 대응&gt;
+가장 먼저 확인할 것은 기존 계산 방식의 예외 규칙입니다. 문서에 없는 예외가 실무에 반드시 있고, 그것을 모르면 검증 단계에서 전건 불일치가 납니다. D1–D10에 과거 결과물 두어 건을 받아 역산해 규칙을 뽑아내고, 확인되지 않는 부분은 질문 목록으로 정리해 확정합니다. 둘째, 판정 기준이 평가 중에 바뀌는 경우입니다. 기준을 데이터로 두고 버전을 남기므로 이미 끝난 평가는 영향받지 않고, 새 기준은 다음 평가부터 적용됩니다. 셋째, 원본 데이터 품질입니다. 누락·오입력이 계산을 조용히 틀리게 만들기 때문에 업로드 단계에서 검증하고 통과하지 못한 행은 계산 대상에서 빼고 사유와 함께 보여줍니다. 넷째, 부동소수점 처리입니다. 점수 합계와 경계값 판정에서 반올림 위치에 따라 등급이 갈릴 수 있어, 반올림 규칙을 문서로 확정하고 경계 사례 테스트를 별도로 둡니다.
+
+<span class="sh">&lt;기대 결과&gt;
+완료 시점에 원본 파일을 올리면 점수와 판정이 나오고, 각 점수가 어떤 값에서 나왔는지 화면에서 바로 확인됩니다. 기준이 바뀌면 화면에서 새 버전을 만들어 적용하고, 이전 평가는 그대로 남습니다. 결과를 설명해야 할 때 엑셀을 다시 열 필요가 없고, 같은 원본으로 언제든 같은 결과가 나옵니다.
+
+<span class="sh">&lt;확인이 필요한 질문&gt;
+1. 계산식과 배점·가중치·판정 컷이 정리된 문서가 있나요? 없다면 과거 결과물 두어 건을 주시면 역산해 초안을 만들겠습니다.
+2. 원본 데이터는 어떤 양식으로 들어오나요? 엑셀 파일인지, 시스템에서 내려받는지 알려주세요.
+3. 예외 처리 규칙(결측, 상한·하한, 특정 항목 제외)이 실무에 있나요?
+4. 평가는 연 몇 회, 1회당 대상 건수는 어느 정도인가요?
+5. 결과물은 화면 조회로 충분한가요, 아니면 정해진 서식의 보고서 파일이 꼭 필요한가요?
+</code></pre></section>
+  <div class="foot">이 페이지는 검토용 초안입니다. 제출 전 문의는 위시켓 메시지로 부탁드립니다.<br>
+  심플테크 · simpletech</div>
+</div>
+</body>
+</html>
