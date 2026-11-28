@@ -25,6 +25,14 @@ body{background:var(--bg);color:var(--tx);font-size:15px;line-height:1.7;word-br
 header.head{background:var(--navy-2);color:#fff;padding:30px 0 26px}
 header.head .inner{max-width:920px;margin:0 auto;padding:0 16px}
 .chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
+.mgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px 18px}
+.mgrid .mc:nth-child(n+5){grid-column:span 1}
+.mgrid .mc.wide{grid-column:span 3}
+.mc{display:flex;flex-direction:column;gap:2px;min-width:0}
+.mk{font-size:11.5px;color:#8b95a1;letter-spacing:.02em}
+.mv{font-size:13.5px;color:#1a2530;font-weight:600;word-break:break-all;line-height:1.35}
+.mv a{color:#1265a8;text-decoration:none;font-weight:600;font-size:12.5px}
+@media(max-width:720px){.mgrid{grid-template-columns:1fr 1fr}.mgrid .mc.wide{grid-column:span 2}}
 .metatbl{width:100%;border-collapse:collapse;font-size:13.5px}
 .metatbl th{width:112px;text-align:left;color:#69747f;font-weight:600;padding:7px 0;vertical-align:top}
 .metatbl td{padding:7px 0;color:#1a2530;word-break:break-all}
@@ -91,7 +99,15 @@ hr{border:0;border-top:1px dashed #d6dee8;margin:20px 0}
   .topbar,.toc{display:none}
   section.block{break-inside:avoid;box-shadow:none;border-color:#ccc}
   header.head{background:#fff;color:#000;border-bottom:2px solid #000;padding:0 0 10px}
-  header.head .sub,.metatbl{width:100%;border-collapse:collapse;font-size:13.5px}
+  header.head .sub,.mgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px 18px}
+.mgrid .mc:nth-child(n+5){grid-column:span 1}
+.mgrid .mc.wide{grid-column:span 3}
+.mc{display:flex;flex-direction:column;gap:2px;min-width:0}
+.mk{font-size:11.5px;color:#8b95a1;letter-spacing:.02em}
+.mv{font-size:13.5px;color:#1a2530;font-weight:600;word-break:break-all;line-height:1.35}
+.mv a{color:#1265a8;text-decoration:none;font-weight:600;font-size:12.5px}
+@media(max-width:720px){.mgrid{grid-template-columns:1fr 1fr}.mgrid .mc.wide{grid-column:span 2}}
+.metatbl{width:100%;border-collapse:collapse;font-size:13.5px}
 .metatbl th{width:112px;text-align:left;color:#69747f;font-weight:600;padding:7px 0;vertical-align:top}
 .metatbl td{padding:7px 0;color:#1a2530;word-break:break-all}
 .metatbl tr+tr{border-top:1px solid #f0f3f7}
@@ -101,7 +117,7 @@ hr{border:0;border-top:1px dashed #d6dee8;margin:20px 0}
 </head>
 <body>
 <div class="topbar"><div class="inner"><span class="dot"></span><b>심플테크</b><span>외주 제안서</span>
-<span class="sp"></span><span>2026-11-29 01:04</span></div></div>
+<span class="sp"></span><span>2026-11-29 01:10</span></div></div>
 <header class="head"><div class="inner">
   <div class="chips"><span class="chip">모집 중</span><span class="chip hot">마감 2026-12-02</span></div>
   <h1>주방가전 하드웨어 B2B 카탈로그형 자사몰 리뉴얼 (데이터 이전·검색 최적화)</h1>
@@ -114,7 +130,7 @@ hr{border:0;border-top:1px dashed #d6dee8;margin:20px 0}
     <div class="stat"><div class="k">지원 기간</div><div class="v">90<small>일</small></div></div>
     <div class="stat"><div class="k">일당</div><div class="v">105,555<small>원</small></div></div>
     <div class="stat"><div class="k">총 수령 (수수료 20% + 부가세)</div><div class="v">8,360,000<small>원</small></div></div>
-  </div><section class="block" style="padding:18px 22px"><table class="metatbl" style="margin:0"><tr><th>상태</th><td>모집 중</td></tr><tr><th>마감일</th><td>2026-12-02</td></tr><tr><th>예상 기간</th><td>90일</td></tr></table></section>
+  </div><section class="block" style="padding:16px 20px"><div class="mgrid"><div class="mc"><span class="mk">상태</span><span class="mv">모집 중</span></div><div class="mc"><span class="mk">마감일</span><span class="mv">2026-12-02</span></div><div class="mc"><span class="mk">예상 기간</span><span class="mv">90일</span></div></div></section>
   <section class="block" style="padding:16px 20px">
     <div class="k" style="font-size:12px;color:#69747f;margin-bottom:8px">정산 (사업자 파트너 기준 · 부가세 별도 계약)</div>
     <table style="margin:0">
