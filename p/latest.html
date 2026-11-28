@@ -50,8 +50,10 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
 .card.top3,.card.top4{background:linear-gradient(180deg,#fafcfd,#fff);box-shadow:inset 0 0 0 1px #b9c6cf,0 4px 14px rgba(185,198,207,.12)}
 .cwrap{display:flex;flex-direction:column;height:100%}
 .cwrap .card{flex:1}
-.cbar{margin-top:6px;display:flex;justify-content:flex-end}
-.cbar select{font:inherit;font-size:11.5px;padding:4px 8px;border:1px solid #e2e8ef;border-radius:8px;background:#fff;color:#4a5866}
+.cbar{margin-top:auto;padding-top:9px;border-top:1px solid #f1f4f8;display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%}
+.clab{font-size:11px;color:#98a2ad;font-weight:600}
+.cbar select{font:inherit;font-size:11.5px;padding:4px 8px;border:1px solid #e2e8ef;border-radius:8px;background:#fff;color:#4a5866;cursor:pointer}
+.cbar select:hover{border-color:#c3ceda}
 .consolehint{margin:18px 0 8px;font-size:12px;color:#6b7684;background:#f6f8fa;border:1px solid #e6ebf1;border-radius:10px;padding:10px 14px}
 .consolehint code{font-size:11.5px;background:#fff;border:1px solid #e2e8ef;border-radius:5px;padding:1px 5px}
 .st{font-size:10.5px;font-weight:800;padding:3px 8px;border-radius:999px;line-height:1.1}
@@ -120,8 +122,11 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="p">32,000,000원</span><span>90일</span><span>일당 355,555원</span><span>총 수령 28,160,000원</span></div>
   <div class="meta"><span class="ap">지원자 70명 · 전일 +1</span></div>
   <div class="why">웹/시스템 개발 · 어드민 구축 경험 · 요구기술 3/5 보유</div>
+  <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
+    <span class="clab">제출 상태</span>
+    <select onchange="setStatus(this,'159822')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+  </div>
 </a>
-<div class="cbar"><select onchange="setStatus(this,'159822')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
 </div>
 </a><div class="cwrap" data-id="159892"
    data-deadline="2026-12-04" data-quote="23800000"
@@ -134,8 +139,11 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="p">23,800,000원</span><span>90일</span><span>일당 264,444원</span><span>총 수령 20,944,000원</span></div>
   <div class="meta"><span class="ap">지원자 비공개</span></div>
   <div class="why">웹/시스템 개발 · ERP 연동 경험 · 요구기술 1/1 보유</div>
+  <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
+    <span class="clab">제출 상태</span>
+    <select onchange="setStatus(this,'159892')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+  </div>
 </a>
-<div class="cbar"><select onchange="setStatus(this,'159892')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
 </div>
 </a><div class="cwrap" data-id="159717"
    data-deadline="2026-12-08" data-quote="35200000"
@@ -148,8 +156,11 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="p">35,200,000원</span><span>84일</span><span>일당 419,047원</span><span>총 수령 30,976,000원</span></div>
   <div class="meta"><span class="ap">지원자 비공개</span></div>
   <div class="why">신규 구축/설계 · 커머스/마켓 경험 · 요구기술 2/3 보유</div>
+  <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
+    <span class="clab">제출 상태</span>
+    <select onchange="setStatus(this,'159717')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+  </div>
 </a>
-<div class="cbar"><select onchange="setStatus(this,'159717')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
 </div>
 </a><div class="cwrap" data-id="159866"
    data-deadline="2026-12-03" data-quote="24000000"
@@ -162,8 +173,11 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="p">24,000,000원</span><span>90일</span><span>일당 266,666원</span><span>총 수령 21,120,000원</span></div>
   <div class="meta"><span class="ap">지원자 비공개</span></div>
   <div class="why">웹/시스템 개발 · 정산 경험</div>
+  <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
+    <span class="clab">제출 상태</span>
+    <select onchange="setStatus(this,'159866')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+  </div>
 </a>
-<div class="cbar"><select onchange="setStatus(this,'159866')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
 </div>
 </a><div class="cwrap" data-id="159890"
    data-deadline="2026-12-04" data-quote="42500000"
@@ -176,8 +190,11 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="p">42,500,000원</span><span>150일</span><span>일당 283,333원</span><span>총 수령 37,400,000원</span></div>
   <div class="meta"><span class="ap">지원자 비공개</span></div>
   <div class="why">웹/시스템 개발 · 정산 경험</div>
+  <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
+    <span class="clab">제출 상태</span>
+    <select onchange="setStatus(this,'159890')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+  </div>
 </a>
-<div class="cbar"><select onchange="setStatus(this,'159890')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
 </div>
 </a><div class="cwrap" data-id="159773"
    data-deadline="2026-12-04" data-quote="19000000"
@@ -190,8 +207,11 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="p">19,000,000원</span><span>95일</span><span>일당 200,000원</span><span>총 수령 16,720,000원</span></div>
   <div class="meta"><span class="ap">지원자 비공개</span></div>
   <div class="why">웹/시스템 개발 · 커머스/마켓 경험</div>
+  <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
+    <span class="clab">제출 상태</span>
+    <select onchange="setStatus(this,'159773')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+  </div>
 </a>
-<div class="cbar"><select onchange="setStatus(this,'159773')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
 </div>
 </a><div class="cwrap" data-id="159854"
    data-deadline="2026-12-01" data-quote="22500000"
@@ -204,8 +224,11 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="p">22,500,000원</span><span>120일</span><span>일당 187,500원</span><span>총 수령 19,800,000원</span></div>
   <div class="meta"><span class="ap">지원자 비공개</span></div>
   <div class="why">웹/시스템 개발 · 결제 경험</div>
+  <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
+    <span class="clab">제출 상태</span>
+    <select onchange="setStatus(this,'159854')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+  </div>
 </a>
-<div class="cbar"><select onchange="setStatus(this,'159854')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
 </div>
 </a><div class="cwrap" data-id="159844"
    data-deadline="2026-12-02" data-quote="42500000"
@@ -218,8 +241,11 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="p">42,500,000원</span><span>120일</span><span>일당 354,166원</span><span>총 수령 37,400,000원</span></div>
   <div class="meta"><span class="ap">지원자 비공개</span></div>
   <div class="why">웹/시스템 개발 · 커머스/마켓 경험</div>
+  <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
+    <span class="clab">제출 상태</span>
+    <select onchange="setStatus(this,'159844')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+  </div>
 </a>
-<div class="cbar"><select onchange="setStatus(this,'159844')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
 </div>
 </a><div class="cwrap" data-id="159825"
    data-deadline="2026-12-01" data-quote="19000000"
@@ -232,8 +258,11 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="p">19,000,000원</span><span>120일</span><span>일당 158,333원</span><span>총 수령 16,720,000원</span></div>
   <div class="meta"><span class="ap">지원자 비공개</span></div>
   <div class="why">웹/시스템 개발 · 결제 경험</div>
+  <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
+    <span class="clab">제출 상태</span>
+    <select onchange="setStatus(this,'159825')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+  </div>
 </a>
-<div class="cbar"><select onchange="setStatus(this,'159825')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
 </div>
 </a><div class="cwrap" data-id="159781"
    data-deadline="2026-12-06" data-quote="4700000"
@@ -246,8 +275,11 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="p">4,700,000원</span><span>30일</span><span>일당 156,666원</span><span>총 수령 3,877,500원</span></div>
   <div class="meta"><span class="ap">지원자 71명 · 전일 +3</span></div>
   <div class="why">웹/시스템 개발 · 요구기술 1/4 보유</div>
+  <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
+    <span class="clab">제출 상태</span>
+    <select onchange="setStatus(this,'159781')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+  </div>
 </a>
-<div class="cbar"><select onchange="setStatus(this,'159781')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
 </div>
 </a><div class="cwrap" data-id="159882"
    data-deadline="2026-12-10" data-quote="9000000"
@@ -260,8 +292,11 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="p">9,000,000원</span><span>45일</span><span>일당 200,000원</span><span>총 수령 7,920,000원</span></div>
   <div class="meta"><span class="ap">지원자 105명 · 전일 +1</span></div>
   <div class="why">웹/시스템 개발 · 결제 경험</div>
+  <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
+    <span class="clab">제출 상태</span>
+    <select onchange="setStatus(this,'159882')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+  </div>
 </a>
-<div class="cbar"><select onchange="setStatus(this,'159882')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
 </div>
 </a><div class="cwrap" data-id="159762"
    data-deadline="2026-12-02" data-quote="40900000"
@@ -274,8 +309,11 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="p">40,900,000원</span><span>120일</span><span>일당 340,833원</span><span>총 수령 35,992,000원</span></div>
   <div class="meta"><span class="ap">지원자 비공개</span></div>
   <div class="why">신규 구축/설계 · 정산 경험</div>
+  <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
+    <span class="clab">제출 상태</span>
+    <select onchange="setStatus(this,'159762')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+  </div>
 </a>
-<div class="cbar"><select onchange="setStatus(this,'159762')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
 </div>
 </a><div class="cwrap" data-id="159845"
    data-deadline="2026-12-02" data-quote="7600000"
@@ -288,8 +326,11 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="p">7,600,000원</span><span>45일</span><span>일당 168,888원</span><span>총 수령 6,688,000원</span></div>
   <div class="meta"><span class="ap">지원자 294명 · 전일 +3</span></div>
   <div class="why">웹/시스템 개발 · 정산 경험</div>
+  <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
+    <span class="clab">제출 상태</span>
+    <select onchange="setStatus(this,'159845')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+  </div>
 </a>
-<div class="cbar"><select onchange="setStatus(this,'159845')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
 </div>
 </a><div class="cwrap" data-id="159804"
    data-deadline="2026-12-07" data-quote="8000000"
@@ -302,8 +343,11 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="p">8,000,000원</span><span>30일</span><span>일당 266,666원</span><span>총 수령 7,040,000원</span></div>
   <div class="meta"><span class="ap">지원자 211명 · 전일 +2</span></div>
   <div class="why">웹/시스템 개발 · 결제 경험</div>
+  <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
+    <span class="clab">제출 상태</span>
+    <select onchange="setStatus(this,'159804')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+  </div>
 </a>
-<div class="cbar"><select onchange="setStatus(this,'159804')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
 </div>
 </a><div class="cwrap" data-id="159814"
    data-deadline="2026-12-07" data-quote="1900000"
@@ -316,8 +360,11 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="p">1,900,000원</span><span>21일</span><span>일당 90,476원</span><span>총 수령 1,567,500원</span></div>
   <div class="meta"><span class="ap">지원자 213명 · 전일 +4</span></div>
   <div class="why">백엔드 포지션</div>
+  <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
+    <span class="clab">제출 상태</span>
+    <select onchange="setStatus(this,'159814')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+  </div>
 </a>
-<div class="cbar"><select onchange="setStatus(this,'159814')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
 </div>
 </a><div class="cwrap" data-id="159816"
    data-deadline="2026-12-01" data-quote="17100000"
@@ -330,8 +377,11 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="p">17,100,000원</span><span>90일</span><span>일당 190,000원</span><span>총 수령 15,048,000원</span></div>
   <div class="meta"><span class="ap">지원자 197명 · 전일 +1</span></div>
   <div class="why">웹/시스템 개발</div>
+  <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
+    <span class="clab">제출 상태</span>
+    <select onchange="setStatus(this,'159816')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+  </div>
 </a>
-<div class="cbar"><select onchange="setStatus(this,'159816')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
 </div>
 </a><div class="cwrap" data-id="159896"
    data-deadline="2026-12-04" data-quote="5000000"
@@ -344,8 +394,11 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="p">5,000,000원</span><span>25일</span><span>일당 200,000원</span><span>총 수령 4,400,000원</span></div>
   <div class="meta"><span class="ap">지원자 171명 · 전일 +4</span></div>
   <div class="why">웹/시스템 개발</div>
+  <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
+    <span class="clab">제출 상태</span>
+    <select onchange="setStatus(this,'159896')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+  </div>
 </a>
-<div class="cbar"><select onchange="setStatus(this,'159896')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
 </div>
 </a><div class="cwrap" data-id="159837"
    data-deadline="2026-12-01" data-quote="4700000"
@@ -358,8 +411,11 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="p">4,700,000원</span><span>30일</span><span>일당 156,666원</span><span>총 수령 3,877,500원</span></div>
   <div class="meta"><span class="ap">지원자 131명 · 전일 +2</span></div>
   <div class="why">웹/시스템 개발</div>
+  <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
+    <span class="clab">제출 상태</span>
+    <select onchange="setStatus(this,'159837')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+  </div>
 </a>
-<div class="cbar"><select onchange="setStatus(this,'159837')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
 </div>
 </a><div class="cwrap" data-id="159741"
    data-deadline="2026-11-26" data-quote="2800000"
@@ -372,8 +428,11 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="p">2,800,000원</span><span>14일</span><span>일당 200,000원</span><span>총 수령 2,310,000원</span></div>
   <div class="meta"><span class="ap">지원자 272명 · 전일 +2</span></div>
   <div class="why">웹/시스템 개발 · 결제 경험</div>
+  <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
+    <span class="clab">제출 상태</span>
+    <select onchange="setStatus(this,'159741')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+  </div>
 </a>
-<div class="cbar"><select onchange="setStatus(this,'159741')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
 </div>
 </a><div class="cwrap" data-id="159832"
    data-deadline="2026-12-02" data-quote="9500000"
@@ -386,8 +445,11 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="p">9,500,000원</span><span>90일</span><span>일당 105,555원</span><span>총 수령 8,360,000원</span></div>
   <div class="meta"><span class="ap">지원자 173명 · 변동 없음</span></div>
   <div class="why">신규 구축/설계 · 커머스/마켓 경험</div>
+  <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
+    <span class="clab">제출 상태</span>
+    <select onchange="setStatus(this,'159832')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+  </div>
 </a>
-<div class="cbar"><select onchange="setStatus(this,'159832')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
 </div>
 </a><div class="cwrap" data-id="159868"
    data-deadline="2026-12-02" data-quote="9500000"
@@ -400,8 +462,11 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="p">9,500,000원</span><span>30일</span><span>일당 316,666원</span><span>총 수령 8,360,000원</span></div>
   <div class="meta"><span class="ap">지원자 186명 · 전일 +1</span></div>
   <div class="why">웹/시스템 개발</div>
+  <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
+    <span class="clab">제출 상태</span>
+    <select onchange="setStatus(this,'159868')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+  </div>
 </a>
-<div class="cbar"><select onchange="setStatus(this,'159868')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
 </div>
 </a><div class="cwrap" data-id="159809"
    data-deadline="2026-12-01" data-quote="12800000"
@@ -414,8 +479,11 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="p">12,800,000원</span><span>60일</span><span>일당 213,333원</span><span>총 수령 11,264,000원</span></div>
   <div class="meta"><span class="ap">지원자 161명 · 전일 +2</span></div>
   <div class="why">웹/시스템 개발</div>
+  <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
+    <span class="clab">제출 상태</span>
+    <select onchange="setStatus(this,'159809')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+  </div>
 </a>
-<div class="cbar"><select onchange="setStatus(this,'159809')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
 </div>
 </a><div class="cwrap" data-id="159818"
    data-deadline="2026-12-01" data-quote="1900000"
@@ -428,8 +496,11 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="p">1,900,000원</span><span>14일</span><span>일당 135,714원</span><span>총 수령 1,567,500원</span></div>
   <div class="meta"><span class="ap">지원자 7명 · 변동 없음</span></div>
   <div class="why">신규 구축/설계</div>
+  <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
+    <span class="clab">제출 상태</span>
+    <select onchange="setStatus(this,'159818')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+  </div>
 </a>
-<div class="cbar"><select onchange="setStatus(this,'159818')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
 </div>
 </a><div class="cwrap" data-id="159881"
    data-deadline="2026-12-03" data-quote="8500000"
@@ -442,8 +513,11 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="p">8,500,000원</span><span>40일</span><span>일당 212,500원</span><span>총 수령 7,480,000원</span></div>
   <div class="meta"><span class="ap">지원자 179명 · 전일 +2</span></div>
   <div class="why">신규 구축/설계</div>
+  <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
+    <span class="clab">제출 상태</span>
+    <select onchange="setStatus(this,'159881')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+  </div>
 </a>
-<div class="cbar"><select onchange="setStatus(this,'159881')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
 </div>
 </a></div>
     <script>
