@@ -74,7 +74,12 @@
   var H = "238519b5360e46f6a016d183069fd683451a8a90ae109562994700af52deca3c";
   var KEY = "st_demo_ok";
   var gate = document.getElementById("gate");
-  function open(){ gate.classList.add("hide"); }
+  function open(){
+    gate.classList.add("hide");
+    document.querySelectorAll("[data-href]").forEach(function(a){
+      if (!a.getAttribute("href")) a.setAttribute("href", atob(a.getAttribute("data-href")));
+    });
+  }
   if (localStorage.getItem(KEY) === H) { open(); }
   document.getElementById("gateform").addEventListener("submit", async function(e){
     e.preventDefault();
@@ -98,7 +103,7 @@
   </div>
 
   <div class="grid">
-    <a class="card live" target="_blank" rel="noopener" href="./lms/">
+    <a class="card live" target="_blank" rel="noopener" data-href="Li9sbXMv">
       <div class="tagline">
         <span class="chip">LMS · 에듀테크</span>
         <span class="chip">운영 / 수업 / 학습</span>
