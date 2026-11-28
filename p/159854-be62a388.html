@@ -153,8 +153,57 @@ hr{border:0;border-top:1px dashed #d6dee8;margin:20px 0}
 </style>
 </head>
 <body>
+<div id="gate">
+  <form id="gateform" autocomplete="off">
+    <div class="glogo">ST</div>
+    <h2>심플테크</h2>
+    <p>열람 비밀번호를 입력해 주세요.</p>
+    <input id="gpw" type="password" placeholder="비밀번호" autocomplete="current-password">
+    <button type="submit">열기</button>
+    <div id="gerr"></div>
+  </form>
+</div>
+<style>
+#gate{position:fixed;inset:0;z-index:9999;background:#f4f6f9;display:grid;place-items:center;padding:24px}
+#gate.hide{display:none}
+#gateform{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:28px 26px;width:100%;max-width:340px;
+  box-shadow:0 18px 40px rgba(18,50,79,.10);text-align:center;
+  font-family:"Apple SD Gothic Neo","Pretendard","Malgun Gothic",system-ui,sans-serif}
+#gateform .glogo{width:44px;height:44px;border-radius:12px;background:#12324f;color:#fff;font-weight:800;
+  display:grid;place-items:center;margin:0 auto 14px;font-size:15px}
+#gateform h2{font-size:18px;color:#12324f;margin:0 0 6px}
+#gateform p{font-size:13px;color:#6b7785;margin:0 0 16px}
+#gateform input{width:100%;padding:11px 13px;font-size:14px;border:1px solid #d5dee8;border-radius:10px;outline:none;box-sizing:border-box}
+#gateform input:focus{border-color:#12324f}
+#gateform button{width:100%;margin-top:10px;padding:11px;border:0;border-radius:10px;background:#12324f;color:#fff;
+  font-size:14px;font-weight:700;cursor:pointer}
+#gerr{color:#c0392b;font-size:12.5px;margin-top:10px;min-height:16px}
+</style>
+<script>
+(function(){
+  var H = "238519b5360e46f6a016d183069fd683451a8a90ae109562994700af52deca3c", KEY = "st_demo_ok";
+  var gate = document.getElementById("gate");
+  function open(){
+    gate.classList.add("hide");
+    document.querySelectorAll("[data-href]").forEach(function(a){
+      if (!a.getAttribute("href")) a.setAttribute("href", atob(a.getAttribute("data-href")));
+    });
+  }
+  var localHost = (location.hostname === "127.0.0.1" || location.hostname === "localhost");
+  if (localHost || localStorage.getItem(KEY) === H) { open(); }
+  document.getElementById("gateform").addEventListener("submit", async function(e){
+    e.preventDefault();
+    var v = document.getElementById("gpw").value;
+    var buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(v));
+    var hex = [...new Uint8Array(buf)].map(function(b){return b.toString(16).padStart(2,"0");}).join("");
+    if (hex === H) { localStorage.setItem(KEY, H); open(); }
+    else { document.getElementById("gerr").textContent = "비밀번호가 맞지 않습니다."; }
+  });
+})();
+</script>
+
 <div class="topbar"><div class="inner"><span class="dot"></span><b>심플테크</b><span>외주 제안서</span>
-<span class="sp"></span><span>2026-11-29 01:28</span></div></div>
+<span class="sp"></span><span>2026-11-29 01:58</span></div></div>
 <header class="head"><div class="inner">
   <div class="chips"><span class="chip">모집 중</span><span class="chip hot">마감 2026-12-01</span></div>
   <h1>법인카드 결제 관리용 사내 웹앱 업무 시스템 구축</h1>
