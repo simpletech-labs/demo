@@ -117,18 +117,18 @@ td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
   </section>
 
   <div class="kpis">
-    <div class="kpi"><div class="k">화면 수(예시)</div><div class="v">3</div><div class="s">제안 범위 기준</div></div>
-    <div class="kpi"><div class="k">핵심 기능</div><div class="v">1</div><div class="s">작업 범위 항목</div></div>
-    <div class="kpi"><div class="k">진행 구간</div><div class="v">3</div><div class="s">단계별 게이트</div></div>
+    <div class="kpi"><div class="k">화면 수(예시)</div><div class="v">12</div><div class="s">제안 범위 기준</div></div>
+    <div class="kpi"><div class="k">핵심 기능</div><div class="v">6</div><div class="s">작업 범위 항목</div></div>
+    <div class="kpi"><div class="k">진행 구간</div><div class="v">4</div><div class="s">단계별 게이트</div></div>
   </div>
 
-  <section class="block"><h2>핵심 기능</h2><div class="feats"><div class="feat"><div class="n">01</div><div class="t">시제품 60여 개 화면을 디자인 유지한 채 Django 템플릿으로 이전, 5개 언어·5개 통화 ②DB 스키마(상품·옵션·차량·예약·결제·정산·이력)와 회원·구글/카카오/LINE 로그인 ③예약 엔진(달력·시간, 픽업/샌딩/왕복, 인원·</div></div></div>
+  <section class="block"><h2>핵심 기능</h2><div class="feats"><div class="feat"><div class="n">01</div><div class="t">시제품 60여 개 화면을 디자인 유지한 채 Django 템플릿으로 이전, 5개 언어·5개 통화</div></div><div class="feat"><div class="n">02</div><div class="t">DB 스키마(상품·옵션·차량·예약·결제·정산·이력)와 회원·구글/카카오/LINE 로그인</div></div><div class="feat"><div class="n">03</div><div class="t">예약 엔진(달력·시간, 픽업/샌딩/왕복, 인원·짐에 따른 차량 자동 변경, 정원·짐 한도 검증, 서버 재계산, 환율 스냅샷, 입금 기한)</div></div><div class="feat"><div class="n">04</div><div class="t">결제(국내 카드·카카오페이·네이버페이, 해외카드·알리페이·위챗페이, 부분 환불, 웹훅 재처리)</div></div><div class="feat"><div class="n">05</div><div class="t">전액 입금 시 자동 확정, 기한 경과 미입금 일괄 취소 배치</div></div><div class="feat"><div class="n">06</div><div class="t">알림(이메일·알림톡·LINE, 고객 언어별 템플릿·발송 관리)</div></div></div>
     <div class="note">제안서 &lt;작업 범위&gt;의 항목을 그대로 화면 카드로 옮겼습니다. 실제 데이터는 들어 있지 않습니다.</div>
   </section>
 
   <section class="block"><h2>진행 흐름</h2><div class="flow"><span class="step">공고 요구</span><span class="arrow">→</span><span class="step">데이터 설계</span><span class="arrow">→</span><span class="step">API</span><span class="arrow">→</span><span class="step">화면</span><span class="arrow">→</span><span class="step">검증</span></div>
     <table style="margin-top:14px"><thead><tr><th>구간</th><th>내용</th><th>진행률</th><th></th></tr></thead>
-    <tbody><tr><td class="n">D10</td><td>–D15 착수·설계 — 시제품 화면 대응표, 상태·권한·요금 규칙 설계서 승인, PG·해외 채널 계정 신청</td><td style="width:140px"><div class="bar"><i style="width:20%"></i></div></td><td class="n">20%</td></tr></tbody></table>
+    <tbody><tr><td class="n">D10</td><td>&amp;gt; D1–D15 착수·설계 — 시제품 화면 대응표, 상태·권한·요금 규칙 설계서 승인, PG·해외 채널 계정 신청</td><td style="width:140px"><div class="bar"><i style="width:20%"></i></div></td><td class="n">20%</td></tr><tr><td class="n">D20</td><td>[게이트1: 설계서·대응표 승인] D16–D45 기반 구축 — DB 스키마, 회원·소셜 로그인, 상품·옵션, Admin 골격, 화면 이전 1차</td><td style="width:140px"><div class="bar"><i style="width:40%"></i></div></td><td class="n">40%</td></tr><tr><td class="n">D30</td><td>[게이트2: 예약 1건 생성·조회 통과] D46–D75 핵심 로직 — 예약 엔진·차량 자동 변경·서버 재계산, 국내 결제, 부분 환불, 입금 기한 배치</td><td style="width:140px"><div class="bar"><i style="width:60%"></i></div></td><td class="n">60%</td></tr><tr><td class="n">D40</td><td>[게이트3: 결제·환불·자동취소 시나리오 통과] D76–D100 해외 결제·알림·정산 — 해외 채널, 다국어 템플릿 발송, 정산·CSV, 5개 언어 QA</td><td style="width:140px"><div class="bar"><i style="width:80%"></i></div></td><td class="n">80%</td></tr></tbody></table>
   </section>
 
   <section class="block"><h2>다음 단계</h2>
