@@ -62,9 +62,13 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
 .card.top2{background:linear-gradient(180deg,#fbfcfd,#fff);box-shadow:inset 0 0 0 1px #9aa8b6,0 4px 16px rgba(154,168,182,.14)}
 .card.top3,.card.top4{background:linear-gradient(180deg,#fafcfd,#fff);box-shadow:inset 0 0 0 1px #b9c6cf,0 4px 14px rgba(185,198,207,.12)}
 .cwrap{display:flex;flex-direction:column;height:236px;overflow:hidden}
-.cwrap .card{flex:1}
+.cwrap .card{flex:1 1 auto;height:100%;margin:0;display:flex;flex-direction:column;min-height:0}
 .cbar{margin-top:auto;padding-top:7px;border-top:1px solid #f1f4f8;display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%}
 .clab{font-size:11px;color:#98a2ad;font-weight:600}
+.cbleft{display:flex;align-items:center;gap:6px;margin-right:auto;min-width:0}
+.cdemo{font-size:11px;font-weight:700;color:#1265a8;border:1px solid #cfe0ef;background:#f4f9fd;
+  border-radius:8px;padding:4px 9px;white-space:nowrap;cursor:pointer}
+.cdemo:hover{background:#1265a8;border-color:#1265a8;color:#fff}
 .cbar select{font:inherit;font-size:11.5px;padding:4px 8px;border:1px solid #e2e8ef;border-radius:8px;background:#fff;color:#4a5866;cursor:pointer}
 .cbar select:hover{border-color:#c3ceda}
 .consolehint{margin:18px 0 8px;font-size:12px;color:#6b7684;background:#f6f8fa;border:1px solid #e6ebf1;border-radius:10px;padding:10px 14px}
@@ -179,8 +183,7 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
    data-deadline="2026-12-01" data-quote="32000000"
    data-days="90" data-conf="91" data-title="의료 영상 AI 분석 프로그램 개발"
    data-order="38" data-pub="2026-11-25">
-<a class="card top1" href="/p/159822-bbf06394.html"
->
+<a class="card top1" href="/p/159822-bbf06394.html">
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="medal m1">TOP 1</span><span class="tag soon">마감 2026-12-01</span><span class="conf hi">적합도 91 · 높음</span></div>
   <div class="t"><span>의료 영상 AI 분석 프로그램 개발</span></div>
   <div class="meta mx"><span class="p">32,000,000원</span><span class="r">90일</span></div>
@@ -188,17 +191,16 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="ap">지원자 70명 · 전일 +1</span></div>
   <div class="why">웹/시스템 개발 · 어드민 구축 경험 · 요구기술 3/5 보유</div>
   <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
-    <span class="clab">제출 상태</span>
-    <select onchange="setStatus(this,'159822')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+    <div class="cbleft"><span class="clab">제출 상태</span>
+      <select onchange="setStatus(this,'159822')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
+    <span class="cdemo" onclick="event.preventDefault();event.stopPropagation();location.href='/p/demo/159822.html'">컨셉 데모</span>
   </div>
 </a>
-</div>
-</a><div class="cwrap" data-id="159892"
+</div><div class="cwrap" data-id="159892"
    data-deadline="2026-12-04" data-quote="23800000"
    data-days="90" data-conf="90" data-title="수행도 평가 통계 계산·판정 프로그램 개발"
    data-order="51" data-pub="2026-11-28">
-<a class="card top2" href="/p/159892-0b620a6e.html"
->
+<a class="card top2" href="/p/159892-0b620a6e.html">
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="medal m2">TOP 2</span><span class="tag pv">프라이빗</span><span class="tag soon">마감 2026-12-04</span><span class="conf hi">적합도 90 · 높음</span></div>
   <div class="t"><span>수행도 평가 통계 계산·판정 프로그램 개발</span></div>
   <div class="meta mx"><span class="p">23,800,000원</span><span class="r">90일</span></div>
@@ -206,17 +208,16 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="ap">지원자 비공개</span></div>
   <div class="why">웹/시스템 개발 · ERP 연동 경험 · 요구기술 1/1 보유</div>
   <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
-    <span class="clab">제출 상태</span>
-    <select onchange="setStatus(this,'159892')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+    <div class="cbleft"><span class="clab">제출 상태</span>
+      <select onchange="setStatus(this,'159892')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
+    <span class="cdemo" onclick="event.preventDefault();event.stopPropagation();location.href='/p/demo/159892.html'">컨셉 데모</span>
   </div>
 </a>
-</div>
-</a><div class="cwrap" data-id="159717"
+</div><div class="cwrap" data-id="159717"
    data-deadline="2026-12-08" data-quote="35200000"
    data-days="84" data-conf="84" data-title="이커머스 채널별 매출·손익 BigQuery 구조 재설계 및 운영 대시보드 구축"
    data-order="21" data-pub="2026-11-25">
-<a class="card top3" href="/p/159717-a1a83124.html"
->
+<a class="card top3" href="/p/159717-a1a83124.html">
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="medal m3">TOP 3</span><span class="tag pv">프라이빗</span><span class="tag soon">마감 2026-12-08</span><span class="conf hi">적합도 84 · 높음</span></div>
   <div class="t"><span>이커머스 채널별 매출·손익 BigQuery 구조 재설계 및 운영 대시보드 구축</span></div>
   <div class="meta mx"><span class="p">35,200,000원</span><span class="r">84일</span></div>
@@ -224,17 +225,16 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="ap">지원자 비공개</span></div>
   <div class="why">신규 구축/설계 · 커머스/마켓 경험 · 요구기술 2/3 보유</div>
   <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
-    <span class="clab">제출 상태</span>
-    <select onchange="setStatus(this,'159717')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+    <div class="cbleft"><span class="clab">제출 상태</span>
+      <select onchange="setStatus(this,'159717')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
+    <span class="cdemo" onclick="event.preventDefault();event.stopPropagation();location.href='/p/demo/159717.html'">컨셉 데모</span>
   </div>
 </a>
-</div>
-</a><div class="cwrap" data-id="159866"
+</div><div class="cwrap" data-id="159866"
    data-deadline="2026-12-03" data-quote="24000000"
    data-days="90" data-conf="76" data-title="이카운트 ERP 연동 B2B 거래처 주문관리시스템 구축"
    data-order="46" data-pub="2026-11-26">
-<a class="card" href="/p/159866-4ef90f80.html"
->
+<a class="card" href="/p/159866-4ef90f80.html">
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-03</span><span class="conf hi">적합도 76 · 높음</span></div>
   <div class="t"><span>이카운트 ERP 연동 B2B 거래처 주문관리시스템 구축</span></div>
   <div class="meta mx"><span class="p">24,000,000원</span><span class="r">90일</span></div>
@@ -242,17 +242,16 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="ap">지원자 비공개</span></div>
   <div class="why">웹/시스템 개발 · 정산 경험</div>
   <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
-    <span class="clab">제출 상태</span>
-    <select onchange="setStatus(this,'159866')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+    <div class="cbleft"><span class="clab">제출 상태</span>
+      <select onchange="setStatus(this,'159866')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
+    <span class="cdemo" onclick="event.preventDefault();event.stopPropagation();location.href='/p/demo/159866.html'">컨셉 데모</span>
   </div>
 </a>
-</div>
-</a><div class="cwrap" data-id="159890"
+</div><div class="cwrap" data-id="159890"
    data-deadline="2026-12-04" data-quote="42500000"
    data-days="150" data-conf="76" data-title="직영 8개 캠퍼스 보습학원 통합 관리 웹 프로그램 구축"
    data-order="50" data-pub="2026-11-28">
-<a class="card" href="/p/159890-d5b7a964.html"
->
+<a class="card" href="/p/159890-d5b7a964.html">
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag pv">프라이빗</span><span class="tag soon">마감 2026-12-04</span><span class="conf hi">적합도 76 · 높음</span></div>
   <div class="t"><span>직영 8개 캠퍼스 보습학원 통합 관리 웹 프로그램 구축</span></div>
   <div class="meta mx"><span class="p">42,500,000원</span><span class="r">150일</span></div>
@@ -260,17 +259,16 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="ap">지원자 비공개</span></div>
   <div class="why">웹/시스템 개발 · 정산 경험</div>
   <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
-    <span class="clab">제출 상태</span>
-    <select onchange="setStatus(this,'159890')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+    <div class="cbleft"><span class="clab">제출 상태</span>
+      <select onchange="setStatus(this,'159890')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
+    <span class="cdemo" onclick="event.preventDefault();event.stopPropagation();location.href='/p/demo/159890.html'">컨셉 데모</span>
   </div>
 </a>
-</div>
-</a><div class="cwrap" data-id="159773"
+</div><div class="cwrap" data-id="159773"
    data-deadline="2026-12-04" data-quote="19000000"
    data-days="95" data-conf="76" data-title="판촉물 쇼핑몰 실시간 1:1 상담 채팅 솔루션 구축·연동"
    data-order="28" data-pub="2026-11-28">
-<a class="card" href="/p/159773-bbf6be80.html"
->
+<a class="card" href="/p/159773-bbf6be80.html">
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag pv">프라이빗</span><span class="tag soon">마감 2026-12-04</span><span class="conf hi">적합도 76 · 높음</span></div>
   <div class="t"><span>판촉물 쇼핑몰 실시간 1:1 상담 채팅 솔루션 구축·연동</span></div>
   <div class="meta mx"><span class="p">19,000,000원</span><span class="r">95일</span></div>
@@ -278,17 +276,16 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="ap">지원자 비공개</span></div>
   <div class="why">웹/시스템 개발 · 커머스/마켓 경험</div>
   <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
-    <span class="clab">제출 상태</span>
-    <select onchange="setStatus(this,'159773')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+    <div class="cbleft"><span class="clab">제출 상태</span>
+      <select onchange="setStatus(this,'159773')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
+    <span class="cdemo" onclick="event.preventDefault();event.stopPropagation();location.href='/p/demo/159773.html'">컨셉 데모</span>
   </div>
 </a>
-</div>
-</a><div class="cwrap" data-id="159854"
+</div><div class="cwrap" data-id="159854"
    data-deadline="2026-12-01" data-quote="22500000"
    data-days="120" data-conf="76" data-title="법인카드 결제 관리용 사내 웹앱 업무 시스템 구축"
    data-order="45" data-pub="2026-11-26">
-<a class="card" href="/p/159854-be62a388.html"
->
+<a class="card" href="/p/159854-be62a388.html">
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-01</span><span class="conf hi">적합도 76 · 높음</span></div>
   <div class="t"><span>법인카드 결제 관리용 사내 웹앱 업무 시스템 구축</span></div>
   <div class="meta mx"><span class="p">22,500,000원</span><span class="r">120일</span></div>
@@ -296,17 +293,16 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="ap">지원자 비공개</span></div>
   <div class="why">웹/시스템 개발 · 결제 경험</div>
   <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
-    <span class="clab">제출 상태</span>
-    <select onchange="setStatus(this,'159854')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+    <div class="cbleft"><span class="clab">제출 상태</span>
+      <select onchange="setStatus(this,'159854')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
+    
   </div>
 </a>
-</div>
-</a><div class="cwrap" data-id="159844"
+</div><div class="cwrap" data-id="159844"
    data-deadline="2026-12-02" data-quote="42500000"
    data-days="120" data-conf="68" data-title="국내·해외 TCG 카드 중고 거래 플랫폼 개발"
    data-order="43" data-pub="2026-11-25">
-<a class="card" href="/p/159844-dcec9024.html"
->
+<a class="card" href="/p/159844-dcec9024.html">
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag pv">프라이빗</span><span class="tag soon">마감 2026-12-02</span><span class="conf mid">적합도 68 · 보통</span></div>
   <div class="t"><span>국내·해외 TCG 카드 중고 거래 플랫폼 개발</span></div>
   <div class="meta mx"><span class="p">42,500,000원</span><span class="r">120일</span></div>
@@ -314,17 +310,16 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="ap">지원자 비공개</span></div>
   <div class="why">웹/시스템 개발 · 커머스/마켓 경험</div>
   <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
-    <span class="clab">제출 상태</span>
-    <select onchange="setStatus(this,'159844')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+    <div class="cbleft"><span class="clab">제출 상태</span>
+      <select onchange="setStatus(this,'159844')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
+    <span class="cdemo" onclick="event.preventDefault();event.stopPropagation();location.href='/p/demo/159844.html'">컨셉 데모</span>
   </div>
 </a>
-</div>
-</a><div class="cwrap" data-id="159825"
+</div><div class="cwrap" data-id="159825"
    data-deadline="2026-12-01" data-quote="19000000"
    data-days="120" data-conf="68" data-title="해외 공항 픽업·투어 예약 웹사이트 실서비스 전환(서버·DB·국내외 결제·관리자)"
    data-order="39" data-pub="2026-11-25">
-<a class="card" href="/p/159825-bfb87d0b.html"
->
+<a class="card" href="/p/159825-bfb87d0b.html">
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag pv">프라이빗</span><span class="tag soon">마감 2026-12-01</span><span class="conf mid">적합도 68 · 보통</span></div>
   <div class="t"><span>해외 공항 픽업·투어 예약 웹사이트 실서비스 전환(서버·DB·국내외 결제·관리자)</span></div>
   <div class="meta mx"><span class="p">19,000,000원</span><span class="r">120일</span></div>
@@ -332,17 +327,16 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="ap">지원자 비공개</span></div>
   <div class="why">웹/시스템 개발 · 결제 경험</div>
   <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
-    <span class="clab">제출 상태</span>
-    <select onchange="setStatus(this,'159825')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+    <div class="cbleft"><span class="clab">제출 상태</span>
+      <select onchange="setStatus(this,'159825')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
+    <span class="cdemo" onclick="event.preventDefault();event.stopPropagation();location.href='/p/demo/159825.html'">컨셉 데모</span>
   </div>
 </a>
-</div>
-</a><div class="cwrap" data-id="159781"
+</div><div class="cwrap" data-id="159781"
    data-deadline="2026-12-06" data-quote="4700000"
    data-days="30" data-conf="68" data-title="교사용 AI 문항·서식 생성 품질 고도화 템플릿 솔루션 MVP"
    data-order="30" data-pub="2026-11-23">
-<a class="card" href="/p/159781-0e4cb639.html"
->
+<a class="card" href="/p/159781-0e4cb639.html">
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-06</span><span class="conf mid">적합도 68 · 보통</span></div>
   <div class="t"><span>교사용 AI 문항·서식 생성 품질 고도화 템플릿 솔루션 MVP</span></div>
   <div class="meta mx"><span class="p">4,700,000원</span><span class="r">30일</span></div>
@@ -350,17 +344,16 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="ap">지원자 71명 · 전일 +3</span></div>
   <div class="why">웹/시스템 개발 · 요구기술 1/4 보유</div>
   <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
-    <span class="clab">제출 상태</span>
-    <select onchange="setStatus(this,'159781')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+    <div class="cbleft"><span class="clab">제출 상태</span>
+      <select onchange="setStatus(this,'159781')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
+    <span class="cdemo" onclick="event.preventDefault();event.stopPropagation();location.href='/p/demo/159781.html'">컨셉 데모</span>
   </div>
 </a>
-</div>
-</a><div class="cwrap" data-id="159882"
+</div><div class="cwrap" data-id="159882"
    data-deadline="2026-12-10" data-quote="9000000"
    data-days="45" data-conf="68" data-title="셀프 포토부스 프로그램 꾸미기 기능 추가 개발"
    data-order="49" data-pub="2026-11-28">
-<a class="card" href="/p/159882-581b453e.html"
->
+<a class="card" href="/p/159882-581b453e.html">
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-10</span><span class="conf mid">적합도 68 · 보통</span></div>
   <div class="t"><span>셀프 포토부스 프로그램 꾸미기 기능 추가 개발</span></div>
   <div class="meta mx"><span class="p">9,000,000원</span><span class="r">45일</span></div>
@@ -368,17 +361,16 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="ap">지원자 105명 · 전일 +1</span></div>
   <div class="why">웹/시스템 개발 · 결제 경험</div>
   <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
-    <span class="clab">제출 상태</span>
-    <select onchange="setStatus(this,'159882')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+    <div class="cbleft"><span class="clab">제출 상태</span>
+      <select onchange="setStatus(this,'159882')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
+    <span class="cdemo" onclick="event.preventDefault();event.stopPropagation();location.href='/p/demo/159882.html'">컨셉 데모</span>
   </div>
 </a>
-</div>
-</a><div class="cwrap" data-id="159762"
+</div><div class="cwrap" data-id="159762"
    data-deadline="2026-12-02" data-quote="40900000"
    data-days="120" data-conf="66" data-title="제로페이 금액변동형 QR 허브 게이트웨이 구축"
    data-order="27" data-pub="2026-11-26">
-<a class="card" href="/p/159762-78575e2e.html"
->
+<a class="card" href="/p/159762-78575e2e.html">
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-02</span><span class="conf mid">적합도 66 · 보통</span></div>
   <div class="t"><span>제로페이 금액변동형 QR 허브 게이트웨이 구축</span></div>
   <div class="meta mx"><span class="p">40,900,000원</span><span class="r">120일</span></div>
@@ -386,17 +378,16 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="ap">지원자 비공개</span></div>
   <div class="why">신규 구축/설계 · 정산 경험</div>
   <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
-    <span class="clab">제출 상태</span>
-    <select onchange="setStatus(this,'159762')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+    <div class="cbleft"><span class="clab">제출 상태</span>
+      <select onchange="setStatus(this,'159762')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
+    
   </div>
 </a>
-</div>
-</a><div class="cwrap" data-id="159845"
+</div><div class="cwrap" data-id="159845"
    data-deadline="2026-12-02" data-quote="7600000"
    data-days="45" data-conf="64" data-title="크리에이터 정산 관리자 웹 시스템 개발"
    data-order="44" data-pub="2026-11-25">
-<a class="card" href="/p/159845-29e6a994.html"
->
+<a class="card" href="/p/159845-29e6a994.html">
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-02</span><span class="conf mid">적합도 64 · 보통</span></div>
   <div class="t"><span>크리에이터 정산 관리자 웹 시스템 개발</span></div>
   <div class="meta mx"><span class="p">7,600,000원</span><span class="r">45일</span></div>
@@ -404,17 +395,16 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="ap">지원자 294명 · 전일 +3</span></div>
   <div class="why">웹/시스템 개발 · 정산 경험</div>
   <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
-    <span class="clab">제출 상태</span>
-    <select onchange="setStatus(this,'159845')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+    <div class="cbleft"><span class="clab">제출 상태</span>
+      <select onchange="setStatus(this,'159845')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
+    <span class="cdemo" onclick="event.preventDefault();event.stopPropagation();location.href='/p/demo/159845.html'">컨셉 데모</span>
   </div>
 </a>
-</div>
-</a><div class="cwrap" data-id="159804"
+</div><div class="cwrap" data-id="159804"
    data-deadline="2026-12-07" data-quote="8000000"
    data-days="30" data-conf="61" data-title="바이브 코딩으로 만든 법률 AI 검토 웹 서비스 상용화 마무리(서버 이전·결제 연동)"
    data-order="33" data-pub="2026-11-24">
-<a class="card" href="/p/159804-9e07aa2c.html"
->
+<a class="card" href="/p/159804-9e07aa2c.html">
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-07</span><span class="conf mid">적합도 61 · 보통</span></div>
   <div class="t"><span>바이브 코딩으로 만든 법률 AI 검토 웹 서비스 상용화 마무리(서버 이전·결제 연동)</span></div>
   <div class="meta mx"><span class="p">8,000,000원</span><span class="r">30일</span></div>
@@ -422,17 +412,16 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="ap">지원자 211명 · 전일 +2</span></div>
   <div class="why">웹/시스템 개발 · 결제 경험</div>
   <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
-    <span class="clab">제출 상태</span>
-    <select onchange="setStatus(this,'159804')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+    <div class="cbleft"><span class="clab">제출 상태</span>
+      <select onchange="setStatus(this,'159804')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
+    <span class="cdemo" onclick="event.preventDefault();event.stopPropagation();location.href='/p/demo/159804.html'">컨셉 데모</span>
   </div>
 </a>
-</div>
-</a><div class="cwrap" data-id="159814"
+</div><div class="cwrap" data-id="159814"
    data-deadline="2026-12-07" data-quote="1900000"
    data-days="21" data-conf="60" data-title="플랫폼 DB 구축 및 REST API 서버 개발"
    data-order="35" data-pub="2026-11-25">
-<a class="card" href="/p/159814-fdb75c21.html"
->
+<a class="card" href="/p/159814-fdb75c21.html">
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-07</span><span class="conf mid">적합도 60 · 보통</span></div>
   <div class="t"><span>플랫폼 DB 구축 및 REST API 서버 개발</span></div>
   <div class="meta mx"><span class="p">1,900,000원</span><span class="r">21일</span></div>
@@ -440,17 +429,16 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="ap">지원자 213명 · 전일 +4</span></div>
   <div class="why">백엔드 포지션</div>
   <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
-    <span class="clab">제출 상태</span>
-    <select onchange="setStatus(this,'159814')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+    <div class="cbleft"><span class="clab">제출 상태</span>
+      <select onchange="setStatus(this,'159814')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
+    <span class="cdemo" onclick="event.preventDefault();event.stopPropagation();location.href='/p/demo/159814.html'">컨셉 데모</span>
   </div>
 </a>
-</div>
-</a><div class="cwrap" data-id="159816"
+</div><div class="cwrap" data-id="159816"
    data-deadline="2026-12-01" data-quote="17100000"
    data-days="90" data-conf="58" data-title="사후 행정·생활정리 안내 및 전문 서비스 연결 반응형 웹 MVP 구축"
    data-order="36" data-pub="2026-11-24">
-<a class="card" href="/p/159816-47b753cd.html"
->
+<a class="card" href="/p/159816-47b753cd.html">
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-01</span><span class="conf mid">적합도 58 · 보통</span></div>
   <div class="t"><span>사후 행정·생활정리 안내 및 전문 서비스 연결 반응형 웹 MVP 구축</span></div>
   <div class="meta mx"><span class="p">17,100,000원</span><span class="r">90일</span></div>
@@ -458,17 +446,16 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="ap">지원자 197명 · 전일 +1</span></div>
   <div class="why">웹/시스템 개발</div>
   <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
-    <span class="clab">제출 상태</span>
-    <select onchange="setStatus(this,'159816')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+    <div class="cbleft"><span class="clab">제출 상태</span>
+      <select onchange="setStatus(this,'159816')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
+    <span class="cdemo" onclick="event.preventDefault();event.stopPropagation();location.href='/p/demo/159816.html'">컨셉 데모</span>
   </div>
 </a>
-</div>
-</a><div class="cwrap" data-id="159896"
+</div><div class="cwrap" data-id="159896"
    data-deadline="2026-12-04" data-quote="5000000"
    data-days="25" data-conf="58" data-title="중고차 검수 결과 고객용 모바일 리포트 웹 시스템 구축"
    data-order="52" data-pub="2026-11-28">
-<a class="card" href="/p/159896-1528af96.html"
->
+<a class="card" href="/p/159896-1528af96.html">
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-04</span><span class="conf mid">적합도 58 · 보통</span></div>
   <div class="t"><span>중고차 검수 결과 고객용 모바일 리포트 웹 시스템 구축</span></div>
   <div class="meta mx"><span class="p">5,000,000원</span><span class="r">25일</span></div>
@@ -476,17 +463,16 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="ap">지원자 171명 · 전일 +4</span></div>
   <div class="why">웹/시스템 개발</div>
   <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
-    <span class="clab">제출 상태</span>
-    <select onchange="setStatus(this,'159896')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+    <div class="cbleft"><span class="clab">제출 상태</span>
+      <select onchange="setStatus(this,'159896')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
+    <span class="cdemo" onclick="event.preventDefault();event.stopPropagation();location.href='/p/demo/159896.html'">컨셉 데모</span>
   </div>
 </a>
-</div>
-</a><div class="cwrap" data-id="159837"
+</div><div class="cwrap" data-id="159837"
    data-deadline="2026-12-01" data-quote="4700000"
    data-days="30" data-conf="58" data-title="대부업체 광고·중개 플랫폼 웹사이트 구축"
    data-order="42" data-pub="2026-11-26">
-<a class="card" href="/p/159837-4292ab96.html"
->
+<a class="card" href="/p/159837-4292ab96.html">
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-01</span><span class="conf mid">적합도 58 · 보통</span></div>
   <div class="t"><span>대부업체 광고·중개 플랫폼 웹사이트 구축</span></div>
   <div class="meta mx"><span class="p">4,700,000원</span><span class="r">30일</span></div>
@@ -494,17 +480,16 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="ap">지원자 131명 · 전일 +2</span></div>
   <div class="why">웹/시스템 개발</div>
   <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
-    <span class="clab">제출 상태</span>
-    <select onchange="setStatus(this,'159837')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+    <div class="cbleft"><span class="clab">제출 상태</span>
+      <select onchange="setStatus(this,'159837')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
+    
   </div>
 </a>
-</div>
-</a><div class="cwrap" data-id="159741"
+</div><div class="cwrap" data-id="159741"
    data-deadline="2026-11-26" data-quote="2800000"
    data-days="14" data-conf="57" data-title="산모·관리사 중개 플랫폼 기존 코드 보완 및 PG 결제 연동"
    data-order="25" data-pub="2026-11-19">
-<a class="card" href="/p/159741-5868f0aa.html"
->
+<a class="card" href="/p/159741-5868f0aa.html">
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag pv">프라이빗</span><span class="tag soon">마감 2026-11-26</span><span class="conf mid">적합도 57 · 보통</span></div>
   <div class="t"><span>산모·관리사 중개 플랫폼 기존 코드 보완 및 PG 결제 연동</span></div>
   <div class="meta mx"><span class="p">2,800,000원</span><span class="r">14일</span></div>
@@ -512,17 +497,16 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="ap">지원자 272명 · 전일 +2</span></div>
   <div class="why">웹/시스템 개발 · 결제 경험</div>
   <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
-    <span class="clab">제출 상태</span>
-    <select onchange="setStatus(this,'159741')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+    <div class="cbleft"><span class="clab">제출 상태</span>
+      <select onchange="setStatus(this,'159741')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
+    <span class="cdemo" onclick="event.preventDefault();event.stopPropagation();location.href='/p/demo/159741.html'">컨셉 데모</span>
   </div>
 </a>
-</div>
-</a><div class="cwrap" data-id="159832"
+</div><div class="cwrap" data-id="159832"
    data-deadline="2026-12-02" data-quote="9500000"
    data-days="90" data-conf="55" data-title="주방가전 하드웨어 B2B 카탈로그형 자사몰 리뉴얼 (데이터 이전·검색 최적화)"
    data-order="41" data-pub="2026-11-26">
-<a class="card" href="/p/159832-98ec1663.html"
->
+<a class="card" href="/p/159832-98ec1663.html">
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-02</span><span class="conf lo">적합도 55 · 낮음</span></div>
   <div class="t"><span>주방가전 하드웨어 B2B 카탈로그형 자사몰 리뉴얼 (데이터 이전·검색 최적화)</span></div>
   <div class="meta mx"><span class="p">9,500,000원</span><span class="r">90일</span></div>
@@ -530,17 +514,16 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="ap">지원자 173명 · 변동 없음</span></div>
   <div class="why">신규 구축/설계 · 커머스/마켓 경험</div>
   <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
-    <span class="clab">제출 상태</span>
-    <select onchange="setStatus(this,'159832')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+    <div class="cbleft"><span class="clab">제출 상태</span>
+      <select onchange="setStatus(this,'159832')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
+    
   </div>
 </a>
-</div>
-</a><div class="cwrap" data-id="159868"
+</div><div class="cwrap" data-id="159868"
    data-deadline="2026-12-02" data-quote="9500000"
    data-days="30" data-conf="50" data-title="반도체 기업 소개 웹사이트 신규 제작"
    data-order="47" data-pub="2026-11-26">
-<a class="card" href="/p/159868-b50c4a12.html"
->
+<a class="card" href="/p/159868-b50c4a12.html">
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-02</span><span class="conf lo">적합도 50 · 낮음</span></div>
   <div class="t"><span>반도체 기업 소개 웹사이트 신규 제작</span></div>
   <div class="meta mx"><span class="p">9,500,000원</span><span class="r">30일</span></div>
@@ -548,17 +531,16 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="ap">지원자 186명 · 전일 +1</span></div>
   <div class="why">웹/시스템 개발</div>
   <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
-    <span class="clab">제출 상태</span>
-    <select onchange="setStatus(this,'159868')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+    <div class="cbleft"><span class="clab">제출 상태</span>
+      <select onchange="setStatus(this,'159868')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
+    
   </div>
 </a>
-</div>
-</a><div class="cwrap" data-id="159809"
+</div><div class="cwrap" data-id="159809"
    data-deadline="2026-12-01" data-quote="12800000"
    data-days="60" data-conf="50" data-title="등기부등본·토지대장·건축물대장 자동 발급 및 명부 추출 프로그램 개발"
    data-order="34" data-pub="2026-11-24">
-<a class="card" href="/p/159809-a0eb4e12.html"
->
+<a class="card" href="/p/159809-a0eb4e12.html">
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-01</span><span class="conf lo">적합도 50 · 낮음</span></div>
   <div class="t"><span>등기부등본·토지대장·건축물대장 자동 발급 및 명부 추출 프로그램 개발</span></div>
   <div class="meta mx"><span class="p">12,800,000원</span><span class="r">60일</span></div>
@@ -566,17 +548,16 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="ap">지원자 161명 · 전일 +2</span></div>
   <div class="why">웹/시스템 개발</div>
   <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
-    <span class="clab">제출 상태</span>
-    <select onchange="setStatus(this,'159809')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+    <div class="cbleft"><span class="clab">제출 상태</span>
+      <select onchange="setStatus(this,'159809')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
+    <span class="cdemo" onclick="event.preventDefault();event.stopPropagation();location.href='/p/demo/159809.html'">컨셉 데모</span>
   </div>
 </a>
-</div>
-</a><div class="cwrap" data-id="159818"
+</div><div class="cwrap" data-id="159818"
    data-deadline="2026-12-01" data-quote="1900000"
    data-days="14" data-conf="48" data-title="Proxmox VE 7노드 클러스터 구축·검수"
    data-order="37" data-pub="2026-11-24">
-<a class="card" href="/p/159818-9d903e02.html"
->
+<a class="card" href="/p/159818-9d903e02.html">
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-01</span><span class="conf lo">적합도 48 · 낮음</span></div>
   <div class="t"><span>Proxmox VE 7노드 클러스터 구축·검수</span></div>
   <div class="meta mx"><span class="p">1,900,000원</span><span class="r">14일</span></div>
@@ -584,17 +565,16 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="ap">지원자 7명 · 변동 없음</span></div>
   <div class="why">신규 구축/설계</div>
   <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
-    <span class="clab">제출 상태</span>
-    <select onchange="setStatus(this,'159818')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+    <div class="cbleft"><span class="clab">제출 상태</span>
+      <select onchange="setStatus(this,'159818')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
+    <span class="cdemo" onclick="event.preventDefault();event.stopPropagation();location.href='/p/demo/159818.html'">컨셉 데모</span>
   </div>
 </a>
-</div>
-</a><div class="cwrap" data-id="159881"
+</div><div class="cwrap" data-id="159881"
    data-deadline="2026-12-03" data-quote="8500000"
    data-days="40" data-conf="48" data-title="노동조합 홈페이지 워드프레스 리뉴얼 및 기존 게시물 이전"
    data-order="48" data-pub="2026-11-28">
-<a class="card" href="/p/159881-1b3a3a4c.html"
->
+<a class="card" href="/p/159881-1b3a3a4c.html">
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-03</span><span class="conf lo">적합도 48 · 낮음</span></div>
   <div class="t"><span>노동조합 홈페이지 워드프레스 리뉴얼 및 기존 게시물 이전</span></div>
   <div class="meta mx"><span class="p">8,500,000원</span><span class="r">40일</span></div>
@@ -602,12 +582,12 @@ a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px sol
   <div class="meta"><span class="ap">지원자 179명 · 전일 +2</span></div>
   <div class="why">신규 구축/설계</div>
   <div class="cbar" onclick="event.preventDefault();event.stopPropagation()">
-    <span class="clab">제출 상태</span>
-    <select onchange="setStatus(this,'159881')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select>
+    <div class="cbleft"><span class="clab">제출 상태</span>
+      <select onchange="setStatus(this,'159881')"><option value="미제출" selected>미제출</option><option value="검토중">검토중</option><option value="제출">제출</option><option value="미팅">미팅</option><option value="수주">수주</option><option value="탈락">탈락</option><option value="철회">철회</option></select></div>
+    <span class="cdemo" onclick="event.preventDefault();event.stopPropagation();location.href='/p/demo/159881.html'">컨셉 데모</span>
   </div>
 </a>
-</div>
-</a></div>
+</div></div>
     <script>
   (function(){
     var grid = document.getElementById('grid');
