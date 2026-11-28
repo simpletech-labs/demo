@@ -3,7 +3,15 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <style>
 body{font-family:-apple-system,'Apple SD Gothic Neo',sans-serif;background:#f6f8fa;color:#1a2530;margin:0;padding:28px 22px}
-.wrap{max-width:1000px;margin:0 auto}
+.wrap{max-width:1000px;margin:0 auto;padding-top:22px}
+.hd{position:sticky;top:0;z-index:20;background:#12324f;color:#cfdce8;margin:-28px -22px 0}
+.hdin{max-width:1000px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.brand{color:#fff;text-decoration:none;font-size:14px;font-weight:600}
+.brand b{font-weight:800}
+.hnav{display:flex;gap:4px;margin-left:auto}
+.hnav a{color:#cfdce8;text-decoration:none;font-size:12.5px;padding:6px 11px;border-radius:8px}
+.hnav a:hover{background:rgba(255,255,255,.1);color:#fff}
+.hnav a.on{background:rgba(255,255,255,.16);color:#fff;font-weight:700}
 h1{font-size:21px;margin:0 0 4px}
 .lead{color:#6b7684;font-size:13px;margin-bottom:18px}
 a.back{font-size:12.5px;color:#1265a8;text-decoration:none}
@@ -18,7 +26,16 @@ td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .m{color:#8b95a1;font-size:11.5px;margin-top:3px}
 .empty{background:#fff;border:1px dashed #d8e0e8;border-radius:12px;padding:28px;color:#8b95a1;font-size:13px;text-align:center}
 </style></head><body><div class="wrap">
+<header class="hd"><div class="hdin">
+  <a class="brand" href="/p/latest.html"><b>[심플테크]</b> 외주 제안서 목록</a>
+  <nav class="hnav">
+    <a href="/p/latest.html">제안서 목록</a>
+    <a class="on" href="/p/submitted.html">제출 현황</a>
+    <a href="http://127.0.0.1:8787/list" target="_blank" rel="noopener">관리</a>
+  </nav>
+</div></header>
+<div class="wrap">
 <h1>제출 현황</h1>
-<div class="lead">없음 · <a class="back" href="/p/latest.html">← 제안서 목록</a></div>
+<div class="lead">없음</div>
 <p class="empty">아직 제출 기록이 없습니다. 카드의 제출 상태를 바꾸면 여기에 상태별로 모입니다.</p>
 </div></body></html>
