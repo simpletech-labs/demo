@@ -43,10 +43,12 @@ a.card:hover{border-color:#12324f}
 .t3m,.t3d{font-size:12.5px;color:#6b7684;font-variant-numeric:tabular-nums}
 .t3a{font-size:13.5px;font-weight:800;color:#0f5f8a;font-variant-numeric:tabular-nums;text-align:right}
 @media(max-width:640px){.t3row{grid-template-columns:22px 1fr auto;gap:8px}.t3m{display:none}.t3d{display:none}}
-.card.top1{border:2px solid #c8a253;background:linear-gradient(180deg,#fffdf6,#fff);box-shadow:0 6px 20px rgba(200,162,83,.16)}
-.card.top2{border:2px solid #9aa8b6;background:linear-gradient(180deg,#fbfcfd,#fff);box-shadow:0 4px 16px rgba(154,168,182,.14)}
-.card.top3,.card.top4{border:2px solid #b9c6cf;background:linear-gradient(180deg,#fafcfd,#fff);box-shadow:0 4px 14px rgba(185,198,207,.12)}
-.medal{font-size:10.5px;font-weight:800;letter-spacing:.04em;padding:3px 8px;border-radius:999px;color:#fff}
+a.card.top1,a.card.top2,a.card.top3,a.card.top4{position:relative;border:1px solid var(--line)}
+.card.top1{background:linear-gradient(180deg,#fffdf6,#fff);box-shadow:inset 0 0 0 1px #c8a253,0 6px 20px rgba(200,162,83,.16)}
+.card.top2{background:linear-gradient(180deg,#fbfcfd,#fff);box-shadow:inset 0 0 0 1px #9aa8b6,0 4px 16px rgba(154,168,182,.14)}
+.card.top3,.card.top4{background:linear-gradient(180deg,#fafcfd,#fff);box-shadow:inset 0 0 0 1px #b9c6cf,0 4px 14px rgba(185,198,207,.12)}
+.medal{position:absolute;top:8px;right:8px;font-size:10px;font-weight:800;letter-spacing:.03em;
+  padding:3px 7px;border-radius:999px;color:#fff;line-height:1}
 .m1{background:#c8a253}.m2{background:#8e9aa8}.m3,.m4{background:#a9b6c1}
 .conf{font-size:11px;padding:2px 8px;border-radius:999px;font-weight:700}
 .conf.hi{background:#e9f6ef;color:#0f7b52}
@@ -262,7 +264,7 @@ a.card:hover{border-color:#12324f}
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px"><span class="tag soon">마감 2026-12-04</span><span class="conf mid">적합도 58 · 보통</span></div>
   <div class="t">중고차 검수 결과 고객용 모바일 리포트 웹 시스템 구축</div>
   <div class="meta"><span class="p">5,000,000원</span><span>25일</span><span>일당 200,000원</span><span>총 수령 4,400,000원</span></div>
-  <div class="meta"><span class="ap">지원자 170명 · 전일 +3</span></div>
+  <div class="meta"><span class="ap">지원자 171명 · 전일 +4</span></div>
   <div class="why">웹/시스템 개발</div>
 </a><a class="card" href="/p/159837-4292ab96.html"
    data-order="14"
